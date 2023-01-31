@@ -7,4 +7,14 @@ public class TokenizerTests
     {
         Tokenizer tokenizer = new();
     }
+
+    [Fact]
+    public void Token_CanBeCreated()
+    {
+        Token token = new()
+        {
+            Type = TokenType.Stop,
+            Text = "",
+        };
+    }
 }
