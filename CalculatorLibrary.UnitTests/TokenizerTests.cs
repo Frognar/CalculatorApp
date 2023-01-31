@@ -17,4 +17,11 @@ public class TokenizerTests
             Text = "",
         };
     }
+
+    [Fact]
+    public void Tokenize_ReturnListOfTokens()
+    {
+        Tokenizer tokenizer = new();
+        IEnumerable<Token> tokens = tokenizer.Tokenize("");
+    }
 }
