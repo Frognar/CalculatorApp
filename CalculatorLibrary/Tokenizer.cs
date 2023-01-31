@@ -4,6 +4,12 @@ public class Tokenizer
 {
     public IEnumerable<Token> Tokenize(string expression)
     {
-        return Enumerable.Empty<Token>();
+        Token stop = new()
+        {
+            Type = TokenType.Stop,
+            Text = "",
+        };
+
+        return new[] { stop };
     }
 }
