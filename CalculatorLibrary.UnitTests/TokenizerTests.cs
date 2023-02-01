@@ -26,4 +26,14 @@ public class TokenizerTests
         Assert.Equal(TokenType.Number, tokens[0].Type);
         Assert.Equal(TokenType.Stop, tokens[1].Type);
     }
+
+    [Fact]
+    public void Tokenize_SingleDigit_ReturnedNumberTokenContainsThatDigit()
+    {
+        Tokenizer tokenizer = new();
+
+        List<Token> tokens = tokenizer.Tokenize("2").ToList();
+        
+        Assert.Equal("2", tokens[0].Text);
+    }
 }

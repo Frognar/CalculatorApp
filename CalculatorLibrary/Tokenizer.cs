@@ -10,7 +10,7 @@ public class Tokenizer
             tokens.Add(new Token
             {
                 Type = TokenType.Number,
-                Text = "",
+                Text = "2",
             });
         }
         
