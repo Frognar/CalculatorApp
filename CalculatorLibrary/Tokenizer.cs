@@ -2,7 +2,7 @@ namespace CalculatorLibrary;
 
 public class Tokenizer
 {
-    enum State { None, Number }
+    enum State { None, Number, Operator }
     readonly char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
     public IEnumerable<Token> Tokenize(string expression)
     {
@@ -17,20 +17,8 @@ public class Tokenizer
                     if (expression[i] == ' ')
                         break;
                     
-                    if (digits.Contains(expression[i]))
-                    {
-                        state = State.Number;
-                        tokenPosition = i;
-                    }
-                    else
-                    {
-                        tokens.Add(new Token
-                        {
-                            Type = TokenType.Operator,
-                            Text = expression.Substring(tokenPosition)
-                        });
-                    }
-                    
+                    tokenPosition = i;
+                    state = digits.Contains(expression[i]) ? State.Number : State.Operator;
                     break;
                 
                 case State.Number:
@@ -40,18 +28,26 @@ public class Tokenizer
                     tokens.Add(new Token
                     {
                         Type = TokenType.Number,
-                        Text = expression.Substring(tokenPosition, i)
+                        Text = expression.Substring(tokenPosition, i - tokenPosition)
                     });
                     
                     tokenPosition = i;
-                    state = State.None;
+                    state = (expression[i] == ' ') ? State.None : State.Operator;
+                    break;
+                
+                case State.Operator:
+                    tokens.Add(new Token
+                    {
+                        Type = TokenType.Operator,
+                        Text = expression[tokenPosition].ToString()
+                    });
                     
-                    if (expression[i] != ' ')
-                        tokens.Add(new Token
-                        {
-                            Type = TokenType.Operator,
-                            Text = expression.Substring(tokenPosition)
-                        });
+                    tokenPosition = i;
+
+                    if (expression[i] == ' ')
+                        state = State.None;
+                    else if (digits.Contains(expression[i]))
+                        state = State.Number;
                     
                     break;
             }
@@ -62,6 +58,7 @@ public class Tokenizer
                     Type = state switch
                     {
                         State.Number => TokenType.Number,
+                        State.Operator => TokenType.Operator,
                         _ => throw new ArgumentException()
                     },
                     Text = expression.Substring(tokenPosition)
