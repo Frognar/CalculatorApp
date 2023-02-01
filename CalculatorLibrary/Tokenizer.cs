@@ -28,22 +28,21 @@ public class Tokenizer
                     tokens.Add(new Token
                     {
                         Type = TokenType.Number,
-                        Text = expression.Substring(tokenPosition, i - tokenPosition)
+                        Text = expression[tokenPosition..i]
                     });
                     
                     tokenPosition = i;
-                    state = (expression[i] == ' ') ? State.None : State.Operator;
+                    state = expression[i] == ' ' ? State.None : State.Operator;
                     break;
                 
                 case State.Operator:
                     tokens.Add(new Token
                     {
                         Type = TokenType.Operator,
-                        Text = expression[tokenPosition].ToString()
+                        Text = expression[tokenPosition..i]
                     });
                     
                     tokenPosition = i;
-
                     if (expression[i] == ' ')
                         state = State.None;
                     else if (digits.Contains(expression[i]))
@@ -61,7 +60,7 @@ public class Tokenizer
                         State.Operator => TokenType.Operator,
                         _ => throw new ArgumentException()
                     },
-                    Text = expression.Substring(tokenPosition)
+                    Text = expression[tokenPosition..]
                 });
         }
 
