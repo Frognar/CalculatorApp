@@ -34,16 +34,25 @@ public class Tokenizer
                     break;
                 
                 case State.Number:
-                    if (expression[i] == ' ')
+                    if (digits.Contains(expression[i]))
+                        break;
+                    
+                    tokens.Add(new Token
                     {
+                        Type = TokenType.Number,
+                        Text = expression.Substring(tokenPosition, i)
+                    });
+                    
+                    tokenPosition = i;
+                    state = State.None;
+                    
+                    if (expression[i] != ' ')
                         tokens.Add(new Token
                         {
-                            Type = TokenType.Number,
-                            Text = expression.Substring(tokenPosition, i)
+                            Type = TokenType.Operator,
+                            Text = expression.Substring(tokenPosition)
                         });
-                        
-                        state = State.None;
-                    }
+                    
                     break;
             }
             
