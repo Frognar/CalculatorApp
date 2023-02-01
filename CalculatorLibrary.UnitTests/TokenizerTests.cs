@@ -81,4 +81,17 @@ public class TokenizerTests
         Assert.Equal("2", tokens[0].Text);
         Assert.Equal("34", tokens[1].Text);
     }
+
+    [Fact]
+    public void Tokenize_Operator_ReturnsOperatorTokenFollowedByStopToken()
+    {
+        Tokenizer tokenizer = new();
+
+        List<Token> tokens = tokenizer.Tokenize("+").ToList();
+        
+        Assert.NotNull(tokens);
+        Assert.Equal(2, tokens.Count);
+        Assert.Equal(TokenType.Operator, tokens[0].Type);
+        Assert.Equal(TokenType.Stop, tokens[1].Type);
+    }
 }

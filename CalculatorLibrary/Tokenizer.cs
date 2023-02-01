@@ -22,6 +22,14 @@ public class Tokenizer
                         state = State.Number;
                         tokenPosition = i;
                     }
+                    else
+                    {
+                        tokens.Add(new Token
+                        {
+                            Type = TokenType.Operator,
+                            Text = ""
+                        });
+                    }
                     
                     break;
                 
