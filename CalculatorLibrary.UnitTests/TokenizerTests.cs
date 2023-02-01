@@ -10,8 +10,8 @@ public class TokenizerTests
         List<Token> tokens = tokenizer.Tokenize("").ToList();
         
         Assert.NotNull(tokens);
-        Assert.Single(tokens);
-        Assert.Equal(TokenType.Stop, tokens.First().Type);
+        Token token = Assert.Single(tokens);
+        Assert.Equal(TokenType.Stop, token.Type);
     }
 
     [Fact]
