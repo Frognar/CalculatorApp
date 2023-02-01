@@ -14,13 +14,7 @@ public class Tokenizer
             });
         }
         
-        Token stop = new()
-        {
-            Type = TokenType.Stop,
-            Text = "",
-        };
-
-        tokens.Add(stop);
+        tokens.Add(Token.Stop);
         return tokens;
     }
 }
