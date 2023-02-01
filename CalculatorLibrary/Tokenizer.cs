@@ -27,7 +27,7 @@ public class Tokenizer
                         tokens.Add(new Token
                         {
                             Type = TokenType.Operator,
-                            Text = ""
+                            Text = expression.Substring(tokenPosition)
                         });
                     }
                     

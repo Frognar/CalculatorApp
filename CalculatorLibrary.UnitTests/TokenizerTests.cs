@@ -94,4 +94,14 @@ public class TokenizerTests
         Assert.Equal(TokenType.Operator, tokens[0].Type);
         Assert.Equal(TokenType.Stop, tokens[1].Type);
     }
+
+    [Fact]
+    public void Tokenize_Operator_ReturnsOperatorTokenWithThatOperator()
+    {
+        Tokenizer tokenizer = new();
+
+        List<Token> tokens = tokenizer.Tokenize("+").ToList();
+        
+        Assert.Equal("+", tokens[0].Text);
+    }
 }
