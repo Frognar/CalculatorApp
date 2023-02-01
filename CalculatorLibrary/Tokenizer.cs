@@ -5,12 +5,12 @@ public class Tokenizer
     public IEnumerable<Token> Tokenize(string expression)
     {
         List<Token> tokens = new();
-        if (expression.Any())
+        foreach (string partOfExpression in expression.Split(' ', StringSplitOptions.RemoveEmptyEntries))
         {
             tokens.Add(new Token
             {
                 Type = TokenType.Number,
-                Text = expression,
+                Text = partOfExpression
             });
         }
         

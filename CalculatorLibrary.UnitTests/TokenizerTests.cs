@@ -36,4 +36,28 @@ public class TokenizerTests
         
         Assert.Equal("2", tokens[0].Text);
     }
+
+    [Fact]
+    public void Tokenize_NumberWithMoreThanOneDigit_ReturnedNumberTokenContainsThatNumber()
+    {
+        Tokenizer tokenizer = new();
+
+        List<Token> tokens = tokenizer.Tokenize("234").ToList();
+        
+        Assert.Equal("234", tokens[0].Text);
+    }
+
+    [Fact]
+    public void Tokenize_NumberFollowedBySpaceAndAnotherNumber_ReturnsTwoNumberTokensFollowedByStopToken()
+    {
+        Tokenizer tokenizer = new();
+
+        List<Token> tokens = tokenizer.Tokenize("2 34").ToList();
+        
+        Assert.NotNull(tokens);
+        Assert.Equal(3, tokens.Count);
+        Assert.Equal(TokenType.Number, tokens[0].Type);
+        Assert.Equal(TokenType.Number, tokens[1].Type);
+        Assert.Equal(TokenType.Stop, tokens[2].Type);
+    }
 }
