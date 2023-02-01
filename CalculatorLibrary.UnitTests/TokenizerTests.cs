@@ -13,4 +13,17 @@ public class TokenizerTests
         Assert.Single(tokens);
         Assert.Equal(TokenType.Stop, tokens.First().Type);
     }
+
+    [Fact]
+    public void Tokenize_SingleDigit_ReturnsNumberTokenFollowedByStopTokens()
+    {
+        Tokenizer tokenizer = new();
+
+        List<Token> tokens = tokenizer.Tokenize("2").ToList();
+        
+        Assert.NotNull(tokens);
+        Assert.Equal(2, tokens.Count);
+        Assert.Equal(TokenType.Number, tokens[0].Type);
+        Assert.Equal(TokenType.Stop, tokens[1].Type);
+    }
 }
