@@ -38,12 +38,15 @@ public class Tokenizer
         position += matcher.Length;
         return true;
     }
-    
+
     bool FindSingleCharacterToken(string expression)
     {
         switch (expression[position])
         {
             case '+':
+            case '-':
+            case '*':
+            case '/':
                 tokens.Add(new Token
                 {
                     Type = TokenType.Operator,
