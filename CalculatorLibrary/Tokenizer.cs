@@ -17,17 +17,29 @@ public class Tokenizer
         return tokens;
     }
 
-    static readonly Regex WhiteRegex = new("^\\s+");
-    static readonly Regex NumberRegex = new("^[0-9]+");
     void TokenizeExpression(string expression)
     {
-        Match matcher = WhiteRegex.Match(expression[position..]);
-        if (matcher.Success)
+        if (FindWhiteSpace(expression) == false &&
+            FindSingleCharacterToken(expression) == false &&
+            FindNumber(expression) == false)
         {
-            position += matcher.Length;
-            return;
+            // Unknown  
         }
+    }
+
+    static readonly Regex WhiteRegex = new("^\\s+");
+    bool FindWhiteSpace(string expression)
+    {
+        Match matcher = WhiteRegex.Match(expression[position..]);
+        if (!matcher.Success)
+            return false;
         
+        position += matcher.Length;
+        return true;
+    }
+    
+    bool FindSingleCharacterToken(string expression)
+    {
         switch (expression[position])
         {
             case '+':
@@ -36,19 +48,28 @@ public class Tokenizer
                     Type = TokenType.Operator,
                     Text = expression.Substring(position, 1)
                 });
-                position++;
-                return;
+                break;
+            default:
+                return false;
         }
-        
-        matcher = NumberRegex.Match(expression[position..]);
-        if (matcher.Success)
+
+        position++;
+        return true;
+    }
+    
+    static readonly Regex NumberRegex = new("^[0-9]+");
+    bool FindNumber(string expression)
+    {
+        Match matcher = NumberRegex.Match(expression[position..]);
+        if (!matcher.Success)
+            return false;
+       
+        tokens.Add(new Token
         {
-            tokens.Add(new Token
-            {
-                Type = TokenType.Number,
-                Text = expression.Substring(position, matcher.Length)
-            });
-            position += matcher.Length;
-        }
+            Type = TokenType.Number,
+            Text = expression.Substring(position, matcher.Length)
+        });
+        position += matcher.Length;
+        return true;
     }
 }
