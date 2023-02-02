@@ -23,7 +23,8 @@ public class Tokenizer
             FindSingleCharacterToken(expression) == false &&
             FindNumber(expression) == false)
         {
-            // Unknown  
+            position++;
+            // Unknown
         }
     }
 
@@ -69,6 +70,7 @@ public class Tokenizer
             Type = TokenType.Number,
             Text = expression.Substring(position, matcher.Length)
         });
+        
         position += matcher.Length;
         return true;
     }
