@@ -5,55 +5,56 @@ public class Tokenizer
     enum State { None, Number, Operator }
     readonly char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
     readonly List<Token> tokens = new();
+    int position;
     
     public IEnumerable<Token> Tokenize(string expression)
     {
         tokens.Clear();
         State state = State.None;
         int tokenPosition = 0;
-        for (int i = 0; i < expression.Length; i++)
+        for (position = 0; position < expression.Length; position++)
         {
             switch (state)
             {
                 case State.None:
-                    if (expression[i] == ' ')
+                    if (expression[position] == ' ')
                         break;
                     
-                    tokenPosition = i;
-                    state = digits.Contains(expression[i]) ? State.Number : State.Operator;
+                    tokenPosition = position;
+                    state = digits.Contains(expression[position]) ? State.Number : State.Operator;
                     break;
                 
                 case State.Number:
-                    if (digits.Contains(expression[i]))
+                    if (digits.Contains(expression[position]))
                         break;
                     
                     tokens.Add(new Token
                     {
                         Type = TokenType.Number,
-                        Text = expression[tokenPosition..i]
+                        Text = expression[tokenPosition..position]
                     });
                     
-                    tokenPosition = i;
-                    state = expression[i] == ' ' ? State.None : State.Operator;
+                    tokenPosition = position;
+                    state = expression[position] == ' ' ? State.None : State.Operator;
                     break;
                 
                 case State.Operator:
                     tokens.Add(new Token
                     {
                         Type = TokenType.Operator,
-                        Text = expression[tokenPosition..i]
+                        Text = expression[tokenPosition..position]
                     });
                     
-                    tokenPosition = i;
-                    if (expression[i] == ' ')
+                    tokenPosition = position;
+                    if (expression[position] == ' ')
                         state = State.None;
-                    else if (digits.Contains(expression[i]))
+                    else if (digits.Contains(expression[position]))
                         state = State.Number;
                     
                     break;
             }
             
-            if (i == expression.Length - 1 && state != State.None)
+            if (position == expression.Length - 1 && state != State.None)
                 tokens.Add(new Token
                 {
                     Type = state switch
