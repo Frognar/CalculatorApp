@@ -4,9 +4,11 @@ public class Tokenizer
 {
     enum State { None, Number, Operator }
     readonly char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    readonly List<Token> tokens = new();
+    
     public IEnumerable<Token> Tokenize(string expression)
     {
-        List<Token> tokens = new();
+        tokens.Clear();
         State state = State.None;
         int tokenPosition = 0;
         for (int i = 0; i < expression.Length; i++)
