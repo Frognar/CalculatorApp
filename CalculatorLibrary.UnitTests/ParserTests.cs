@@ -147,4 +147,42 @@ public class ParserTests
         
         Assert.Equal(5M, result);
     }
+
+    [Fact]
+    public void Parse_MultipleNumberMultiplication_ReturnsResultOfMultiplyingTheseNumbers()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "5" },
+                new Token { Type = TokenType.Operator, Text = "*" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                new Token { Type = TokenType.Operator, Text = "*" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                Token.Stop
+            });
+        
+        Assert.Equal(20M, result);
+    }
+
+    [Fact]
+    public void Parse_MultipleNumberDividing_ReturnsResultOfDividingTheseNumbers()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "20" },
+                new Token { Type = TokenType.Operator, Text = "/" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                new Token { Type = TokenType.Operator, Text = "/" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                Token.Stop
+            });
+        
+        Assert.Equal(5M, result);
+    }
 }

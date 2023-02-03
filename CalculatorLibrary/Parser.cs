@@ -50,15 +50,22 @@ public class Parser
     decimal Term()
     {
         decimal result = Number();
-        if (tokens[currentToken].Text == "*")
+        while (true)
         {
-            currentToken++;
-            result *= Number();
-        }
-        else if (tokens[currentToken].Text == "/")
-        {
-            currentToken++;
-            result /= Number();
+            if (tokens[currentToken].Text == "*")
+            {
+                currentToken++;
+                result *= Number();
+            }
+            else if (tokens[currentToken].Text == "/")
+            {
+                currentToken++;
+                result /= Number();
+            }
+            else
+            {
+                break;
+            }
         }
 
         return result;
