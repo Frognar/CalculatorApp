@@ -62,7 +62,7 @@ public class Tokenizer
         return true;
     }
     
-    static readonly Regex NumberRegex = new("^[0-9]+");
+    static readonly Regex NumberRegex = new("^(\\.[0-9]+|[0-9]+\\.[0-9]*|[0-9]+)");
     bool FindNumber(string expression)
     {
         Match matcher = NumberRegex.Match(expression[position..]);

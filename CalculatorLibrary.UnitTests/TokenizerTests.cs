@@ -140,4 +140,17 @@ public class TokenizerTests
         Assert.Equal("^", tokens[4].Text);
         Assert.Equal(TokenType.Stop, tokens[5].Type);
     }
+
+    [Fact]
+    public void Tokenize_FloatingPointNumber_ReturnsTokenWithNumberFollowedByStopToken()
+    {
+        Tokenizer tokenizer = new();
+        
+        List<Token> tokens = tokenizer.Tokenize("23.546").ToList();
+
+        Assert.NotNull(tokens);
+        Assert.Equal(2, tokens.Count);
+        Assert.Equal(TokenType.Number, tokens[0].Type);
+        Assert.Equal("23.546", tokens[0].Text);
+    }
 }
