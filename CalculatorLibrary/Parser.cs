@@ -22,10 +22,17 @@ public class Parser
 
     decimal Expr()
     {
-        decimal result = tokens[currentToken].Type == TokenType.Number
-            ? decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture)
-            : 0;
-
+        if (tokens[currentToken].Type == TokenType.Stop)
+            return 0;
+        
+        decimal result = decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture);
+        currentToken++;
+        if (tokens[currentToken].Text == "+")
+        {
+            currentToken++;
+            result += decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture);
+        }
+        
         return result;
     }
 }

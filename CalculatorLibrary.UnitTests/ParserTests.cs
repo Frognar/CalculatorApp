@@ -41,4 +41,22 @@ public class ParserTests
         Assert.Throws<Exception>(
             () => parser.Parse(new[] { new Token { Type = TokenType.Number, Text = "1" } }));
     }
+
+    [Fact]
+    public void Parse_TwoNumbersWithPlusOperatorBetween_ReturnSumOfThoseNumbers()
+    {
+        
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "1" },
+                new Token { Type = TokenType.Operator, Text = "+" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                Token.Stop
+            });
+        
+        Assert.Equal(3M, result);
+    }
 }
