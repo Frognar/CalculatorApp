@@ -47,6 +47,7 @@ public class Tokenizer
             case '-':
             case '*':
             case '/':
+            case '^':
                 tokens.Add(new Token
                 {
                     Type = TokenType.Operator,

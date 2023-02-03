@@ -124,10 +124,10 @@ public class TokenizerTests
     {
         Tokenizer tokenizer = new();
 
-        List<Token> tokens = tokenizer.Tokenize("+-/*").ToList();
+        List<Token> tokens = tokenizer.Tokenize("+-/*^").ToList();
         
         Assert.NotNull(tokens);
-        Assert.Equal(5, tokens.Count);
+        Assert.Equal(6, tokens.Count);
         Assert.Equal(TokenType.Operator, tokens[0].Type);
         Assert.Equal("+", tokens[0].Text);
         Assert.Equal(TokenType.Operator, tokens[1].Type);
@@ -136,6 +136,8 @@ public class TokenizerTests
         Assert.Equal("/", tokens[2].Text);
         Assert.Equal(TokenType.Operator, tokens[3].Type);
         Assert.Equal("*", tokens[3].Text);
-        Assert.Equal(TokenType.Stop, tokens[4].Type);
+        Assert.Equal(TokenType.Operator, tokens[4].Type);
+        Assert.Equal("^", tokens[4].Text);
+        Assert.Equal(TokenType.Stop, tokens[5].Type);
     }
 }
