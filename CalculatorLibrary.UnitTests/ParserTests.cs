@@ -130,4 +130,21 @@ public class ParserTests
         
         Assert.Equal(10M, result);
     }
+
+    [Fact]
+    public void Parse_NumberDivNumber_ReturnsNumberDivByNumber()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "10" },
+                new Token { Type = TokenType.Operator, Text = "/" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                Token.Stop
+            });
+        
+        Assert.Equal(5M, result);
+    }
 }

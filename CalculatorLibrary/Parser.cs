@@ -55,6 +55,11 @@ public class Parser
             currentToken++;
             result *= Number();
         }
+        else if (tokens[currentToken].Text == "/")
+        {
+            currentToken++;
+            result /= Number();
+        }
 
         return result;
     }
