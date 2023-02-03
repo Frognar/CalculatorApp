@@ -45,7 +45,6 @@ public class ParserTests
     [Fact]
     public void Parse_TwoNumbersWithPlusOperatorBetween_ReturnSumOfThoseNumbers()
     {
-        
         Parser parser = new();
 
         decimal result = parser.Parse(
@@ -63,7 +62,6 @@ public class ParserTests
     [Fact]
     public void Parse_TwoNumbersWithMinusOperatorBetween_ReturnSubOfThoseNumbers()
     {
-        
         Parser parser = new();
 
         decimal result = parser.Parse(
@@ -72,6 +70,44 @@ public class ParserTests
                 new Token { Type = TokenType.Number, Text = "2" },
                 new Token { Type = TokenType.Operator, Text = "-" },
                 new Token { Type = TokenType.Number, Text = "1" },
+                Token.Stop
+            });
+        
+        Assert.Equal(1M, result);
+    }
+
+    [Fact]
+    public void Parse_SumOfMultipleNumbers_ReturnSumOfThoseNumbers()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "1" },
+                new Token { Type = TokenType.Operator, Text = "+" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                new Token { Type = TokenType.Operator, Text = "+" },
+                new Token { Type = TokenType.Number, Text = "3" },
+                Token.Stop
+            });
+        
+        Assert.Equal(6M, result);
+    }
+
+    [Fact]
+    public void Parse_SubOfMultipleNumbers_ReturnSubOfThoseNumbers()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "6" },
+                new Token { Type = TokenType.Operator, Text = "-" },
+                new Token { Type = TokenType.Number, Text = "3" },
+                new Token { Type = TokenType.Operator, Text = "-" },
+                new Token { Type = TokenType.Number, Text = "2" },
                 Token.Stop
             });
         

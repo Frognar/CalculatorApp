@@ -26,15 +26,22 @@ public class Parser
             return 0;
         
         decimal result = Number();
-        if (tokens[currentToken].Text == "+")
+        while (true)
         {
-            currentToken++;
-            result += Expr();
-        }
-        else if (tokens[currentToken].Text == "-")
-        {
-            currentToken++;
-            result -= Expr();
+            if (tokens[currentToken].Text == "+")
+            {
+                currentToken++;
+                result += Number();
+            }
+            else if (tokens[currentToken].Text == "-")
+            {
+                currentToken++;
+                result -= Number();
+            }
+            else
+            {
+                break;
+            }
         }
         
         return result;
