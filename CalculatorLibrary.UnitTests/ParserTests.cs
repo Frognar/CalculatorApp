@@ -185,4 +185,23 @@ public class ParserTests
         
         Assert.Equal(5M, result);
     }
+
+    [Fact]
+    public void Parse_MixedSumWithMult_ReturnsResultGivenTheOrderOfOperations()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "6" },
+                new Token { Type = TokenType.Operator, Text = "+" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                new Token { Type = TokenType.Operator, Text = "*" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                Token.Stop
+            });
+        
+        Assert.Equal(10M, result);
+    }
 }

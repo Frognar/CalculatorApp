@@ -31,7 +31,7 @@ public class Parser
             if (tokens[currentToken].Text == "+")
             {
                 currentToken++;
-                result += Number();
+                result += Term();
             }
             else if (tokens[currentToken].Text == "-")
             {
