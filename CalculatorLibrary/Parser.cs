@@ -32,6 +32,11 @@ public class Parser
             currentToken++;
             result += Expr();
         }
+        else if (tokens[currentToken].Text == "-")
+        {
+            currentToken++;
+            result -= Expr();
+        }
         
         return result;
     }
