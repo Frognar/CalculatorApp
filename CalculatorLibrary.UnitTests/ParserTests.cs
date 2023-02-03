@@ -113,4 +113,21 @@ public class ParserTests
         
         Assert.Equal(1M, result);
     }
+
+    [Fact]
+    public void Parse_NumberMultNumber_ReturnsNumberTimesNumber()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "5" },
+                new Token { Type = TokenType.Operator, Text = "*" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                Token.Stop
+            });
+        
+        Assert.Equal(10M, result);
+    }
 }

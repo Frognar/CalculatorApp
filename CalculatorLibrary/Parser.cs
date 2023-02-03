@@ -25,7 +25,7 @@ public class Parser
         if (tokens[currentToken].Type == TokenType.Stop)
             return 0;
         
-        decimal result = Number();
+        decimal result = Term();
         while (true)
         {
             if (tokens[currentToken].Text == "+")
@@ -44,6 +44,18 @@ public class Parser
             }
         }
         
+        return result;
+    }
+
+    decimal Term()
+    {
+        decimal result = Number();
+        if (tokens[currentToken].Text == "*")
+        {
+            currentToken++;
+            result *= Number();
+        }
+
         return result;
     }
 
