@@ -5,10 +5,12 @@ namespace CalculatorLibrary;
 public class Parser
 {
     List<Token> tokens = new();
+    int currentToken;
 
     public decimal Parse(IEnumerable<Token> tokensToParse)
     {
         tokens = tokensToParse.ToList();
+        currentToken = 0;
         if (tokens.Any() == false)
             return 0;
 
@@ -20,8 +22,8 @@ public class Parser
 
     decimal Expr()
     {
-        decimal result = tokens[0].Type == TokenType.Number
-            ? decimal.Parse(tokens[0].Text, CultureInfo.InvariantCulture)
+        decimal result = tokens[currentToken].Type == TokenType.Number
+            ? decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture)
             : 0;
 
         return result;
