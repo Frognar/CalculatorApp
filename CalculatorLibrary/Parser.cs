@@ -20,8 +20,10 @@ public class Parser
 
     decimal Expr()
     {
-        return tokens[0].Type == TokenType.Number
+        decimal result = tokens[0].Type == TokenType.Number
             ? decimal.Parse(tokens[0].Text, CultureInfo.InvariantCulture)
             : 0;
+
+        return result;
     }
 }
