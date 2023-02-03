@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace CalculatorLibrary;
@@ -68,11 +69,12 @@ public class Tokenizer
         Match matcher = NumberRegex.Match(expression[position..]);
         if (!matcher.Success)
             return false;
-       
+
+        string number = matcher.Value.Replace(',', '.');
         tokens.Add(new Token
         {
             Type = TokenType.Number,
-            Text = expression.Substring(position, matcher.Length).Replace(',', '.')
+            Text = number
         });
         
         position += matcher.Length;
