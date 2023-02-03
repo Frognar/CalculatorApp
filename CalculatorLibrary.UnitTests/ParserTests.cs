@@ -7,4 +7,12 @@ public class ParserTests
     {
         Parser parser = new();
     }
+
+    [Fact]
+    public void ParserCanParseTokens()
+    {
+        Parser parser = new();
+
+        decimal _ = parser.Parse(Enumerable.Empty<Token>());
+    }
 }
