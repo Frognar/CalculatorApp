@@ -25,7 +25,7 @@ public class Parser
         if (tokens[currentToken].Type == TokenType.Stop)
             return 0;
         
-        decimal result = decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture);
+        decimal result = Number();
         currentToken++;
         if (tokens[currentToken].Text == "+")
         {
@@ -34,5 +34,10 @@ public class Parser
         }
         
         return result;
+    }
+
+    decimal Number()
+    {
+        return decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture);
     }
 }
