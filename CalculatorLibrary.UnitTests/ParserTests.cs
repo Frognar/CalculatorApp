@@ -15,4 +15,14 @@ public class ParserTests
 
         decimal _ = parser.Parse(Enumerable.Empty<Token>());
     }
+
+    [Fact]
+    public void Parse_EmptyCollection_ReturnZero()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(Enumerable.Empty<Token>());
+
+        Assert.Equal(0M, result);
+    }
 }

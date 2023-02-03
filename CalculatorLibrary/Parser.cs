@@ -4,6 +4,6 @@ public class Parser
 {
     public decimal Parse(IEnumerable<Token> tokens)
     {
-        return -1;
+        return 0;
     }
 }
