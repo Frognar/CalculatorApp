@@ -15,8 +15,13 @@ public class Parser
         if (tokens.Any(t => t.Type == TokenType.Stop) == false)
             throw new Exception();
 
-        return tokens.First().Type == TokenType.Number
-            ? decimal.Parse(tokens.First().Text, CultureInfo.InvariantCulture)
+        return Expr();
+    }
+
+    decimal Expr()
+    {
+        return tokens[0].Type == TokenType.Number
+            ? decimal.Parse(tokens[0].Text, CultureInfo.InvariantCulture)
             : 0;
     }
 }
