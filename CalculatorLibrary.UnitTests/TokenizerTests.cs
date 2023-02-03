@@ -153,4 +153,17 @@ public class TokenizerTests
         Assert.Equal(TokenType.Number, tokens[0].Type);
         Assert.Equal("23.546", tokens[0].Text);
     }
+
+    [Fact]
+    public void Tokenize_FloatingPointNumberWithComma_ReturnsTokenWithNumberWithDotFollowedByStopToken()
+    {
+        Tokenizer tokenizer = new();
+        
+        List<Token> tokens = tokenizer.Tokenize("23,546").ToList();
+
+        Assert.NotNull(tokens);
+        Assert.Equal(2, tokens.Count);
+        Assert.Equal(TokenType.Number, tokens[0].Type);
+        Assert.Equal("23.546", tokens[0].Text);
+    }
 }
