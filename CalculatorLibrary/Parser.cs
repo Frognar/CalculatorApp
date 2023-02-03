@@ -30,7 +30,7 @@ public class Parser
         if (tokens[currentToken].Text == "+")
         {
             currentToken++;
-            result += decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture);
+            result += Expr();
         }
         
         return result;
