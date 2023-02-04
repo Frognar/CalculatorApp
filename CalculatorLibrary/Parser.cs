@@ -55,7 +55,7 @@ public class Parser
             if (tokens[currentToken].Text == "*")
             {
                 currentToken++;
-                result *= Number();
+                result *= Factor();
             }
             else if (tokens[currentToken].Text == "/")
             {
