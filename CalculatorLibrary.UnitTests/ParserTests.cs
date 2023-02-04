@@ -320,4 +320,20 @@ public class ParserTests
         
         Assert.Equal(12M, result);
     }
+
+    [Fact]
+    public void Parse_MinusAndNumberTokens_ReturnsNegativeNumber()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "-" },
+                new Token { Type = TokenType.Number, Text = "3" },
+                Token.Stop
+            });
+        
+        Assert.Equal(-3M, result);
+    }
 }

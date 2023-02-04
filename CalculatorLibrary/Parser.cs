@@ -96,6 +96,12 @@ public class Parser
 
             return result;
         }
+
+        if (tokens[currentToken].Text == "-")
+        {
+            currentToken++;
+            return -1 * Base();
+        }
         
         return Number();
     }
