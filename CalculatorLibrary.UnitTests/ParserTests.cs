@@ -308,11 +308,11 @@ public class ParserTests
         decimal result = parser.Parse(
             new[]
             {
-                new Token { Type = TokenType.Number, Text = "(" },
+                new Token { Type = TokenType.Operator, Text = "(" },
                 new Token { Type = TokenType.Number, Text = "3" },
                 new Token { Type = TokenType.Operator, Text = "+" },
                 new Token { Type = TokenType.Number, Text = "3" },
-                new Token { Type = TokenType.Number, Text = ")" },
+                new Token { Type = TokenType.Operator, Text = ")" },
                 new Token { Type = TokenType.Operator, Text = "*" },
                 new Token { Type = TokenType.Number, Text = "2" },
                 Token.Stop
@@ -329,11 +329,45 @@ public class ParserTests
         decimal result = parser.Parse(
             new[]
             {
-                new Token { Type = TokenType.Number, Text = "-" },
+                new Token { Type = TokenType.Operator, Text = "-" },
                 new Token { Type = TokenType.Number, Text = "3" },
                 Token.Stop
             });
         
         Assert.Equal(-3M, result);
+    }
+
+    [Fact]
+    public void Parse_ComplexExpression_ReturnsResultGivenOperationOrder()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Operator, Text = "-" },
+                new Token { Type = TokenType.Operator, Text = "(" },
+                new Token { Type = TokenType.Number, Text = "10." },
+                new Token { Type = TokenType.Operator, Text = "+" },
+                new Token { Type = TokenType.Operator, Text = "(" },
+                new Token { Type = TokenType.Number, Text = "3" },
+                new Token { Type = TokenType.Operator, Text = "*" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                new Token { Type = TokenType.Operator, Text = ")" },
+                new Token { Type = TokenType.Operator, Text = "^" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                new Token { Type = TokenType.Operator, Text = "^" },
+                new Token { Type = TokenType.Number, Text = "3" },
+                new Token { Type = TokenType.Operator, Text = "-" },
+                new Token { Type = TokenType.Number, Text = "25" },
+                new Token { Type = TokenType.Operator, Text = "/" },
+                new Token { Type = TokenType.Number, Text = "5" },
+                new Token { Type = TokenType.Operator, Text = ")" },
+                new Token { Type = TokenType.Operator, Text = "-" },
+                new Token { Type = TokenType.Number, Text = ".05" },
+                Token.Stop
+            });
+        
+        Assert.Equal(-1679621.05M, result);
     }
 }
