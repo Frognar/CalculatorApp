@@ -180,4 +180,18 @@ public class TokenizerTests
         Assert.Equal(TokenType.Operator, tokens[0].Type);
         Assert.Equal("(", tokens[0].Text);
     }
+
+    [Fact]
+    public void Tokenize_ClosingParenthesis_ReturnsOperatorTokenFollowedByStopToken()
+    {
+        
+        Tokenizer tokenizer = new();
+        
+        List<Token> tokens = tokenizer.Tokenize(")").ToList();
+
+        Assert.NotNull(tokens);
+        Assert.Equal(2, tokens.Count);
+        Assert.Equal(TokenType.Operator, tokens[0].Type);
+        Assert.Equal(")", tokens[0].Text);
+    }
 }
