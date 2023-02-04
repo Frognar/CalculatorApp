@@ -49,7 +49,7 @@ public class Parser
 
     decimal Term()
     {
-        decimal result = Number();
+        decimal result = Factor();
         while (true)
         {
             if (tokens[currentToken].Text == "*")
@@ -68,6 +68,18 @@ public class Parser
             }
         }
 
+        return result;
+    }
+
+    decimal Factor()
+    {
+        decimal result = Number();
+        if (tokens[currentToken].Text == "^")
+        {
+            currentToken++;
+            result = (decimal)Math.Pow((double)result, (double)Number());
+        }
+        
         return result;
     }
 
