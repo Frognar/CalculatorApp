@@ -257,7 +257,7 @@ public class ParserTests
                 Token.Stop
             });
 
-        Assert.Equal(64M, result);
+        Assert.Equal(256M, result);
     }
 
     [Fact]
