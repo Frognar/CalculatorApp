@@ -74,10 +74,17 @@ public class Parser
     decimal Factor()
     {
         decimal result = Number();
-        if (tokens[currentToken].Text == "^")
+        while (true)
         {
-            currentToken++;
-            result = (decimal)Math.Pow((double)result, (double)Number());
+            if (tokens[currentToken].Text == "^")
+            {
+                currentToken++;
+                result = (decimal)Math.Pow((double)result, (double)Number());
+            }
+            else
+            {
+                break;
+            }
         }
         
         return result;
