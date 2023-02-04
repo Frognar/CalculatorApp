@@ -279,4 +279,24 @@ public class ParserTests
         
         Assert.Equal(18M, result);
     }
+
+    [Fact]
+    public void Parse_xDividedByYToPowerOfZ_CalculateExponentiationFirst()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+
+                new Token { Type = TokenType.Number, Text = "81" },
+                new Token { Type = TokenType.Operator, Text = "/" },
+                new Token { Type = TokenType.Number, Text = "3" },
+                new Token { Type = TokenType.Operator, Text = "^" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                Token.Stop
+            });
+        
+        Assert.Equal(9M, result);
+    }
 }

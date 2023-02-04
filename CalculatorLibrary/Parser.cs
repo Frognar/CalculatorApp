@@ -60,7 +60,7 @@ public class Parser
             else if (tokens[currentToken].Text == "/")
             {
                 currentToken++;
-                result /= Number();
+                result /= Factor();
             }
             else
             {
