@@ -299,4 +299,25 @@ public class ParserTests
         
         Assert.Equal(9M, result);
     }
+
+    [Fact]
+    public void Parse_ExprWithinParenthesisTimesX_CalculateExprInParenthesisFirst()
+    {
+        Parser parser = new();
+
+        decimal result = parser.Parse(
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "(" },
+                new Token { Type = TokenType.Number, Text = "3" },
+                new Token { Type = TokenType.Operator, Text = "+" },
+                new Token { Type = TokenType.Number, Text = "3" },
+                new Token { Type = TokenType.Number, Text = ")" },
+                new Token { Type = TokenType.Operator, Text = "*" },
+                new Token { Type = TokenType.Number, Text = "2" },
+                Token.Stop
+            });
+        
+        Assert.Equal(12M, result);
+    }
 }

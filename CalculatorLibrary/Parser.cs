@@ -73,13 +73,13 @@ public class Parser
 
     decimal Factor()
     {
-        decimal result = Number();
+        decimal result = Base();
         while (true)
         {
             if (tokens[currentToken].Text == "^")
             {
                 currentToken++;
-                result = (decimal)Math.Pow((double)result, (double)Number());
+                result = (decimal)Math.Pow((double)result, (double)Base());
             }
             else
             {
@@ -88,6 +88,23 @@ public class Parser
         }
         
         return result;
+    }
+
+    decimal Base()
+    {
+        if (tokens[currentToken].Text == "(")
+        {
+            currentToken++;
+            decimal result = Expr();
+            if (tokens[currentToken].Text == ")")
+            {
+                currentToken++;
+            }
+
+            return result;
+        }
+        
+        return Number();
     }
 
     decimal Number()
