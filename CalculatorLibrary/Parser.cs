@@ -112,6 +112,9 @@ public class Parser
 
     decimal Number()
     {
+        if (tokens[currentToken].Type != TokenType.Number)
+            throw new Exception("Invalid token!");
+        
         decimal result = decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture);
         currentToken++;
         return result;

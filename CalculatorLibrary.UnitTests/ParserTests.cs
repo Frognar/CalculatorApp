@@ -386,4 +386,54 @@ public class ParserTests
 
         Assert.Throws<Exception>(() => parser.Parse(tokens));
     }
+
+    [Fact]
+    public void Parse_XMinusMinusY_ReturnsXPlusY()
+    {
+        Parser parser = new();
+        Token[] tokens = {
+            new() { Type = TokenType.Number, Text = "10." },
+            new() { Type = TokenType.Operator, Text = "-" },
+            new() { Type = TokenType.Operator, Text = "-" },
+            new() { Type = TokenType.Number, Text = "3" },
+            Token.Stop
+        };
+
+        Assert.Equal(13M, parser.Parse(tokens));
+    }
+
+    [Theory]
+    [InlineData("+", "+")]
+    [InlineData("+", "*")]
+    [InlineData("+", "/")]
+    [InlineData("+", "^")]
+    [InlineData("-", "+")]
+    [InlineData("-", "*")]
+    [InlineData("-", "/")]
+    [InlineData("-", "^")]
+    [InlineData("*", "+")]
+    [InlineData("*", "*")]
+    [InlineData("*", "/")]
+    [InlineData("*", "^")]
+    [InlineData("/", "+")]
+    [InlineData("/", "*")]
+    [InlineData("/", "/")]
+    [InlineData("/", "^")]
+    [InlineData("^", "+")]
+    [InlineData("^", "*")]
+    [InlineData("^", "/")]
+    [InlineData("^", "^")]
+    public void Parse_TwoOperatorsInRow_ThrowsException(string op1, string op2)
+    {
+        Parser parser = new();
+        Token[] tokens = {
+            new() { Type = TokenType.Number, Text = "10." },
+            new() { Type = TokenType.Operator, Text = op1 },
+            new() { Type = TokenType.Operator, Text = op2 },
+            new() { Type = TokenType.Number, Text = "3" },
+            Token.Stop
+        };
+
+        Assert.Throws<Exception>(() => parser.Parse(tokens));
+    }
 }
