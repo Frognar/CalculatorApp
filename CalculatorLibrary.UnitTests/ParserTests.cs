@@ -2,11 +2,16 @@ namespace CalculatorLibrary.UnitTests;
 
 public class ParserTests
 {
+    readonly Parser parser;
+
+    public ParserTests()
+    {
+        parser = new Parser();
+    }
+
     [Fact]
     public void Parse_EmptyCollection_ReturnZero()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(Enumerable.Empty<Token>());
 
         Assert.Equal(0M, result);
@@ -15,8 +20,6 @@ public class ParserTests
     [Fact]
     public void Parse_StopToken_ReturnsZero()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(new[] { Token.Stop });
 
         Assert.Equal(0M, result);
@@ -25,8 +28,6 @@ public class ParserTests
     [Fact]
     public void Parse_NumberToken_ReturnsThatNumber()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -40,8 +41,6 @@ public class ParserTests
     [Fact]
     public void Parse_MissingStopToken_ThrowsException()
     {
-        Parser parser = new();
-
         Assert.Throws<Exception>(
             () => parser.Parse(
                 new[]
@@ -53,8 +52,6 @@ public class ParserTests
     [Fact]
     public void Parse_XPlusY_ReturnsTotal()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -70,8 +67,6 @@ public class ParserTests
     [Fact]
     public void Parse_XMinusY_ReturnsDifference()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -87,8 +82,6 @@ public class ParserTests
     [Fact]
     public void Parse_AdditionOfMultipleNumbers_ReturnsTotal()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -106,8 +99,6 @@ public class ParserTests
     [Fact]
     public void Parse_SubtractionOfMultipleNumbers_ReturnsDifference()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -125,8 +116,6 @@ public class ParserTests
     [Fact]
     public void Parse_XTimesY_ReturnsProduct()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -142,8 +131,6 @@ public class ParserTests
     [Fact]
     public void Parse_XDividedByY_ReturnsQuotient()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -159,8 +146,6 @@ public class ParserTests
     [Fact]
     public void Parse_MultiplicationOfMultipleNumber_ReturnsProduct()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -178,8 +163,6 @@ public class ParserTests
     [Fact]
     public void Parse_DivisionOfMultipleNumber_ReturnsQuotient()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -197,8 +180,6 @@ public class ParserTests
     [Fact]
     public void Parse_XPlusYTimesZ_CalculateMultiplicationFirst()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -216,8 +197,6 @@ public class ParserTests
     [Fact]
     public void Parse_XMinusYDividedByZ_CalculateDivisionFirst()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -235,8 +214,6 @@ public class ParserTests
     [Fact]
     public void Parse_XToPowerOfY_ReturnsExponentiationResult()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -252,8 +229,6 @@ public class ParserTests
     [Fact]
     public void Parse_XToPowerOfYToPowerOfZ_CalculateYToPowerOfZFirst()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -271,8 +246,6 @@ public class ParserTests
     [Fact]
     public void Parse_XTimesYToPowerOfZ_CalculateExponentiationFirst()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -291,8 +264,6 @@ public class ParserTests
     [Fact]
     public void Parse_XDividedByYToPowerOfZ_CalculateExponentiationFirst()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -311,8 +282,6 @@ public class ParserTests
     [Fact]
     public void Parse_ExpressionWithinParenthesisTimesX_CalculateExpressionInParenthesisFirst()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -332,8 +301,6 @@ public class ParserTests
     [Fact]
     public void Parse_MinusX_ReturnsXTimesMinusOne()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -348,8 +315,6 @@ public class ParserTests
     [Fact]
     public void Parse_ComplexExpression_ReturnsResultGivenOperationOrder()
     {
-        Parser parser = new();
-
         decimal result = parser.Parse(
             new[]
             {
@@ -382,7 +347,6 @@ public class ParserTests
     [Fact]
     public void Parse_MissingClosingParenthesis_ThrowsException()
     {
-        Parser parser = new();
         Token[] tokens = {
             new() { Type = TokenType.Operator, Text = "-" },
             new() { Type = TokenType.Operator, Text = "(" },
@@ -398,7 +362,6 @@ public class ParserTests
     [Fact]
     public void Parse_XMinusMinusY_ReturnsXPlusY()
     {
-        Parser parser = new();
         Token[] tokens = {
             new() { Type = TokenType.Number, Text = "10." },
             new() { Type = TokenType.Operator, Text = "-" },
@@ -433,7 +396,6 @@ public class ParserTests
     [InlineData("^", "^")]
     public void Parse_TwoOperatorsInRow_ThrowsException(string op1, string op2)
     {
-        Parser parser = new();
         Token[] tokens = {
             new() { Type = TokenType.Number, Text = "10." },
             new() { Type = TokenType.Operator, Text = op1 },
