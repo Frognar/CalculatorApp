@@ -58,10 +58,7 @@ public class Parser
     decimal Factor()
     {
         decimal result = Base();
-        if (Match("^"))
-            result = Pow(result, Factor());
-        
-        return result;
+        return Match("^") ? Pow(result, Factor()) : result;
     }
 
     static decimal Pow(decimal x, decimal y)
@@ -80,10 +77,7 @@ public class Parser
             return result;
         }
 
-        if (Match("-"))
-            return -1 * Base();
-        
-        return Number();
+        return Match("-") ? -1 * Base() : Number();
     }
 
     decimal Number()
@@ -98,6 +92,7 @@ public class Parser
     {
         if (tokens[currentToken].Text != op)
             return false;
+        
         currentToken++;
         return true;
     }
