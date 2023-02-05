@@ -39,17 +39,6 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_MissingStopToken_ThrowsException()
-    {
-        Assert.Throws<Exception>(
-            () => parser.Parse(
-                new[]
-                {
-                    new Token { Type = TokenType.Number, Text = "1" }
-                }));
-    }
-
-    [Fact]
     public void Parse_XPlusY_ReturnsTotal()
     {
         decimal result = parser.Parse(
@@ -313,6 +302,20 @@ public class ParserTests
     }
 
     [Fact]
+    public void Parse_XMinusMinusY_ReturnsXPlusY()
+    {
+        Token[] tokens = {
+            new() { Type = TokenType.Number, Text = "10." },
+            new() { Type = TokenType.Operator, Text = "-" },
+            new() { Type = TokenType.Operator, Text = "-" },
+            new() { Type = TokenType.Number, Text = "3" },
+            Token.Stop
+        };
+
+        Assert.Equal(13M, parser.Parse(tokens));
+    }
+
+    [Fact]
     public void Parse_ComplexExpression_ReturnsResultGivenOperationOrder()
     {
         decimal result = parser.Parse(
@@ -345,6 +348,17 @@ public class ParserTests
     }
 
     [Fact]
+    public void Parse_MissingStopToken_ThrowsException()
+    {
+        Token[] tokens =
+        {
+            new() { Type = TokenType.Number, Text = "1" }
+        };
+            
+        Assert.Throws<Exception>(() => parser.Parse(tokens));
+    }
+
+    [Fact]
     public void Parse_MissingClosingParenthesis_ThrowsException()
     {
         Token[] tokens = {
@@ -357,20 +371,6 @@ public class ParserTests
         };
 
         Assert.Throws<Exception>(() => parser.Parse(tokens));
-    }
-
-    [Fact]
-    public void Parse_XMinusMinusY_ReturnsXPlusY()
-    {
-        Token[] tokens = {
-            new() { Type = TokenType.Number, Text = "10." },
-            new() { Type = TokenType.Operator, Text = "-" },
-            new() { Type = TokenType.Operator, Text = "-" },
-            new() { Type = TokenType.Number, Text = "3" },
-            Token.Stop
-        };
-
-        Assert.Equal(13M, parser.Parse(tokens));
     }
 
     [Theory]
