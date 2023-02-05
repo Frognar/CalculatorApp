@@ -93,6 +93,10 @@ public class Parser
             {
                 currentToken++;
             }
+            else
+            {
+                throw new Exception("Missing ')'");
+            }
 
             return result;
         }

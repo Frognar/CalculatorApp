@@ -370,4 +370,20 @@ public class ParserTests
         
         Assert.Equal(-1679621.05M, result);
     }
+
+    [Fact]
+    public void Parse_MissingClosingParenthesis_ThrowsException()
+    {
+        Parser parser = new();
+        Token[] tokens = {
+            new() { Type = TokenType.Operator, Text = "-" },
+            new() { Type = TokenType.Operator, Text = "(" },
+            new() { Type = TokenType.Number, Text = "10." },
+            new() { Type = TokenType.Operator, Text = "+" },
+            new() { Type = TokenType.Number, Text = "3" },
+            Token.Stop
+        };
+
+        Assert.Throws<Exception>(() => parser.Parse(tokens));
+    }
 }
