@@ -77,10 +77,15 @@ public class Parser
         if (tokens[currentToken].Text == "^")
         {
             currentToken++;
-            result = (decimal)Math.Pow((double)result, (double)Factor());
+            result = Pow(result, Factor());
         }
         
         return result;
+    }
+
+    static decimal Pow(decimal x, decimal y)
+    {
+        return (decimal)Math.Pow((double)x, (double)y);
     }
 
     decimal Base()
