@@ -28,22 +28,30 @@ public class ParserTests
         Parser parser = new();
 
         decimal result = parser.Parse(
-            new[] { new Token { Type = TokenType.Number, Text = "124.5" }, Token.Stop });
+            new[]
+            {
+                new Token { Type = TokenType.Number, Text = "124.5" },
+                Token.Stop
+            });
         
         Assert.Equal(124.5M, result);
     }
 
     [Fact]
-    public void Parse_NotEmptyCollectionWithoutStopToken_ThrowsException()
+    public void Parse_MissingStopToken_ThrowsException()
     {
         Parser parser = new();
 
         Assert.Throws<Exception>(
-            () => parser.Parse(new[] { new Token { Type = TokenType.Number, Text = "1" } }));
+            () => parser.Parse(
+                new[]
+                {
+                    new Token { Type = TokenType.Number, Text = "1" }
+                }));
     }
 
     [Fact]
-    public void Parse_TwoNumbersWithPlusOperatorBetween_ReturnSumOfThoseNumbers()
+    public void Parse_XPlusY_ReturnsTotal()
     {
         Parser parser = new();
 
@@ -60,7 +68,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_TwoNumbersWithMinusOperatorBetween_ReturnSubOfThoseNumbers()
+    public void Parse_XMinusY_ReturnsDifference()
     {
         Parser parser = new();
 
@@ -77,7 +85,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_SumOfMultipleNumbers_ReturnSumOfThoseNumbers()
+    public void Parse_AdditionOfMultipleNumbers_ReturnsTotal()
     {
         Parser parser = new();
 
@@ -96,7 +104,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_SubOfMultipleNumbers_ReturnSubOfThoseNumbers()
+    public void Parse_SubtractionOfMultipleNumbers_ReturnsDifference()
     {
         Parser parser = new();
 
@@ -115,7 +123,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_NumberMultNumber_ReturnsNumberTimesNumber()
+    public void Parse_XTimesY_ReturnsProduct()
     {
         Parser parser = new();
 
@@ -132,7 +140,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_NumberDivNumber_ReturnsNumberDivByNumber()
+    public void Parse_XDividedByY_ReturnsQuotient()
     {
         Parser parser = new();
 
@@ -149,7 +157,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_MultipleNumberMultiplication_ReturnsResultOfMultiplyingTheseNumbers()
+    public void Parse_MultiplicationOfMultipleNumber_ReturnsProduct()
     {
         Parser parser = new();
 
@@ -168,7 +176,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_MultipleNumberDividing_ReturnsResultOfDividingTheseNumbers()
+    public void Parse_DivisionOfMultipleNumber_ReturnsQuotient()
     {
         Parser parser = new();
 
@@ -187,7 +195,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_MixedSumWithMult_ReturnsResultGivenTheOrderOfOperations()
+    public void Parse_XPlusYTimesZ_CalculateMultiplicationFirst()
     {
         Parser parser = new();
 
@@ -206,7 +214,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_MixedSubWithDiv_ReturnsResultGivenTheOrderOfOperations()
+    public void Parse_XMinusYDividedByZ_CalculateDivisionFirst()
     {
         Parser parser = new();
 
@@ -225,7 +233,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_xToPowerOfY_ReturnsExponentiationResult()
+    public void Parse_XToPowerOfY_ReturnsExponentiationResult()
     {
         Parser parser = new();
 
@@ -242,7 +250,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_xToPowerOfYToPowerOfZ_ReturnsExponentiationResult()
+    public void Parse_XToPowerOfYToPowerOfZ_CalculateYToPowerOfZFirst()
     {
         Parser parser = new();
 
@@ -261,7 +269,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_xTimesYToPowerOfZ_CalculateExponentiationFirst()
+    public void Parse_XTimesYToPowerOfZ_CalculateExponentiationFirst()
     {
         Parser parser = new();
 
@@ -281,7 +289,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_xDividedByYToPowerOfZ_CalculateExponentiationFirst()
+    public void Parse_XDividedByYToPowerOfZ_CalculateExponentiationFirst()
     {
         Parser parser = new();
 
@@ -301,7 +309,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_ExprWithinParenthesisTimesX_CalculateExprInParenthesisFirst()
+    public void Parse_ExpressionWithinParenthesisTimesX_CalculateExpressionInParenthesisFirst()
     {
         Parser parser = new();
 
@@ -322,7 +330,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_MinusAndNumberTokens_ReturnsNegativeNumber()
+    public void Parse_MinusX_ReturnsXTimesMinusOne()
     {
         Parser parser = new();
 
