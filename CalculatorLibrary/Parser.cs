@@ -28,20 +28,12 @@ public class Parser
         decimal result = Term();
         while (true)
         {
-            if (tokens[currentToken].Text == "+")
-            {
-                currentToken++;
+            if (Match("+"))
                 result += Term();
-            }
-            else if (tokens[currentToken].Text == "-")
-            {
-                currentToken++;
+            else if (Match("-"))
                 result -= Term();
-            }
             else
-            {
                 break;
-            }
         }
         
         return result;
@@ -52,20 +44,12 @@ public class Parser
         decimal result = Factor();
         while (true)
         {
-            if (tokens[currentToken].Text == "*")
-            {
-                currentToken++;
+            if (Match("*"))
                 result *= Factor();
-            }
-            else if (tokens[currentToken].Text == "/")
-            {
-                currentToken++;
+            else if (Match("/"))
                 result /= Factor();
-            }
             else
-            {
                 break;
-            }
         }
 
         return result;
@@ -74,11 +58,8 @@ public class Parser
     decimal Factor()
     {
         decimal result = Base();
-        if (tokens[currentToken].Text == "^")
-        {
-            currentToken++;
+        if (Match("^"))
             result = Pow(result, Factor());
-        }
         
         return result;
     }
@@ -90,27 +71,17 @@ public class Parser
 
     decimal Base()
     {
-        if (tokens[currentToken].Text == "(")
+        if (Match("("))
         {
-            currentToken++;
             decimal result = Expr();
-            if (tokens[currentToken].Text == ")")
-            {
-                currentToken++;
-            }
-            else
-            {
+            if (Match(")") == false)
                 throw new Exception("Missing ')'");
-            }
 
             return result;
         }
 
-        if (tokens[currentToken].Text == "-")
-        {
-            currentToken++;
+        if (Match("-"))
             return -1 * Base();
-        }
         
         return Number();
     }
@@ -120,8 +91,14 @@ public class Parser
         if (tokens[currentToken].Type != TokenType.Number)
             throw new Exception("Invalid token!");
         
-        decimal result = decimal.Parse(tokens[currentToken].Text, CultureInfo.InvariantCulture);
+        return decimal.Parse(tokens[currentToken++].Text, CultureInfo.InvariantCulture);
+    }
+
+    bool Match(string op)
+    {
+        if (tokens[currentToken].Text != op)
+            return false;
         currentToken++;
-        return result;
+        return true;
     }
 }
