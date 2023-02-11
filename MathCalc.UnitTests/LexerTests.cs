@@ -27,6 +27,11 @@ public class LexerTests : TokenCollector
     {
         tokens += "OP";
     }
+    
+    void TokenCollector.ClosedParen(int line, int position)
+    {
+        tokens += "CP";
+    }
 
     void AssertLexResult(string input, string expected)
     {
@@ -52,6 +57,12 @@ public class LexerTests : TokenCollector
         public void Lex_OpenParen()
         {
             AssertLexResult("(", "OP");
+        }
+
+        [Fact]
+        public void Lex_ClosedParen()
+        {
+            AssertLexResult(")", "CP");
         }
     }
 }
