@@ -12,4 +12,5 @@ public interface TokenCollector
     void PlusSign(int line, int position);
     void ExponentSymbol(int line, int position);
     void Asterisk(int line, int position);
+    void Slash(int line, int position);
 }

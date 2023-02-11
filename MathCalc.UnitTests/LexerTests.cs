@@ -62,6 +62,11 @@ public class LexerTests : TokenCollector
     {
         tokens += "A";
     }
+
+    void TokenCollector.Slash(int line, int position)
+    {
+        tokens += "S";
+    }
     
     void AssertLexResult(string input, string expected)
     {
@@ -129,6 +134,12 @@ public class LexerTests : TokenCollector
         public void Lex_Asterisk()
         {
             AssertLexResult("*", "A");
+        }
+
+        [Fact]
+        public void Lex_Slash()
+        {
+            AssertLexResult("/", "S");
         }
     }
 }
