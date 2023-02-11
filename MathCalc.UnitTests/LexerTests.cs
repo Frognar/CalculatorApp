@@ -23,19 +23,21 @@ public class LexerTests : TokenCollector
         tokens += "CB";
     }
 
+    void AssertLexResult(string input, string expected)
+    {
+        lexer.Lex(input);
+        Assert.Equal(expected, tokens);
+    }
+
     [Fact]
     public void Lex_OpenBrace()
     {
-        lexer.Lex("{");
-        
-        Assert.Equal("OB", tokens);
+        AssertLexResult("{", "OB");
     }
 
     [Fact]
     public void Lex_ClosedBrace()
     {
-        lexer.Lex("}");
-        
-        Assert.Equal("CB", tokens);
+        AssertLexResult("}", "CB");
     }
 }
