@@ -10,4 +10,5 @@ public interface TokenCollector
     void ClosedAngle(int line, int position);
     void MinusSign(int line, int position);
     void PlusSign(int line, int position);
+    void ExponentSymbol(int line, int position);
 }
