@@ -57,6 +57,11 @@ public class LexerTests : TokenCollector
     {
         tokens += "ES";
     }
+
+    void TokenCollector.Asterisk(int line, int position)
+    {
+        tokens += "A";
+    }
     
     void AssertLexResult(string input, string expected)
     {
@@ -118,6 +123,12 @@ public class LexerTests : TokenCollector
         public void Lex_ExponentSymbol()
         {
             AssertLexResult("^", "ES");
+        }
+
+        [Fact]
+        public void Lex_Asterisk()
+        {
+            AssertLexResult("*", "A");
         }
     }
 }

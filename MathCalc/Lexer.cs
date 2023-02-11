@@ -40,6 +40,9 @@ public class Lexer
             case "^":
                 tokenCollector.ExponentSymbol(0, 0);
                 break;
+            case "*":
+                tokenCollector.Asterisk(0, 0);
+                break;
         }
     }
 }
