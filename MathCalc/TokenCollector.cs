@@ -7,4 +7,5 @@ public interface TokenCollector
     void OpenParen(int line, int position);
     void ClosedParen(int line, int position);
     void OpenAngle(int line, int position);
+    void ClosedAngle(int line, int position);
 }
