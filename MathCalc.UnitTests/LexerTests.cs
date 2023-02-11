@@ -22,6 +22,11 @@ public class LexerTests : TokenCollector
     {
         tokens += "CB";
     }
+    
+    void TokenCollector.OpenParen(int line, int position)
+    {
+        tokens += "OP";
+    }
 
     void AssertLexResult(string input, string expected)
     {
@@ -41,6 +46,12 @@ public class LexerTests : TokenCollector
         public void Lex_ClosedBrace()
         {
             AssertLexResult("}", "CB");
+        }
+
+        [Fact]
+        public void Lex_OpenParen()
+        {
+            AssertLexResult("(", "OP");
         }
     }
 }
