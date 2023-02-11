@@ -4,7 +4,14 @@ namespace MathCalc.UnitTests;
 
 public class LexerTests : TokenCollector
 {
-    string tokens = "";
+    string tokens;
+    readonly Lexer lexer;
+
+    public LexerTests()
+    {
+        tokens = "";
+        lexer = new Lexer(this);
+    }
     
     void TokenCollector.OpenBrace(int line, int position)
     {
@@ -15,18 +22,10 @@ public class LexerTests : TokenCollector
     {
         tokens += "CB";
     }
-    
-    [Fact]
-    public void CanCreateLexer()
-    {
-        Lexer lexer = new(this);
-    }
 
     [Fact]
     public void Lex_OpenBrace()
     {
-        Lexer lexer = new(this);
-
         lexer.Lex("{");
         
         Assert.Equal("OB", tokens);
@@ -35,8 +34,6 @@ public class LexerTests : TokenCollector
     [Fact]
     public void Lex_ClosedBrace()
     {
-        Lexer lexer = new(this);
-
         lexer.Lex("}");
         
         Assert.Equal("CB", tokens);
