@@ -31,6 +31,9 @@ public class Lexer
             case ">":
                 tokenCollector.ClosedAngle(0, 0);
                 break;
+            case "-":
+                tokenCollector.MinusSign(0, 0);
+                break;
         }
     }
 }
