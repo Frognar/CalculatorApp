@@ -11,6 +11,9 @@ public class Lexer
 
     public void Lex(string expression)
     {
-        tokenCollector.OpenBrace(0, 0);
+        if (expression == "{")
+            tokenCollector.OpenBrace(0, 0);
+        else
+            tokenCollector.ClosedBrace(0, 0);
     }
 }

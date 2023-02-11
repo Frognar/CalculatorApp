@@ -11,6 +11,11 @@ public class LexerTests : TokenCollector
         tokens += "OB";
     }
     
+    void TokenCollector.ClosedBrace(int line, int position)
+    {
+        tokens += "CB";
+    }
+    
     [Fact]
     public void CanCreateLexer()
     {
@@ -25,5 +30,15 @@ public class LexerTests : TokenCollector
         lexer.Lex("{");
         
         Assert.Equal("OB", tokens);
+    }
+
+    [Fact]
+    public void Lex_ClosedBrace()
+    {
+        Lexer lexer = new(this);
+
+        lexer.Lex("}");
+        
+        Assert.Equal("CB", tokens);
     }
 }
