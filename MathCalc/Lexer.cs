@@ -25,6 +25,9 @@ public class Lexer
             case ")":
                 tokenCollector.ClosedParen(0, 0);
                 break;
+            case "<":
+                tokenCollector.OpenAngle(0, 0);
+                break;
         }
     }
 }

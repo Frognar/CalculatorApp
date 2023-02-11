@@ -33,6 +33,11 @@ public class LexerTests : TokenCollector
         tokens += "CP";
     }
 
+    void TokenCollector.OpenAngle(int line, int position)
+    {
+        tokens += "OA";
+    }
+    
     void AssertLexResult(string input, string expected)
     {
         lexer.Lex(input);
@@ -63,6 +68,12 @@ public class LexerTests : TokenCollector
         public void Lex_ClosedParen()
         {
             AssertLexResult(")", "CP");
+        }
+
+        [Fact]
+        public void Lex_OpenAngle()
+        {
+            AssertLexResult("<", "OA");
         }
     }
 }
