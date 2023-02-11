@@ -9,4 +9,5 @@ public interface TokenCollector
     void OpenAngle(int line, int position);
     void ClosedAngle(int line, int position);
     void MinusSign(int line, int position);
+    void PlusSign(int line, int position);
 }

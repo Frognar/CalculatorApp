@@ -34,6 +34,9 @@ public class Lexer
             case "-":
                 tokenCollector.MinusSign(0, 0);
                 break;
+            case "+":
+                tokenCollector.PlusSign(0, 0);
+                break;
         }
     }
 }

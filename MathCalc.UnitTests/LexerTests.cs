@@ -47,6 +47,11 @@ public class LexerTests : TokenCollector
     {
         tokens += "MS";
     }
+
+    void TokenCollector.PlusSign(int line, int position)
+    {
+        tokens += "PS";
+    }
     
     void AssertLexResult(string input, string expected)
     {
@@ -96,6 +101,12 @@ public class LexerTests : TokenCollector
         public void Lex_MinusSign()
         {
             AssertLexResult("-", "MS");
+        }
+
+        [Fact]
+        public void Lex_PlusSign()
+        {
+            AssertLexResult("+", "PS");
         }
     }
 }
