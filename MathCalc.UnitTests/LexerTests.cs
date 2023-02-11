@@ -7,7 +7,7 @@ public class LexerTests : TokenCollector
     string tokens;
     readonly Lexer lexer;
 
-    public LexerTests()
+    protected LexerTests()
     {
         tokens = "";
         lexer = new Lexer(this);
@@ -29,15 +29,18 @@ public class LexerTests : TokenCollector
         Assert.Equal(expected, tokens);
     }
 
-    [Fact]
-    public void Lex_OpenBrace()
+    public class SingleTokenTests : LexerTests
     {
-        AssertLexResult("{", "OB");
-    }
+        [Fact]
+        public void Lex_OpenBrace()
+        {
+            AssertLexResult("{", "OB");
+        }
 
-    [Fact]
-    public void Lex_ClosedBrace()
-    {
-        AssertLexResult("}", "CB");
+        [Fact]
+        public void Lex_ClosedBrace()
+        {
+            AssertLexResult("}", "CB");
+        }
     }
 }
