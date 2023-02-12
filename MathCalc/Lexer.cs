@@ -49,6 +49,9 @@ public class Lexer
             case ",":
                 tokenCollector.Comma(0, 0);
                 break;
+            case "%":
+                tokenCollector.PercentSing(0, 0);
+                break;
         }
     }
 }

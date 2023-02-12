@@ -14,4 +14,5 @@ public interface TokenCollector
     void Asterisk(int line, int position);
     void Slash(int line, int position);
     void Comma(int line, int position);
+    void PercentSing(int line, int position);
 }

@@ -72,6 +72,11 @@ public class LexerTests : TokenCollector
     {
         tokens += "C";
     }
+
+    void TokenCollector.PercentSing(int line, int position)
+    {
+        tokens += "P";
+    }
     
     void AssertLexResult(string input, string expected)
     {
@@ -151,6 +156,12 @@ public class LexerTests : TokenCollector
         public void Lex_Comma()
         {
             AssertLexResult(",", "C");
+        }
+
+        [Fact]
+        public void Lex_Percentage()
+        {
+            AssertLexResult("%", "P");
         }
     }
 }
