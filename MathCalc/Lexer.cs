@@ -16,26 +16,28 @@ public class Lexer
     {
         for (position = 0; position < expression.Length;)
         {
-            FindWhiteSpaces(expression);
+            if (FindWhiteSpaces(expression[position..]))
+                continue;
 
-            if (position < expression.Length)
-                FindSingleCharacterToken(expression);
-
+            FindSingleCharacterToken(expression[position]);
             FindNumber(expression[position..]);
             FindName(expression[position..]);
         }
     }
 
-    void FindWhiteSpaces(string line)
+    bool FindWhiteSpaces(string line)
     {
         Match wsMatch = Regex.Match(line, "^\\s+");
-        if (wsMatch.Success)
-            position += wsMatch.Length;
+        if (wsMatch.Success == false)
+            return false;
+        
+        position += wsMatch.Length;
+        return true;
     }
 
-    void FindSingleCharacterToken(string line)
+    void FindSingleCharacterToken(char character)
     {
-        switch (line[position])
+        switch (character)
         {
             case '{':
                 tokenCollector.OpenBrace(0, position);
