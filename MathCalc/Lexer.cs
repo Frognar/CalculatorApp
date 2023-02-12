@@ -14,14 +14,16 @@ public class Lexer
 
     public void Lex(string expression)
     {
-        position = 0;
-        FindWhiteSpaces(expression);
+        for (position = 0; position < expression.Length;)
+        {
+            FindWhiteSpaces(expression);
 
-        if (position < expression.Length)
-            FindSingleCharacterToken(expression);
+            if (position < expression.Length)
+                FindSingleCharacterToken(expression);
 
-        FindNumber(expression[position..]);
-        FindName(expression[position..]);
+            FindNumber(expression[position..]);
+            FindName(expression[position..]);
+        }
     }
 
     void FindWhiteSpaces(string line)

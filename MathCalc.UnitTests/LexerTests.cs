@@ -5,6 +5,7 @@ namespace MathCalc.UnitTests;
 public class LexerTests : TokenCollector
 {
     string tokens;
+    bool firstToken = true;
     readonly Lexer lexer;
 
     protected LexerTests()
@@ -12,85 +13,100 @@ public class LexerTests : TokenCollector
         tokens = "";
         lexer = new Lexer(this);
     }
+
+    void AddToken(string token)
+    {
+        if (firstToken == false)
+            tokens += ",";
+
+        firstToken = false;
+        tokens += token;
+    }
     
     void TokenCollector.OpenBrace(int line, int position)
     {
-        tokens += "OB";
+        AddToken("OB");
     }
     
     void TokenCollector.ClosedBrace(int line, int position)
     {
-        tokens += "CB";
+        AddToken("CB");
     }
     
     void TokenCollector.OpenParen(int line, int position)
     {
-        tokens += "OP";
+        AddToken("OP");
     }
     
     void TokenCollector.ClosedParen(int line, int position)
     {
-        tokens += "CP";
+        AddToken("CP");
     }
 
     void TokenCollector.OpenAngle(int line, int position)
     {
-        tokens += "OA";
+        AddToken("OA");
     }
 
     void TokenCollector.ClosedAngle(int line, int position)
     {
-        tokens += "CA";
+        AddToken("CA");
     }
 
     void TokenCollector.MinusSign(int line, int position)
     {
-        tokens += "MS";
+        AddToken("MS");
     }
 
     void TokenCollector.PlusSign(int line, int position)
     {
-        tokens += "PS";
+        AddToken("PS");
     }
 
     void TokenCollector.ExponentSymbol(int line, int position)
     {
-        tokens += "ES";
+        AddToken("ES");
     }
 
     void TokenCollector.Asterisk(int line, int position)
     {
-        tokens += "A";
+        AddToken("A");
     }
 
     void TokenCollector.Slash(int line, int position)
     {
-        tokens += "S";
+        AddToken("S");
     }
 
     void TokenCollector.Comma(int line, int position)
     {
-        tokens += "C";
+        AddToken("C");
     }
 
     void TokenCollector.PercentSing(int line, int position)
     {
-        tokens += "P";
+        AddToken("P");
     }
 
     void TokenCollector.Name(string name, int line, int position)
     {
-        tokens += $"#{name}#";
+        AddToken($"#{name}#");
     }
 
     void TokenCollector.Number(string number, int line, int position)
     {
-        tokens += $"|{number}|";
+        AddToken($"|{number}|");
+    }
+
+    void Reset()
+    {
+        firstToken = true;
+        tokens = "";
     }
     
     void AssertLexResult(string input, string expected)
     {
-        tokens = "";
+        Reset();
         lexer.Lex(input);
         Assert.Equal(expected, tokens);
     }
@@ -206,4 +222,13 @@ public class LexerTests : TokenCollector
             AssertLexResult(" 12345.6789", "|12345.6789|");
         }
     }
+
+    public class MultipleTokenTests : LexerTests
+    {
+        [Fact]
+        public void Lex_SimpleSequence()
+        {
+            AssertLexResult("{}", "OB,CB");
+        }
+    } 
 }
