@@ -13,6 +13,10 @@ public class Lexer
 
     public void Lex(string expression)
     {
+        Match wsMatch = Regex.Match(expression, "^\\s+");
+        if (wsMatch.Success)
+            expression = expression[wsMatch.Length..];
+        
         switch (expression)
         {
             case "{":

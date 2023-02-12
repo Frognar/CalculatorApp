@@ -174,5 +174,23 @@ public class LexerTests : TokenCollector
         {
             AssertLexResult("name", "#name#");
         }
+
+        [Fact]
+        public void Lex_ComplexName()
+        {
+            AssertLexResult("NaMe_123", "#NaMe_123#");
+        }
+
+        [Fact]
+        public void Lex_WhiteSpaces()
+        {
+            AssertLexResult(" \t\n  ", "");
+        }
+
+        [Fact]
+        public void Lex_WhiteSpacesBeforeToken()
+        {
+            AssertLexResult(" \t\n (", "OP");
+        }
     }
 }
