@@ -15,9 +15,7 @@ public class Lexer
     public void Lex(string expression)
     {
         position = 0;
-        Match wsMatch = Regex.Match(expression, "^\\s+");
-        if (wsMatch.Success)
-            position += wsMatch.Length;
+        FindWhiteSpaces(expression);
 
         if (position < expression.Length)
         {
@@ -84,5 +82,12 @@ public class Lexer
             tokenCollector.Name(match.Value, 0, position);
             position += match.Length;
         }
+    }
+
+    void FindWhiteSpaces(string line)
+    {
+        Match wsMatch = Regex.Match(line, "^\\s+");
+        if (wsMatch.Success)
+            position += wsMatch.Length;
     }
 }
