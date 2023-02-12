@@ -90,6 +90,7 @@ public class LexerTests : TokenCollector
     
     void AssertLexResult(string input, string expected)
     {
+        tokens = "";
         lexer.Lex(input);
         Assert.Equal(expected, tokens);
     }
@@ -202,6 +203,7 @@ public class LexerTests : TokenCollector
         public void Lex_Number()
         {
             AssertLexResult("12345.6789", "|12345.6789|");
+            AssertLexResult(" 12345.6789", "|12345.6789|");
         }
     }
 }

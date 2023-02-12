@@ -20,7 +20,7 @@ public class Lexer
         if (position < expression.Length)
             FindSingleCharacterToken(expression);
 
-        FindNumber(expression);
+        FindNumber(expression[position..]);
         FindName(expression[position..]);
     }
 
