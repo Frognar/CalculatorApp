@@ -168,6 +168,7 @@ public class LexerTests : TokenCollector
         public void Lex_Error()
         {
             AssertLexResult(" |", "E1/2");
+            AssertLexResult("\n \t| ", "E2/3");
         }
     }
 

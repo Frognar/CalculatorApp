@@ -16,8 +16,13 @@ public class Lexer
     public void Lex(string expression)
     {
         lineNumber = 1;
-        for (position = 0; position < expression.Length;)
-            LexLine(expression);
+        foreach (string line in expression.Split('\n'))
+        {
+            for (position = 0; position < line.Length;)
+                LexLine(line);
+            
+            lineNumber++;
+        }
     }
 
     void LexLine(string line)
