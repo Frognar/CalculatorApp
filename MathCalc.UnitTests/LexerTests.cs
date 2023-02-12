@@ -230,5 +230,11 @@ public class LexerTests : TokenCollector
         {
             AssertLexResult("{}", "OB,CB");
         }
+
+        [Fact]
+        public void Lex_ComplexSequence()
+        {
+            AssertLexResult("name_123 (123.542) - 12 abcs", "#name_123#,OP,|123.542|,CP,MS,|12|,#abcs#");
+        }
     } 
 }
