@@ -15,4 +15,5 @@ public interface TokenCollector
     void Slash(int line, int position);
     void Comma(int line, int position);
     void PercentSing(int line, int position);
+    void Name(string name, int line, int position);
 }

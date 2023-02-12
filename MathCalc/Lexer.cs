@@ -1,4 +1,6 @@
-﻿namespace Frognar.MathCalc;
+﻿using System.Text.RegularExpressions;
+
+namespace Frognar.MathCalc;
 
 public class Lexer
 {
@@ -52,6 +54,12 @@ public class Lexer
             case "%":
                 tokenCollector.PercentSing(0, 0);
                 break;
+        }
+
+        Match match = Regex.Match(expression, "^\\w+");
+        if (match.Success)
+        {
+            tokenCollector.Name(match.Value, 0, 0);
         }
     }
 }

@@ -77,6 +77,11 @@ public class LexerTests : TokenCollector
     {
         tokens += "P";
     }
+
+    void TokenCollector.Name(string name, int line, int position)
+    {
+        tokens += $"#{name}#";
+    }
     
     void AssertLexResult(string input, string expected)
     {
@@ -162,6 +167,12 @@ public class LexerTests : TokenCollector
         public void Lex_Percentage()
         {
             AssertLexResult("%", "P");
+        }
+
+        [Fact]
+        public void Lex_Name()
+        {
+            AssertLexResult("name", "#name#");
         }
     }
 }
