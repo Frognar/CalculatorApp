@@ -13,4 +13,5 @@ public interface TokenCollector
     void ExponentSymbol(int line, int position);
     void Asterisk(int line, int position);
     void Slash(int line, int position);
+    void Comma(int line, int position);
 }

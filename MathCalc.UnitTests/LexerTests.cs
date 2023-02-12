@@ -67,6 +67,11 @@ public class LexerTests : TokenCollector
     {
         tokens += "S";
     }
+
+    void TokenCollector.Comma(int line, int position)
+    {
+        tokens += "C";
+    }
     
     void AssertLexResult(string input, string expected)
     {
@@ -140,6 +145,12 @@ public class LexerTests : TokenCollector
         public void Lex_Slash()
         {
             AssertLexResult("/", "S");
+        }
+
+        [Fact]
+        public void Lex_Comma()
+        {
+            AssertLexResult(",", "C");
         }
     }
 }

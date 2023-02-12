@@ -46,6 +46,9 @@ public class Lexer
             case "/":
                 tokenCollector.Slash(0, 0);
                 break;
+            case ",":
+                tokenCollector.Comma(0, 0);
+                break;
         }
     }
 }
