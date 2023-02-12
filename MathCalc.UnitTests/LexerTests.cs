@@ -23,85 +23,22 @@ public class LexerTests : TokenCollector
         tokens += token;
     }
     
-    void TokenCollector.OpenBrace(int line, int position)
-    {
-        AddToken("OB");
-    }
-    
-    void TokenCollector.ClosedBrace(int line, int position)
-    {
-        AddToken("CB");
-    }
-    
-    void TokenCollector.OpenParen(int line, int position)
-    {
-        AddToken("OP");
-    }
-    
-    void TokenCollector.ClosedParen(int line, int position)
-    {
-        AddToken("CP");
-    }
-
-    void TokenCollector.OpenAngle(int line, int position)
-    {
-        AddToken("OA");
-    }
-
-    void TokenCollector.ClosedAngle(int line, int position)
-    {
-        AddToken("CA");
-    }
-
-    void TokenCollector.MinusSign(int line, int position)
-    {
-        AddToken("MS");
-    }
-
-    void TokenCollector.PlusSign(int line, int position)
-    {
-        AddToken("PS");
-    }
-
-    void TokenCollector.ExponentSymbol(int line, int position)
-    {
-        AddToken("ES");
-    }
-
-    void TokenCollector.Asterisk(int line, int position)
-    {
-        AddToken("A");
-    }
-
-    void TokenCollector.Slash(int line, int position)
-    {
-        AddToken("S");
-    }
-
-    void TokenCollector.Comma(int line, int position)
-    {
-        AddToken("C");
-    }
-
-    void TokenCollector.PercentSing(int line, int position)
-    {
-        AddToken("P");
-    }
-
-    void TokenCollector.Name(string name, int line, int position)
-    {
-        AddToken($"#{name}#");
-    }
-
-    void TokenCollector.Number(string number, int line, int position)
-    {
-        AddToken($"|{number}|");
-    }
-
-    void TokenCollector.Error(int line, int position)
-    {
-        AddToken($"E{line}/{position}");
-    }
+    void TokenCollector.OpenBrace(int line, int position) => AddToken("OB");
+    void TokenCollector.ClosedBrace(int line, int position) => AddToken("CB");
+    void TokenCollector.OpenParen(int line, int position) => AddToken("OP");
+    void TokenCollector.ClosedParen(int line, int position) => AddToken("CP");
+    void TokenCollector.OpenAngle(int line, int position) => AddToken("OA");
+    void TokenCollector.ClosedAngle(int line, int position) => AddToken("CA");
+    void TokenCollector.MinusSign(int line, int position) => AddToken("MS");
+    void TokenCollector.PlusSign(int line, int position) => AddToken("PS");
+    void TokenCollector.ExponentSymbol(int line, int position) => AddToken("ES");
+    void TokenCollector.Asterisk(int line, int position) => AddToken("A");
+    void TokenCollector.Slash(int line, int position) => AddToken("S");
+    void TokenCollector.Comma(int line, int position) => AddToken("C");
+    void TokenCollector.PercentSing(int line, int position) => AddToken("P");
+    void TokenCollector.Name(string name, int line, int position) => AddToken($"#{name}#");
+    void TokenCollector.Number(string number, int line, int position) => AddToken($"|{number}|");
+    void TokenCollector.Error(int line, int position) => AddToken($"E{line}/{position}");
 
     void Reset()
     {
