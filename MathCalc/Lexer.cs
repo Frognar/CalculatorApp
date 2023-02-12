@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Frognar.MathCalc.Helpers;
 
 namespace Frognar.MathCalc;
 
@@ -45,7 +46,7 @@ public class Lexer
 
     bool FindWhiteSpaces(string line)
     {
-        Match wsMatch = Regex.Match(line[position..], "^\\s+");
+        Match wsMatch = RegexHelper.WhiteSpacesPattern.Match(line[position..]);
         if (wsMatch.Success == false)
             return false;
         
@@ -103,10 +104,10 @@ public class Lexer
         position++;
         return true;
     }
-    
+
     bool FindNumber(string line)
     {
-        Match match = Regex.Match(line[position..], "^[0-9]+\\.?[0-9]*");
+        Match match = RegexHelper.NumberPattern.Match(line[position..]);
         if (match.Success == false)
             return false;
 
@@ -117,7 +118,7 @@ public class Lexer
 
     bool FindName(string line)
     {
-        Match match = Regex.Match(line[position..], "^\\w+");
+        Match match = RegexHelper.NamePattern.Match(line[position..]);
         if (match.Success == false)
             return false;
         
