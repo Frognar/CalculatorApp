@@ -15,21 +15,26 @@ public class Lexer
     public void Lex(string expression)
     {
         for (position = 0; position < expression.Length;)
-        {
-            if (FindWhiteSpaces(expression[position..]) == false
-                && FindSingleCharacterToken(expression[position]) == false
-                && FindNumber(expression[position..]) == false
-                && FindName(expression[position..]) == false)
-            {
-                tokenCollector.Error(1, position + 1);
-                position++;
-            }
-        }
+            LexLine(expression);
+    }
+
+    void LexLine(string line)
+    {
+        if (FindToken(line) == false)
+            tokenCollector.Error(1, ++position);
+    }
+
+    bool FindToken(string line)
+    {
+        return FindWhiteSpaces(line)
+               || FindSingleCharacterToken(line)
+               || FindNumber(line)
+               || FindName(line);
     }
 
     bool FindWhiteSpaces(string line)
     {
-        Match wsMatch = Regex.Match(line, "^\\s+");
+        Match wsMatch = Regex.Match(line[position..], "^\\s+");
         if (wsMatch.Success == false)
             return false;
         
@@ -37,9 +42,9 @@ public class Lexer
         return true;
     }
 
-    bool FindSingleCharacterToken(char character)
+    bool FindSingleCharacterToken(string line)
     {
-        switch (character)
+        switch (line[position])
         {
             case '{':
                 tokenCollector.OpenBrace(0, position);
@@ -90,7 +95,7 @@ public class Lexer
     
     bool FindNumber(string line)
     {
-        Match match = Regex.Match(line, "^[0-9]+\\.?[0-9]*");
+        Match match = Regex.Match(line[position..], "^[0-9]+\\.?[0-9]*");
         if (match.Success == false)
             return false;
 
@@ -101,7 +106,7 @@ public class Lexer
 
     bool FindName(string line)
     {
-        Match match = Regex.Match(line, "^\\w+");
+        Match match = Regex.Match(line[position..], "^\\w+");
         if (match.Success == false)
             return false;
         
