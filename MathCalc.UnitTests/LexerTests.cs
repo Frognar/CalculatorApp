@@ -98,6 +98,11 @@ public class LexerTests : TokenCollector
         AddToken($"|{number}|");
     }
 
+    void TokenCollector.Error(int line, int position)
+    {
+        AddToken($"E{line}/{position}");
+    }
+
     void Reset()
     {
         firstToken = true;
@@ -220,6 +225,12 @@ public class LexerTests : TokenCollector
         {
             AssertLexResult("12345.6789", "|12345.6789|");
             AssertLexResult(" 12345.6789", "|12345.6789|");
+        }
+
+        [Fact]
+        public void Lex_Error()
+        {
+            AssertLexResult(" |", "E1/2");
         }
     }
 

@@ -17,4 +17,5 @@ public interface TokenCollector
     void PercentSing(int line, int position);
     void Name(string name, int line, int position);
     void Number(string number, int line, int position);
+    void Error(int line, int position);
 }

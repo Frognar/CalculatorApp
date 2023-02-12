@@ -16,12 +16,14 @@ public class Lexer
     {
         for (position = 0; position < expression.Length;)
         {
-            if (FindWhiteSpaces(expression[position..]))
-                continue;
-
-            FindSingleCharacterToken(expression[position]);
-            FindNumber(expression[position..]);
-            FindName(expression[position..]);
+            if (FindWhiteSpaces(expression[position..]) == false
+                && FindSingleCharacterToken(expression[position]) == false
+                && FindNumber(expression[position..]) == false
+                && FindName(expression[position..]) == false)
+            {
+                tokenCollector.Error(1, position + 1);
+                position++;
+            }
         }
     }
 
@@ -35,82 +37,76 @@ public class Lexer
         return true;
     }
 
-    void FindSingleCharacterToken(char character)
+    bool FindSingleCharacterToken(char character)
     {
         switch (character)
         {
             case '{':
                 tokenCollector.OpenBrace(0, position);
-                position++;
                 break;
             case '}':
                 tokenCollector.ClosedBrace(0, position);
-                position++;
                 break;
             case '(':
                 tokenCollector.OpenParen(0, position);
-                position++;
                 break;
             case ')':
                 tokenCollector.ClosedParen(0, position);
-                position++;
                 break;
             case '<':
                 tokenCollector.OpenAngle(0, position);
-                position++;
                 break;
             case '>':
                 tokenCollector.ClosedAngle(0, position);
-                position++;
                 break;
             case '-':
                 tokenCollector.MinusSign(0, position);
-                position++;
                 break;
             case '+':
                 tokenCollector.PlusSign(0, position);
-                position++;
                 break;
             case '^':
                 tokenCollector.ExponentSymbol(0, position);
-                position++;
                 break;
             case '*':
                 tokenCollector.Asterisk(0, position);
-                position++;
                 break;
             case '/':
                 tokenCollector.Slash(0, position);
-                position++;
                 break;
             case ',':
                 tokenCollector.Comma(0, position);
-                position++;
                 break;
             case '%':
                 tokenCollector.PercentSing(0, position);
-                position++;
                 break;
+            default:
+                return false;
         }
+
+        position++;
+        return true;
     }
     
-    void FindNumber(string line)
+    bool FindNumber(string line)
     {
         Match match = Regex.Match(line, "^[0-9]+\\.?[0-9]*");
-        if (match.Success)
-        {
-            tokenCollector.Number(match.Value, 0, position);
-            position += match.Length;
-        }
+        if (match.Success == false)
+            return false;
+
+        tokenCollector.Number(match.Value, 0, position);
+        position += match.Length;
+        return true;
     }
 
-    void FindName(string line)
+    bool FindName(string line)
     {
         Match match = Regex.Match(line, "^\\w+");
-        if (match.Success)
-        {
-            tokenCollector.Name(match.Value, 0, position);
-            position += match.Length;
-        }
+        if (match.Success == false)
+            return false;
+        
+        tokenCollector.Name(match.Value, 0, position);
+        position += match.Length;
+        return true;
     }
 }
