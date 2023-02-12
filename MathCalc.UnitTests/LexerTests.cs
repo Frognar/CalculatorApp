@@ -186,5 +186,12 @@ public class LexerTests : TokenCollector
         {
             AssertLexResult("name_123 (123.542) - 12 abcs", "#name_123#,OP,|123.542|,CP,MS,|12|,#abcs#");
         }
+
+        [Fact]
+        public void Lex_AllTokensOnMultipleLines()
+        {
+            AssertLexResult("name\n{(<12,34 + -56.78>)}|\n^\t/*,%",
+                "#name#,OB,OP,OA,|12.34|,PS,MS,|56.78|,CA,CP,CB,E2/21,ES,S,A,C,P");
+        }
     } 
 }
