@@ -82,6 +82,11 @@ public class LexerTests : TokenCollector
     {
         tokens += $"#{name}#";
     }
+
+    void TokenCollector.Number(string number, int line, int position)
+    {
+        tokens += $"|{number}|";
+    }
     
     void AssertLexResult(string input, string expected)
     {
@@ -191,6 +196,12 @@ public class LexerTests : TokenCollector
         public void Lex_WhiteSpacesBeforeToken()
         {
             AssertLexResult(" \t\n (", "OP");
+        }
+
+        [Fact]
+        public void Lex_Number()
+        {
+            AssertLexResult("12345.6789", "|12345.6789|");
         }
     }
 }

@@ -20,7 +20,8 @@ public class Lexer
         if (position < expression.Length)
             FindSingleCharacterToken(expression);
 
-        FindName(expression);
+        FindNumber(expression);
+        FindName(expression[position..]);
     }
 
     void FindWhiteSpaces(string line)
@@ -86,6 +87,16 @@ public class Lexer
                 tokenCollector.PercentSing(0, position);
                 position++;
                 break;
+        }
+    }
+    
+    void FindNumber(string line)
+    {
+        Match match = Regex.Match(line, "^[0-9]+\\.?[0-9]*");
+        if (match.Success)
+        {
+            tokenCollector.Number(match.Value, 0, position);
+            position += match.Length;
         }
     }
 
