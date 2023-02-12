@@ -18,14 +18,18 @@ public class Lexer
         lineNumber = 1;
         foreach (string line in expression.Split('\n'))
         {
-            for (position = 0; position < line.Length;)
-                LexLine(line);
-            
+            LexLine(line);
             lineNumber++;
         }
     }
 
     void LexLine(string line)
+    {
+        for (position = 0; position < line.Length;)
+            LexToken(line);
+    }
+
+    void LexToken(string line)
     {
         if (FindToken(line) == false)
             tokenCollector.Error(lineNumber, ++position);
