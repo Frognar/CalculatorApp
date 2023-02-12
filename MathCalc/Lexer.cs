@@ -20,12 +20,7 @@ public class Lexer
         if (position < expression.Length)
             FindSingleCharacterToken(expression);
 
-        Match match = Regex.Match(expression, "^\\w+");
-        if (match.Success)
-        {
-            tokenCollector.Name(match.Value, 0, position);
-            position += match.Length;
-        }
+        FindName(expression);
     }
 
     void FindWhiteSpaces(string line)
@@ -91,6 +86,16 @@ public class Lexer
                 tokenCollector.PercentSing(0, position);
                 position++;
                 break;
+        }
+    }
+
+    void FindName(string line)
+    {
+        Match match = Regex.Match(line, "^\\w+");
+        if (match.Success)
+        {
+            tokenCollector.Name(match.Value, 0, position);
+            position += match.Length;
         }
     }
 }
