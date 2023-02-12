@@ -111,7 +111,7 @@ public class Lexer
         if (match.Success == false)
             return false;
 
-        tokenCollector.Number(match.Value, lineNumber, position);
+        tokenCollector.Number(match.Value.Replace(',', '.'), lineNumber, position);
         position += match.Length;
         return true;
     }
@@ -121,7 +121,7 @@ public class Lexer
         Match match = RegexHelper.NamePattern.Match(line[position..]);
         if (match.Success == false)
             return false;
-        
+
         tokenCollector.Name(match.Value, lineNumber, position);
         position += match.Length;
         return true;

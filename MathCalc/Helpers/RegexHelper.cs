@@ -11,7 +11,7 @@ public static partial class RegexHelper
     [GeneratedRegex("^\\s+")]
     private static partial Regex WhiteSpaceRegex();
 
-    [GeneratedRegex("^[0-9]+\\.?[0-9]*")]
+    [GeneratedRegex("^[0-9]+(\\.|,)?[0-9]*")]
     private static partial Regex NumberRegex();
     
     [GeneratedRegex("^\\w+")]

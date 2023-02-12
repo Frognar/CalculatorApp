@@ -162,6 +162,7 @@ public class LexerTests : TokenCollector
         {
             AssertLexResult("12345.6789", "|12345.6789|");
             AssertLexResult(" 12345.6789", "|12345.6789|");
+            AssertLexResult(" 12345,6789", "|12345.6789|");
         }
 
         [Fact]
