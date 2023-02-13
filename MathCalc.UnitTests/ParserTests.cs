@@ -8,5 +8,6 @@ public class ParserTests
     public void CanCreateParser()
     {
         Builder builder = new ExpressionBuilder();
+        TokenCollector parser = new Parser(builder);
     }
 }
