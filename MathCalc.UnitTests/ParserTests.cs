@@ -4,10 +4,14 @@ namespace MathCalc.UnitTests;
 
 public class ParserTests
 {
-    [Fact]
-    public void CanCreateParser()
+    readonly Lexer lexer;
+    readonly ExpressionBuilder builder;
+    readonly Parser parser;
+
+    public ParserTests()
     {
-        Builder builder = new ExpressionBuilder();
-        TokenCollector parser = new Parser(builder);
+        builder = new ExpressionBuilder();
+        parser = new Parser(builder);
+        lexer = new Lexer(parser);
     }
 }
