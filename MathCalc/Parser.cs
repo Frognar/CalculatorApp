@@ -1,5 +1,11 @@
 namespace Frognar.MathCalc;
 
+/*
+ <EXPR> ::= <TERM> | <TERM> "+" <EXPR> | <TERM> "-" <EXPR>
+ <TERM> ::= <FACTOR> | <FACTOR> "*" <TERM> | <FACTOR> "/" <TERM>
+ <FACTOR> ::= <BASE> | <BASE> "^" <FACTOR>
+ <BASE> ::= <NUMBER> | "-" <BASE> | "(" <EXPR> ")"
+ */
 public class Parser : TokenCollector
 {
     public Parser(Builder builder)
