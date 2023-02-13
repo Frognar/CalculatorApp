@@ -1,5 +1,6 @@
 using Frognar.MathCalc;
 using Frognar.MathCalc.Enums;
+using Frognar.MathCalc.Expressions;
 
 namespace MathCalc.UnitTests;
 
@@ -22,5 +23,7 @@ public class ParserTests
         lexer.Lex("123");
         parser.HandleEvent(ParserEvent.EOF, -1, -1);
 
+        Expression expression = builder.GetExpression();
+        Assert.Equal(123d, expression.Evaluate(), 0.01);
     }
 }
