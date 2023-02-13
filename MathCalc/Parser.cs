@@ -1,3 +1,5 @@
+using Frognar.MathCalc.Enums;
+
 namespace Frognar.MathCalc;
 
 /*
@@ -88,6 +90,11 @@ public class Parser : TokenCollector
     }
 
     public void Error(int line, int position)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void HandleEvent(ParserEvent parserEvent, int line, int position)
     {
         throw new NotImplementedException();
     }
