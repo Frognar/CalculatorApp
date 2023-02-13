@@ -26,4 +26,14 @@ public class ParserTests
         Expression expression = builder.GetExpression();
         Assert.Equal(123d, expression.Evaluate(), 0.01);
     }
+
+    [Fact]
+    public void Parse_SingleNegativeNumber()
+    {
+        lexer.Lex("-123");
+        parser.HandleEvent(ParserEvent.EOF, -1, -1);
+
+        Expression expression = builder.GetExpression();
+        Assert.Equal(-123d, expression.Evaluate(), 0.01);
+    }
 }
