@@ -5,21 +5,93 @@ namespace Frognar.MathCalc;
 
 public class ExpressionBuilder : Builder
 {
-    double? parsedNumber;
-    bool isNegative;
-    public Expression GetExpression()
+    readonly Stack<string> operators = new();
+    string expression = "";
+    
+    public string GetExpression()
     {
-        double number = parsedNumber.GetValueOrDefault(0);
-        return new Number(isNegative ? -number : number);
+        while (operators.Count > 0)
+            expression += $"{operators.Pop()} ";
+        
+        return expression.Trim();
     }
 
     public void SetNumber(string number)
     {
-        parsedNumber = double.Parse(number, CultureInfo.InvariantCulture);
+        expression += number + " ";
     }
 
     public void SetMinus()
     {
-        isNegative = true;
+        AddOperator("-");
+    }
+
+    public void SetNagate()
+    {
+        AddOperator("~");
+    }
+
+    public void SetPlus()
+    {
+        AddOperator("+");
+    }
+
+    public void SetAsterisk()
+    {
+        AddOperator("*");
+    }
+
+    void AddOperator(string o)
+    {
+        if (operators.Any())
+        {
+            if (o == "(")
+            {
+                operators.Push(o);
+            }
+            else if (o == ")")
+            {
+                while (operators.Peek() != "(")
+                    expression += operators.Pop() + " ";
+
+                operators.Pop();
+            }
+            else if (Compare(o, operators.Peek()))
+            {
+                operators.Push(o);
+            }
+            else
+            {
+                while (Compare(o, operators.Peek()) == false)
+                {
+                    expression += operators.Pop() + " ";
+                    if (operators.Any() == false)
+                        break;
+                }
+                
+                operators.Push(o);
+            }
+        }
+        else
+        {
+            operators.Push(o);
+        }
+    }
+
+    bool Compare(string input, string stack)
+    {
+        if (input == "(")
+            return true;
+        
+        Dictionary<string, int> values = new()
+        {
+            { "~", 1 },
+            { "+", 1 },
+            { "-", 1 },
+            { "*", 2 },
+        };
+
+        return values[input] > values[stack] ||
+               values[input] == values[stack] && input == "~";
     }
 }

@@ -21,19 +21,55 @@ public class ParserTests
     public void Parse_SingleNumber()
     {
         lexer.Lex("123");
-        parser.HandleEvent(ParserEvent.EOF, -1, -1);
-
-        Expression expression = builder.GetExpression();
-        Assert.Equal(123d, expression.Evaluate(), 0.01);
+        
+        Assert.Equal("123", builder.GetExpression());
     }
 
     [Fact]
     public void Parse_SingleNegativeNumber()
     {
         lexer.Lex("-123");
-        parser.HandleEvent(ParserEvent.EOF, -1, -1);
+        
+        Assert.Equal("123 ~", builder.GetExpression());
+    }
 
-        Expression expression = builder.GetExpression();
-        Assert.Equal(-123d, expression.Evaluate(), 0.01);
+    [Fact]
+    public void Parse_SubExpression()
+    {
+        lexer.Lex("123 - 23");
+        
+        Assert.Equal("123 23 -", builder.GetExpression());
+    }
+
+    [Fact]
+    public void Parse_AddExpression()
+    {
+        lexer.Lex("100 + 23");
+        
+        Assert.Equal("100 23 +", builder.GetExpression());
+    }
+
+    [Fact]
+    public void Parse_AddNegativeExpression()
+    {
+        lexer.Lex("100 + -23");
+        
+        Assert.Equal("100 23 ~ +", builder.GetExpression());
+    }
+
+    [Fact]
+    public void Parse_MultiplicationExpression()
+    {
+        lexer.Lex("10 * 5");
+        
+        Assert.Equal("10 5 *", builder.GetExpression());
+    }
+
+    [Fact]
+    public void Parse_MultiplicationWithAddExpression()
+    {
+        lexer.Lex("10 * 2 + 5");
+        
+        Assert.Equal("10 2 * 5 +", builder.GetExpression());
     }
 }

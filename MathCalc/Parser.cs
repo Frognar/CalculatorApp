@@ -11,6 +11,7 @@ namespace Frognar.MathCalc;
 public class Parser : TokenCollector
 {
     readonly Builder builder;
+    ParserState state = ParserState.None;
 
     public Parser(Builder builder)
     {
@@ -48,13 +49,17 @@ public class Parser : TokenCollector
     }
 
     public void MinusSign(int line, int position)
-    {
-        builder.SetMinus();
+        if (state == ParserState.Number)
+            builder.SetMinus();
+        else
+            builder.SetNagate();
+        state = ParserState.Minus;
     }
 
     public void PlusSign(int line, int position)
     {
-        throw new NotImplementedException();
+        builder.SetPlus();
+        state = ParserState.Plus;
     }
 
     public void ExponentSymbol(int line, int position)
@@ -64,7 +69,7 @@ public class Parser : TokenCollector
 
     public void Asterisk(int line, int position)
     {
-        throw new NotImplementedException();
+        builder.SetAsterisk();
     }
 
     public void Slash(int line, int position)
@@ -90,6 +95,7 @@ public class Parser : TokenCollector
     public void Number(string number, int line, int position)
     {
         builder.SetNumber(number);
+        state = ParserState.Number;
     }
 
     public void Error(int line, int position)
