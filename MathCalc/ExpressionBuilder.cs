@@ -2,8 +2,9 @@ namespace Frognar.MathCalc;
 
 public class ExpressionBuilder : Builder
 {
-    List<string> operators = new();
+    readonly List<string> operators = new();
     string expression = "";
+    
     public string GetExpression()
     {
         if (operators.Count > 0)
@@ -20,5 +21,10 @@ public class ExpressionBuilder : Builder
     public void SetMinus()
     {
         operators.Add("-");
+    }
+
+    public void SetNagate()
+    {
+        operators.Add("~");
     }
 }
