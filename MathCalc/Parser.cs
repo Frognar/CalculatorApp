@@ -2,12 +2,6 @@ using Frognar.MathCalc.Enums;
 
 namespace Frognar.MathCalc;
 
-/*
- <EXPR> ::= <TERM> | <TERM> "+" <EXPR> | <TERM> "-" <EXPR>
- <TERM> ::= <FACTOR> | <FACTOR> "*" <TERM> | <FACTOR> "/" <TERM>
- <FACTOR> ::= <BASE> | <BASE> "^" <FACTOR>
- <BASE> ::= <NUMBER> | "-" <BASE> | "(" <EXPR> ")"
- */
 public class Parser : TokenCollector
 {
     readonly Builder builder;
@@ -50,17 +44,12 @@ public class Parser : TokenCollector
 
     public void MinusSign(int line, int position)
     {
-        if (state == ParserState.Number)
-            builder.SetMinus();
-        else
-            builder.SetNagate();
-        state = ParserState.Minus;
+        HandleEvent(ParserEvent.Minus, line, position);
     }
 
     public void PlusSign(int line, int position)
     {
-        builder.SetPlus();
-        state = ParserState.Plus;
+        HandleEvent(ParserEvent.Plus, line, position);
     }
 
     public void ExponentSymbol(int line, int position)
@@ -70,7 +59,7 @@ public class Parser : TokenCollector
 
     public void Asterisk(int line, int position)
     {
-        builder.SetAsterisk();
+        HandleEvent(ParserEvent.Asterisk, line, position);
     }
 
     public void Slash(int line, int position)
@@ -96,7 +85,7 @@ public class Parser : TokenCollector
     public void Number(string number, int line, int position)
     {
         builder.SetNumber(number);
-        state = ParserState.Number;
+        HandleEvent(ParserEvent.Number, line, position);
     }
 
     public void Error(int line, int position)
@@ -104,7 +93,33 @@ public class Parser : TokenCollector
         throw new NotImplementedException();
     }
 
-    public void HandleEvent(ParserEvent parserEvent, int line, int position)
+    record Transition(ParserState ParserState, ParserEvent ParserEvent, ParserState NewState, Action<Builder>? Action);
+
+    readonly Transition[] transitions =
     {
+        new(ParserState.None, ParserEvent.Number, ParserState.Number, null),
+        new(ParserState.None, ParserEvent.Minus, ParserState.Minus, b => b.SetNagate()),
+        
+        new(ParserState.Number, ParserEvent.Minus, ParserState.Minus, b => b.SetMinus()),
+        new(ParserState.Number, ParserEvent.Plus, ParserState.Plus, b => b.SetPlus()),
+        new(ParserState.Number, ParserEvent.Asterisk, ParserState.Asterisk, b => b.SetAsterisk()),
+        
+        new(ParserState.Minus, ParserEvent.Number, ParserState.Number, null),
+        new(ParserState.Asterisk, ParserEvent.Number, ParserState.Number, null),
+        new(ParserState.Plus, ParserEvent.Minus, ParserState.Minus, b => b.SetNagate())
+        
+    };
+
+    void HandleEvent(ParserEvent e, int line, int position)
+    {
+        foreach (Transition t in transitions)
+        {
+            if (t.ParserState != state || t.ParserEvent != e) 
+                continue;
+            
+            state = t.NewState;
+            t.Action?.Invoke(builder);
+            break;
+        }
     }
 }
