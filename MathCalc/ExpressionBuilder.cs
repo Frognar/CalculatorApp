@@ -78,7 +78,7 @@ public class ExpressionBuilder : Builder
         }
     }
 
-    bool Compare(string input, string stack)
+    static bool Compare(string input, string stack)
     {
         if (input == "(")
             return true;

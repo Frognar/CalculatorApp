@@ -5,5 +5,6 @@ public enum ParserState
     None,
     Number,
     Minus,
-    Plus
+    Plus,
+    Asterisk
 }
