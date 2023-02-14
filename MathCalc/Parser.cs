@@ -59,7 +59,7 @@ public class Parser : TokenCollector
 
     public void PlusSign(int line, int position)
     {
-        throw new NotImplementedException();
+        builder.SetPlus();
     }
 
     public void ExponentSymbol(int line, int position)
