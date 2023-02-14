@@ -20,21 +20,75 @@ public class ExpressionBuilder : Builder
 
     public void SetMinus()
     {
-        operators.Push("-");
+        AddOperator("-");
     }
 
     public void SetNagate()
     {
-        operators.Push("~");
+        AddOperator("~");
     }
 
     public void SetPlus()
     {
-        operators.Push("+");
+        AddOperator("+");
     }
 
     public void SetAsterisk()
     {
-        operators.Push("*");
+        AddOperator("*");
+    }
+
+    void AddOperator(string o)
+    {
+        if (operators.Any())
+        {
+            if (o == "(")
+            {
+                operators.Push(o);
+            }
+            else if (o == ")")
+            {
+                while (operators.Peek() != "(")
+                    expression += operators.Pop() + " ";
+
+                operators.Pop();
+            }
+            else if (Compare(o, operators.Peek()))
+            {
+                operators.Push(o);
+            }
+            else
+            {
+                while (Compare(o, operators.Peek()) == false)
+                {
+                    expression += operators.Pop() + " ";
+                    if (operators.Any() == false)
+                        break;
+                }
+                
+                operators.Push(o);
+            }
+        }
+        else
+        {
+            operators.Push(o);
+        }
+    }
+
+    bool Compare(string input, string stack)
+    {
+        if (input == "(")
+            return true;
+        
+        Dictionary<string, int> values = new()
+        {
+            { "~", 1 },
+            { "+", 1 },
+            { "-", 1 },
+            { "*", 2 },
+        };
+
+        return values[input] > values[stack] ||
+               values[input] == values[stack] && input == "~";
     }
 }
