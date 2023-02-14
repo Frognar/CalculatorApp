@@ -2,13 +2,13 @@ namespace Frognar.MathCalc;
 
 public class ExpressionBuilder : Builder
 {
-    readonly List<string> operators = new();
+    readonly Stack<string> operators = new();
     string expression = "";
     
     public string GetExpression()
     {
-        if (operators.Count > 0)
-            expression += operators[0];
+        while (operators.Count > 0)
+            expression += $"{operators.Pop()} ";
         
         return expression.Trim();
     }
@@ -20,16 +20,16 @@ public class ExpressionBuilder : Builder
 
     public void SetMinus()
     {
-        operators.Add("-");
+        operators.Push("-");
     }
 
     public void SetNagate()
     {
-        operators.Add("~");
+        operators.Push("~");
     }
 
     public void SetPlus()
     {
-        operators.Add("+");
+        operators.Push("+");
     }
 }
