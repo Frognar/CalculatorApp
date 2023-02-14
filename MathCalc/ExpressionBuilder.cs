@@ -38,6 +38,11 @@ public class ExpressionBuilder : Builder
         AddOperator("*");
     }
 
+    public void SetSlash()
+    {
+        AddOperator("/");
+    }
+
     void AddOperator(string o)
     {
         if (operators.Any())
@@ -86,6 +91,7 @@ public class ExpressionBuilder : Builder
             { "+", 1 },
             { "-", 1 },
             { "*", 2 },
+            { "/", 2 },
         };
 
         return values[input] > values[stack] ||

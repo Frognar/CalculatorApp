@@ -7,4 +7,5 @@ public interface Builder
     void SetNagate();
     void SetPlus();
     void SetAsterisk();
+    void SetSlash();
 }
