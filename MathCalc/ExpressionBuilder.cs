@@ -32,4 +32,9 @@ public class ExpressionBuilder : Builder
     {
         operators.Push("+");
     }
+
+    public void SetAsterisk()
+    {
+        operators.Push("*");
+    }
 }

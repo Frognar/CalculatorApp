@@ -64,7 +64,7 @@ public class Parser : TokenCollector
 
     public void Asterisk(int line, int position)
     {
-        throw new NotImplementedException();
+        builder.SetAsterisk();
     }
 
     public void Slash(int line, int position)

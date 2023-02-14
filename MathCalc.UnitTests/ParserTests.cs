@@ -54,4 +54,13 @@ public class ParserTests
         
         Assert.Equal("100 23 ~ +", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_MultiplicationExpression()
+    {
+        lexer.Lex("10 * 5");
+        
+        Assert.Equal("10 5 *", builder.GetExpression());
+    }
+    
 }
