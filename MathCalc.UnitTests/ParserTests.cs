@@ -14,4 +14,12 @@ public class ParserTests
         parser = new Parser(builder);
         lexer = new Lexer(parser);
     }
+
+    [Fact]
+    public void Parse_SingleNumber()
+    {
+        lexer.Lex("123");
+        
+        Assert.Equal("123", builder.GetExpression());
+    }
 }

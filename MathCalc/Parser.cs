@@ -2,8 +2,11 @@ namespace Frognar.MathCalc;
 
 public class Parser : TokenCollector
 {
+    readonly Builder builder;
+
     public Parser(Builder builder)
     {
+        this.builder = builder;
     }
 
     public void OpenBrace(int line, int position)
@@ -78,7 +81,7 @@ public class Parser : TokenCollector
 
     public void Number(string number, int line, int position)
     {
-        throw new NotImplementedException();
+        builder.SetNumber(number);
     }
 
     public void Error(int line, int position)
