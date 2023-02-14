@@ -28,7 +28,7 @@ public class ParserTests
     {
         lexer.Lex("-123");
         
-        Assert.Equal("123 -", builder.GetExpression());
+        Assert.Equal("123 ~", builder.GetExpression());
     }
 
     [Fact]
