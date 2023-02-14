@@ -27,4 +27,9 @@ public class ExpressionBuilder : Builder
     {
         operators.Add("~");
     }
+
+    public void SetPlus()
+    {
+        operators.Add("+");
+    }
 }

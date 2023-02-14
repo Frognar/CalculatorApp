@@ -38,4 +38,12 @@ public class ParserTests
         
         Assert.Equal("123 23 -", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_AddExpression()
+    {
+        lexer.Lex("100 + 23");
+        
+        Assert.Equal("100 23 +", builder.GetExpression());
+    }
 }
