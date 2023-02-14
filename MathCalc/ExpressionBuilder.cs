@@ -3,15 +3,18 @@ namespace Frognar.MathCalc;
 public class ExpressionBuilder : Builder
 {
     List<string> operators = new();
+    string expression = "";
     public string GetExpression()
     {
         if (operators.Count > 0)
-            return $"123 {operators[0]}";
-        return "123";
+            expression += operators[0];
+        
+        return expression.Trim();
     }
 
     public void SetNumber(string number)
     {
+        expression += number + " ";
     }
 
     public void SetMinus()
