@@ -4,5 +4,6 @@ public enum ParserState
 {
     None,
     Number,
-    Minus
+    Minus,
+    Plus
 }

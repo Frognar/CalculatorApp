@@ -60,6 +60,7 @@ public class Parser : TokenCollector
     public void PlusSign(int line, int position)
     {
         builder.SetPlus();
+        state = ParserState.Plus;
     }
 
     public void ExponentSymbol(int line, int position)

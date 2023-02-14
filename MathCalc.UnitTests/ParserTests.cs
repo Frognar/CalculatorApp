@@ -46,4 +46,12 @@ public class ParserTests
         
         Assert.Equal("100 23 +", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_AddNegativeExpression()
+    {
+        lexer.Lex("100 + -23");
+        
+        Assert.Equal("100 23 ~ +", builder.GetExpression());
+    }
 }
