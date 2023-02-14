@@ -6,4 +6,5 @@ public interface Builder
     void SetMinus();
     void SetNagate();
     void SetPlus();
+    void SetAsterisk();
 }
