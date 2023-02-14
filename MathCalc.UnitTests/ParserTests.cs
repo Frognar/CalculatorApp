@@ -1,4 +1,6 @@
 using Frognar.MathCalc;
+using Frognar.MathCalc.Enums;
+using Frognar.MathCalc.Expressions;
 
 namespace MathCalc.UnitTests;
 

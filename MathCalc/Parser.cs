@@ -2,6 +2,12 @@ using Frognar.MathCalc.Enums;
 
 namespace Frognar.MathCalc;
 
+/*
+ <EXPR> ::= <TERM> | <TERM> "+" <EXPR> | <TERM> "-" <EXPR>
+ <TERM> ::= <FACTOR> | <FACTOR> "*" <TERM> | <FACTOR> "/" <TERM>
+ <FACTOR> ::= <BASE> | <BASE> "^" <FACTOR>
+ <BASE> ::= <NUMBER> | "-" <BASE> | "(" <EXPR> ")"
+ */
 public class Parser : TokenCollector
 {
     readonly Builder builder;
@@ -43,7 +49,6 @@ public class Parser : TokenCollector
     }
 
     public void MinusSign(int line, int position)
-    {
         if (state == ParserState.Number)
             builder.SetMinus();
         else
@@ -96,5 +101,9 @@ public class Parser : TokenCollector
     public void Error(int line, int position)
     {
         throw new NotImplementedException();
+    }
+
+    public void HandleEvent(ParserEvent parserEvent, int line, int position)
+    {
     }
 }
