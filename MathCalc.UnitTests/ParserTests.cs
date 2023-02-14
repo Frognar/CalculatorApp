@@ -72,4 +72,12 @@ public class ParserTests
         
         Assert.Equal("10 2 * 5 +", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_DivideExpression()
+    {
+        lexer.Lex("10 / 2");
+        
+        Assert.Equal("10 2 /", builder.GetExpression());
+    }
 }

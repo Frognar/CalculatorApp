@@ -64,7 +64,7 @@ public class Parser : TokenCollector
 
     public void Slash(int line, int position)
     {
-        throw new NotImplementedException();
+        HandleEvent(ParserEvent.Slash, line, position);
     }
 
     public void Comma(int line, int position)
@@ -103,6 +103,7 @@ public class Parser : TokenCollector
         new(ParserState.Number, ParserEvent.Minus, ParserState.Minus, b => b.SetMinus()),
         new(ParserState.Number, ParserEvent.Plus, ParserState.Plus, b => b.SetPlus()),
         new(ParserState.Number, ParserEvent.Asterisk, ParserState.Asterisk, b => b.SetAsterisk()),
+        new(ParserState.Number, ParserEvent.Slash, ParserState.Asterisk, b => b.SetSlash()),
         
         new(ParserState.Minus, ParserEvent.Number, ParserState.Number, null),
         new(ParserState.Asterisk, ParserEvent.Number, ParserState.Number, null),

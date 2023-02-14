@@ -6,4 +6,5 @@ public enum ParserEvent
     Minus,
     Plus,
     Asterisk,
+    Slash,
 }
