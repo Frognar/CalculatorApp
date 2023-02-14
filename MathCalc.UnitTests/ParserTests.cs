@@ -30,4 +30,12 @@ public class ParserTests
         
         Assert.Equal("123 -", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_SubExpression()
+    {
+        lexer.Lex("123 - 23");
+        
+        Assert.Equal("123 23 -", builder.GetExpression());
+    }
 }
