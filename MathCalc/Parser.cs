@@ -41,7 +41,7 @@ public class Parser : TokenCollector
 
     public void MinusSign(int line, int position)
     {
-        throw new NotImplementedException();
+        builder.SetMinus();
     }
 
     public void PlusSign(int line, int position)

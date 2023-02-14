@@ -22,4 +22,12 @@ public class ParserTests
         
         Assert.Equal("123", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_SingleNegativeNumber()
+    {
+        lexer.Lex("-123");
+        
+        Assert.Equal("123 -", builder.GetExpression());
+    }
 }
