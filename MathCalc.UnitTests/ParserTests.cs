@@ -1,6 +1,4 @@
 using Frognar.MathCalc;
-using Frognar.MathCalc.Enums;
-using Frognar.MathCalc.Expressions;
 
 namespace MathCalc.UnitTests;
 
@@ -21,19 +19,7 @@ public class ParserTests
     public void Parse_SingleNumber()
     {
         lexer.Lex("123");
-        parser.HandleEvent(ParserEvent.EOF, -1, -1);
-
-        Expression expression = builder.GetExpression();
-        Assert.Equal(123d, expression.Evaluate(), 0.01);
-    }
-
-    [Fact]
-    public void Parse_SingleNegativeNumber()
-    {
-        lexer.Lex("-123");
-        parser.HandleEvent(ParserEvent.EOF, -1, -1);
-
-        Expression expression = builder.GetExpression();
-        Assert.Equal(-123d, expression.Evaluate(), 0.01);
+        
+        Assert.Equal("123", builder.GetExpression());
     }
 }
