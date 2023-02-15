@@ -2,10 +2,7 @@
 
 public enum ParserState
 {
-    None,
+    Expr,
     Number,
-    Minus,
-    Plus,
-    Asterisk,
-    Slash
+    Operator,
 }
