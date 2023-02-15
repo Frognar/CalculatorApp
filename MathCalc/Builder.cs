@@ -8,4 +8,5 @@ public interface Builder
     void SetPlus();
     void SetAsterisk();
     void SetSlash();
+    void SetExponentSymbol();
 }

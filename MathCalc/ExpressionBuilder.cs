@@ -43,6 +43,11 @@ public class ExpressionBuilder : Builder
         AddOperator("/");
     }
 
+    public void SetExponentSymbol()
+    {
+        AddOperator("^");
+    }
+
     void AddOperator(string o)
     {
         if (operators.Any())
@@ -91,7 +96,8 @@ public class ExpressionBuilder : Builder
             { "-", 1 },
             { "*", 2 },
             { "/", 2 },
-            { "~", 3 },
+            { "^", 3 },
+            { "~", 4 },
         };
 
         return values[input] > values[stack];

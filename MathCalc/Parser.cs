@@ -54,7 +54,7 @@ public class Parser : TokenCollector
 
     public void ExponentSymbol(int line, int position)
     {
-        throw new NotImplementedException();
+        HandleEvent(ParserEvent.ExponentSymbol, line, position);
     }
 
     public void Asterisk(int line, int position)
@@ -104,6 +104,7 @@ public class Parser : TokenCollector
         new(ParserState.Number, ParserEvent.Plus, ParserState.Operator, b => b.SetPlus()),
         new(ParserState.Number, ParserEvent.Asterisk, ParserState.Operator, b => b.SetAsterisk()),
         new(ParserState.Number, ParserEvent.Slash, ParserState.Operator, b => b.SetSlash()),
+        new(ParserState.Number, ParserEvent.ExponentSymbol, ParserState.Operator, b => b.SetExponentSymbol()),
         
         new(ParserState.Operator, ParserEvent.Number, ParserState.Number, null),
         new(ParserState.Operator, ParserEvent.Minus, ParserState.Operator, b => b.SetNagate())
