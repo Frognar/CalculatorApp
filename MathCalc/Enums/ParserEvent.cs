@@ -7,4 +7,5 @@ public enum ParserEvent
     Plus,
     Asterisk,
     Slash,
+    ExponentSymbol,
 }
