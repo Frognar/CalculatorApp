@@ -5,58 +5,15 @@ public class ExpressionBuilder : Builder
     readonly Stack<string> operators = new();
     string expression = "";
 
-    public string GetExpression()
-    {
-        while (operators.Count > 0)
-            expression += $"{operators.Pop()} ";
-
-        return expression.Trim();
-    }
-
-    public void SetNumber(string number)
-    {
-        expression += number + " ";
-    }
-
-    public void SetMinus()
-    {
-        AddOperator("-");
-    }
-
-    public void SetNagate()
-    {
-        AddOperator("~");
-    }
-
-    public void SetPlus()
-    {
-        AddOperator("+");
-    }
-
-    public void SetAsterisk()
-    {
-        AddOperator("*");
-    }
-
-    public void SetSlash()
-    {
-        AddOperator("/");
-    }
-
-    public void SetExponentSymbol()
-    {
-        AddOperator("^");
-    }
-
-    public void SetOpenParen()
-    {
-        AddOperator("(");
-    }
-
-    public void SetClosedParen()
-    {
-        AddOperator(")");
-    }
+    public void SetNumber(string number) => expression += number + " ";
+    public void SetMinus() => AddOperator("-");
+    public void SetNagate() => AddOperator("~");
+    public void SetPlus() => AddOperator("+");
+    public void SetAsterisk() => AddOperator("*");
+    public void SetSlash() => AddOperator("/");
+    public void SetExponentSymbol() => AddOperator("^");
+    public void SetOpenParen() => AddOperator("(");
+    public void SetClosedParen() => AddOperator(")");
 
     void AddOperator(string o)
     {
@@ -118,5 +75,13 @@ public class ExpressionBuilder : Builder
 
         return precedences[input] > precedences[stack]
                || precedences[input] == precedences[stack] && rightAssociativities.Contains(input);
+    }
+
+    public string GetExpression()
+    {
+        while (operators.Count > 0)
+            expression += $"{operators.Pop()} ";
+
+        return expression.Trim();
     }
 }
