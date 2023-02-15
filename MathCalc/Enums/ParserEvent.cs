@@ -8,4 +8,6 @@ public enum ParserEvent
     Asterisk,
     Slash,
     ExponentSymbol,
+    OpenParen,
+    ClosedParen,
 }

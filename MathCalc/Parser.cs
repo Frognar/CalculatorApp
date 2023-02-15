@@ -24,12 +24,12 @@ public class Parser : TokenCollector
 
     public void OpenParen(int line, int position)
     {
-        throw new NotImplementedException();
+        HandleEvent(ParserEvent.OpenParen, line, position);
     }
 
     public void ClosedParen(int line, int position)
     {
-        throw new NotImplementedException();
+        HandleEvent(ParserEvent.ClosedParen, line, position);
     }
 
     public void OpenAngle(int line, int position)
@@ -105,9 +105,11 @@ public class Parser : TokenCollector
         new(ParserState.Number, ParserEvent.Asterisk, ParserState.Operator, b => b.SetAsterisk()),
         new(ParserState.Number, ParserEvent.Slash, ParserState.Operator, b => b.SetSlash()),
         new(ParserState.Number, ParserEvent.ExponentSymbol, ParserState.Operator, b => b.SetExponentSymbol()),
+        new(ParserState.Number, ParserEvent.ClosedParen, ParserState.Number, b => b.SetClosedParen()),
         
         new(ParserState.Operator, ParserEvent.Number, ParserState.Number, null),
-        new(ParserState.Operator, ParserEvent.Minus, ParserState.Operator, b => b.SetNagate())
+        new(ParserState.Operator, ParserEvent.Minus, ParserState.Operator, b => b.SetNagate()),
+        new(ParserState.Operator, ParserEvent.OpenParen, ParserState.Expr, b => b.SetOpenParen())
     };
 
     void HandleEvent(ParserEvent e, int line, int position)

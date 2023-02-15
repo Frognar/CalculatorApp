@@ -48,11 +48,21 @@ public class ExpressionBuilder : Builder
         AddOperator("^");
     }
 
+    public void SetOpenParen()
+    {
+        AddOperator("(");
+    }
+
+    public void SetClosedParen()
+    {
+        AddOperator(")");
+    }
+
     void AddOperator(string o)
     {
         if (operators.Any())
         {
-            if (o == "(")
+            if (operators.Peek() == "(")
             {
                 operators.Push(o);
             }
@@ -92,6 +102,7 @@ public class ExpressionBuilder : Builder
         
         Dictionary<string, int> values = new()
         {
+            { "(", 0 },
             { "+", 1 },
             { "-", 1 },
             { "*", 2 },

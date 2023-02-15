@@ -110,4 +110,20 @@ public class ParserTests
         
         Assert.Equal("10 2 ^", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_XToPowerOfMinusY()
+    {
+        lexer.Lex("10 ^ -2");
+        
+        Assert.Equal("10 2 ~ ^", builder.GetExpression());
+    }
+
+    [Fact]
+    public void Parse_XTimeYPlusZInParen()
+    {
+        lexer.Lex("10 * (1 + 1)");
+        
+        Assert.Equal("10 1 1 + *", builder.GetExpression());
+    }
 }
