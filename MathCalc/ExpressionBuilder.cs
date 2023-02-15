@@ -4,12 +4,12 @@ public class ExpressionBuilder : Builder
 {
     readonly Stack<string> operators = new();
     string expression = "";
-    
+
     public string GetExpression()
     {
         while (operators.Count > 0)
             expression += $"{operators.Pop()} ";
-        
+
         return expression.Trim();
     }
 
@@ -85,7 +85,7 @@ public class ExpressionBuilder : Builder
                     if (operators.Any() == false)
                         break;
                 }
-                
+
                 operators.Push(o);
             }
         }
@@ -99,8 +99,8 @@ public class ExpressionBuilder : Builder
     {
         if (input == "(")
             return true;
-        
-        Dictionary<string, int> values = new()
+
+        Dictionary<string, int> precedences = new()
         {
             { "(", 0 },
             { "+", 1 },
@@ -111,6 +111,12 @@ public class ExpressionBuilder : Builder
             { "~", 4 },
         };
 
-        return values[input] > values[stack];
+        HashSet<string> rightAssociativities = new()
+        {
+            "^"
+        };
+
+        return precedences[input] > precedences[stack]
+               || precedences[input] == precedences[stack] && rightAssociativities.Contains(input);
     }
 }
