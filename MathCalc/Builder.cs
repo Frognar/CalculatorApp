@@ -9,4 +9,6 @@ public interface Builder
     void SetAsterisk();
     void SetSlash();
     void SetExponentSymbol();
+    void SetOpenParen();
+    void SetClosedParen();
 }
