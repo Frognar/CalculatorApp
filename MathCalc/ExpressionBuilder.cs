@@ -2,6 +2,22 @@ namespace Frognar.MathCalc;
 
 public class ExpressionBuilder : Builder
 {
+    readonly Dictionary<string, int> precedences = new()
+    {
+        { "(", 0 },
+        { "+", 1 },
+        { "-", 1 },
+        { "*", 2 },
+        { "/", 2 },
+        { "^", 3 },
+        { "~", 4 },
+    };
+
+    readonly HashSet<string> rightAssociativities = new()
+    {
+        "^"
+    };
+    
     readonly Stack<string> operators = new();
     string expression = "";
 
@@ -52,28 +68,10 @@ public class ExpressionBuilder : Builder
         }
     }
 
-    static bool Compare(string input, string stack)
+    bool Compare(string input, string stack)
     {
-        if (input == "(")
-            return true;
-
-        Dictionary<string, int> precedences = new()
-        {
-            { "(", 0 },
-            { "+", 1 },
-            { "-", 1 },
-            { "*", 2 },
-            { "/", 2 },
-            { "^", 3 },
-            { "~", 4 },
-        };
-
-        HashSet<string> rightAssociativities = new()
-        {
-            "^"
-        };
-
-        return precedences[input] > precedences[stack]
+        return input == "(" 
+               || precedences[input] > precedences[stack]
                || precedences[input] == precedences[stack] && rightAssociativities.Contains(input);
     }
 
