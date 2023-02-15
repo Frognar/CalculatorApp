@@ -126,4 +126,12 @@ public class ParserTests
         
         Assert.Equal("10 1 1 + *", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_ComplexExpression()
+    {
+        lexer.Lex("10 + ( 3 * 2 ) ^ 2 ^ -3 - 25 / 5");
+        
+        Assert.Equal("10 3 2 * 2 3 ~ ^ ^ + 25 5 / -", builder.GetExpression());
+    }
 }
