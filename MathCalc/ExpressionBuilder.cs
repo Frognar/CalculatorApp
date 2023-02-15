@@ -87,14 +87,13 @@ public class ExpressionBuilder : Builder
         
         Dictionary<string, int> values = new()
         {
-            { "~", 1 },
             { "+", 1 },
             { "-", 1 },
             { "*", 2 },
             { "/", 2 },
+            { "~", 3 },
         };
 
-        return values[input] > values[stack] ||
-               values[input] == values[stack] && input == "~";
+        return values[input] > values[stack];
     }
 }

@@ -78,4 +78,12 @@ public class ParserTests
         
         Assert.Equal("10 2 /", builder.GetExpression());
     }
+
+    [Fact]
+    public void Parse_DivideByNegativeExpression()
+    {
+        lexer.Lex("10 / -2");
+        
+        Assert.Equal("10 2 ~ /", builder.GetExpression());
+    }
 }
