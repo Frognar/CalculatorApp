@@ -16,7 +16,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_SingleNumber()
+    public void Parse_X()
     {
         lexer.Lex("123");
         
@@ -24,7 +24,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_SingleNegativeNumber()
+    public void Parse_MinusX()
     {
         lexer.Lex("-123");
         
@@ -32,7 +32,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_SubExpression()
+    public void Parse_XMinusY()
     {
         lexer.Lex("123 - 23");
         
@@ -40,7 +40,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_AddExpression()
+    public void Parse_XPlusY()
     {
         lexer.Lex("100 + 23");
         
@@ -48,7 +48,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_AddNegativeExpression()
+    public void Parse_XPlusMuinusY()
     {
         lexer.Lex("100 + -23");
         
@@ -56,7 +56,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_MultiplicationExpression()
+    public void Parse_XTimesY()
     {
         lexer.Lex("10 * 5");
         
@@ -64,7 +64,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_MultiplicationWithAddExpression()
+    public void Parse_XTimesYPlusZ()
     {
         lexer.Lex("10 * 2 + 5");
         
@@ -72,7 +72,7 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_DivideExpression()
+    public void Parse_XDevidedByY()
     {
         lexer.Lex("10 / 2");
         
@@ -80,10 +80,26 @@ public class ParserTests
     }
 
     [Fact]
-    public void Parse_DivideByNegativeExpression()
+    public void Parse_XDevidedByMinusY()
     {
         lexer.Lex("10 / -2");
         
         Assert.Equal("10 2 ~ /", builder.GetExpression());
+    }
+
+    [Fact]
+    public void Parse_XTimesMinusY()
+    {
+        lexer.Lex("10 * -2");
+        
+        Assert.Equal("10 2 ~ *", builder.GetExpression());
+    }
+
+    [Fact]
+    public void Parse_XTimexYPlusMinusZ()
+    {
+        lexer.Lex("10 * 2 + -5");
+        
+        Assert.Equal("10 2 * 5 ~ +", builder.GetExpression());
     }
 }
