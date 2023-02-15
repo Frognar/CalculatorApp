@@ -5,7 +5,7 @@ namespace Frognar.MathCalc;
 public class Parser : TokenCollector
 {
     readonly Builder builder;
-    ParserState state = ParserState.None;
+    ParserState state = ParserState.Expr;
 
     public Parser(Builder builder)
     {
@@ -97,18 +97,16 @@ public class Parser : TokenCollector
 
     readonly Transition[] transitions =
     {
-        new(ParserState.None, ParserEvent.Number, ParserState.Number, null),
-        new(ParserState.None, ParserEvent.Minus, ParserState.Minus, b => b.SetNagate()),
+        new(ParserState.Expr, ParserEvent.Number, ParserState.Number, null),
+        new(ParserState.Expr, ParserEvent.Minus, ParserState.Operator, b => b.SetNagate()),
         
-        new(ParserState.Number, ParserEvent.Minus, ParserState.Minus, b => b.SetMinus()),
-        new(ParserState.Number, ParserEvent.Plus, ParserState.Plus, b => b.SetPlus()),
-        new(ParserState.Number, ParserEvent.Asterisk, ParserState.Asterisk, b => b.SetAsterisk()),
-        new(ParserState.Number, ParserEvent.Slash, ParserState.Asterisk, b => b.SetSlash()),
+        new(ParserState.Number, ParserEvent.Minus, ParserState.Operator, b => b.SetMinus()),
+        new(ParserState.Number, ParserEvent.Plus, ParserState.Operator, b => b.SetPlus()),
+        new(ParserState.Number, ParserEvent.Asterisk, ParserState.Operator, b => b.SetAsterisk()),
+        new(ParserState.Number, ParserEvent.Slash, ParserState.Operator, b => b.SetSlash()),
         
-        new(ParserState.Minus, ParserEvent.Number, ParserState.Number, null),
-        new(ParserState.Asterisk, ParserEvent.Number, ParserState.Number, null),
-        new(ParserState.Plus, ParserEvent.Minus, ParserState.Minus, b => b.SetNagate())
-        
+        new(ParserState.Operator, ParserEvent.Number, ParserState.Number, null),
+        new(ParserState.Operator, ParserEvent.Minus, ParserState.Operator, b => b.SetNagate())
     };
 
     void HandleEvent(ParserEvent e, int line, int position)
