@@ -166,5 +166,11 @@ public class ParserTests
         {
             AssertParseError("12 * (1 + 1", "Syntax error: Expr. Missing 1 ')'");
         }
+
+        [Fact]
+        public void Parse_MissingOpenedParam()
+        {
+            AssertParseError("12 * 1 + 1)", "Syntax error: Expr. Missing 1 '('");
+        }
     }
 }
