@@ -54,7 +54,7 @@ public class Parser : TokenCollector
         new(ParserState.Operator, ParserEvent.OpenParen, ParserState.Expr, b => b.SetOpenParen())
     };
 
-    void HandleEvent(ParserEvent e, int line, int position)
+    public void HandleEvent(ParserEvent e, int line, int position)
     {
         foreach (Transition t in transitions)
         {
@@ -63,7 +63,14 @@ public class Parser : TokenCollector
             
             state = t.NewState;
             t.Action?.Invoke(builder);
-            break;
+            return;
         }
+
+        HandleEventError(e, line, position);
+    }
+
+    void HandleEventError(ParserEvent e, int line, int position)
+    {
+        builder.SetExprError(state, e, line, position);
     }
 }

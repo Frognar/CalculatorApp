@@ -10,4 +10,5 @@ public enum ParserEvent
     ExponentSymbol,
     OpenParen,
     ClosedParen,
+    EOF
 }
