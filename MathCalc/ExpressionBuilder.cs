@@ -1,88 +1,25 @@
 using Frognar.MathCalc.Enums;
+using Frognar.MathCalc.Expressions;
 
 namespace Frognar.MathCalc;
 
 public class ExpressionBuilder : Builder
 {
-    readonly Dictionary<string, int> precedences = new()
-    {
-        { "(", 0 },
-        { "+", 1 },
-        { "-", 1 },
-        { "*", 2 },
-        { "/", 2 },
-        { "^", 3 },
-        { "~", 4 },
-    };
-
-    readonly HashSet<string> rightAssociativities = new()
-    {
-        "^"
-    };
-    
-    readonly Stack<string> operators = new();
-    string expression = "";
-
-    public void SetNumber(string number) => expression += number + " ";
-    public void SetMinus() => AddOperator("-");
-    public void SetNagate() => AddOperator("~");
-    public void SetPlus() => AddOperator("+");
-    public void SetAsterisk() => AddOperator("*");
-    public void SetSlash() => AddOperator("/");
-    public void SetExponentSymbol() => AddOperator("^");
-    public void SetOpenParen() => AddOperator("(");
-    public void SetClosedParen() => AddOperator(")");
-
-    void AddOperator(string o)
-    {
-        if (operators.Any())
-        {
-            if (operators.Peek() == "(")
-            {
-                operators.Push(o);
-            }
-            else if (o == ")")
-            {
-                while (operators.Peek() != "(")
-                    expression += operators.Pop() + " ";
-
-                operators.Pop();
-            }
-            else if (Compare(o, operators.Peek()))
-            {
-                operators.Push(o);
-            }
-            else
-            {
-                while (Compare(o, operators.Peek()) == false)
-                {
-                    expression += operators.Pop() + " ";
-                    if (operators.Any() == false)
-                        break;
-                }
-
-                operators.Push(o);
-            }
-        }
-        else
-        {
-            operators.Push(o);
-        }
-    }
-
-    bool Compare(string input, string stack)
-    {
-        return input == "(" 
-               || precedences[input] > precedences[stack]
-               || precedences[input] == precedences[stack] && rightAssociativities.Contains(input);
-    }
+    readonly Expression expression = new();
+    public void SetNumber(string number) => expression.AddNumber(number);
+    public void SetMinus() => expression.AddOperator("-");
+    public void SetNagate() => expression.AddOperator("~");
+    public void SetPlus() => expression.AddOperator("+");
+    public void SetAsterisk() => expression.AddOperator("*");
+    public void SetSlash() => expression.AddOperator("/");
+    public void SetExponentSymbol() => expression.AddOperator("^");
+    public void SetOpenParen() => expression.AddOperator("(");
+    public void SetClosedParen() => expression.AddOperator(")");
 
     public string GetExpression()
     {
-        while (operators.Count > 0)
-            expression += $"{operators.Pop()} ";
-
-        return expression.Trim();
+        expression.Complete();
+        return expression.ToString();
     }
 
     string? error;
