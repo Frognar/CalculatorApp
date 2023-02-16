@@ -6,6 +6,7 @@ namespace Frognar.MathCalc;
 public class ExpressionBuilder : Builder
 {
     readonly Expression expression = new();
+    public Expression GetExpression() => expression;
     public void SetNumber(string number) => expression.AddNumber(number);
     public void SetMinus() => expression.AddOperator("-");
     public void SetNagate() => expression.AddOperator("~");
@@ -15,12 +16,7 @@ public class ExpressionBuilder : Builder
     public void SetExponentSymbol() => expression.AddOperator("^");
     public void SetOpenParen() => expression.AddOperator("(");
     public void SetClosedParen() => expression.AddOperator(")");
+    public void CompleteExpression() => expression.Complete();
     public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position)
         => expression.AddError($"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}.");
-
-    public Expression GetExpression()
-    {
-        expression.Complete();
-        return expression;
-    }
 }

@@ -13,5 +13,6 @@ public interface Builder
     void SetExponentSymbol();
     void SetOpenParen();
     void SetClosedParen();
+    void CompleteExpression();
     void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position);
 }
