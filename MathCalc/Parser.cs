@@ -12,85 +12,27 @@ public class Parser : TokenCollector
         this.builder = builder;
     }
 
-    public void OpenBrace(int line, int position)
-    {
-        throw new NotImplementedException();
-    }
+    public void OpenBrace(int line, int position) => throw new NotImplementedException();
+    public void ClosedBrace(int line, int position) => throw new NotImplementedException();
+    public void OpenAngle(int line, int position) => throw new NotImplementedException();
+    public void ClosedAngle(int line, int position) => throw new NotImplementedException();
+    public void Comma(int line, int position) => throw new NotImplementedException();
+    public void PercentSing(int line, int position) => throw new NotImplementedException();
+    public void Name(string name, int line, int position) => throw new NotImplementedException();
+    public void Error(int line, int position) => throw new NotImplementedException();
 
-    public void ClosedBrace(int line, int position)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OpenParen(int line, int position)
-    {
-        HandleEvent(ParserEvent.OpenParen, line, position);
-    }
-
-    public void ClosedParen(int line, int position)
-    {
-        HandleEvent(ParserEvent.ClosedParen, line, position);
-    }
-
-    public void OpenAngle(int line, int position)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ClosedAngle(int line, int position)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void MinusSign(int line, int position)
-    {
-        HandleEvent(ParserEvent.Minus, line, position);
-    }
-
-    public void PlusSign(int line, int position)
-    {
-        HandleEvent(ParserEvent.Plus, line, position);
-    }
-
-    public void ExponentSymbol(int line, int position)
-    {
-        HandleEvent(ParserEvent.ExponentSymbol, line, position);
-    }
-
-    public void Asterisk(int line, int position)
-    {
-        HandleEvent(ParserEvent.Asterisk, line, position);
-    }
-
-    public void Slash(int line, int position)
-    {
-        HandleEvent(ParserEvent.Slash, line, position);
-    }
-
-    public void Comma(int line, int position)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void PercentSing(int line, int position)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Name(string name, int line, int position)
-    {
-        throw new NotImplementedException();
-    }
+    public void OpenParen(int line, int position) => HandleEvent(ParserEvent.OpenParen, line, position);
+    public void ClosedParen(int line, int position) => HandleEvent(ParserEvent.ClosedParen, line, position);
+    public void MinusSign(int line, int position) => HandleEvent(ParserEvent.Minus, line, position);
+    public void PlusSign(int line, int position) => HandleEvent(ParserEvent.Plus, line, position);
+    public void ExponentSymbol(int line, int position) => HandleEvent(ParserEvent.ExponentSymbol, line, position);
+    public void Asterisk(int line, int position) => HandleEvent(ParserEvent.Asterisk, line, position);
+    public void Slash(int line, int position) => HandleEvent(ParserEvent.Slash, line, position);
 
     public void Number(string number, int line, int position)
     {
         builder.SetNumber(number);
         HandleEvent(ParserEvent.Number, line, position);
-    }
-
-    public void Error(int line, int position)
-    {
-        throw new NotImplementedException();
     }
 
     record Transition(ParserState ParserState, ParserEvent ParserEvent, ParserState NewState, Action<Builder>? Action);
