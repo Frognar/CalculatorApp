@@ -1,7 +1,6 @@
 using Frognar.MathCalc.Enums;
-using Frognar.MathCalc.Expressions;
 
-namespace Frognar.MathCalc;
+namespace Frognar.MathCalc.Expressions;
 
 public class ExpressionBuilder : Builder
 {
