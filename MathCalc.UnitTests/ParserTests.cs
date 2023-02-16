@@ -151,27 +151,33 @@ public class ParserTests
         }
 
         [Fact]
-        public void Parse_ClosedParamAfterOpenParam()
+        public void Parse_ClosedParenAfterOpenParen()
         {
             AssertParseError("()", "Syntax error: Expr. Operator|ClosedParen. line 1, position 1.");
         }
 
         [Fact]
-        public void Parse_OpenParamAfterNumber()
+        public void Parse_OpenParenAfterNumber()
         {
             AssertParseError("12 (1 + 2)", "Syntax error: Expr. Number|OpenParen. line 1, position 3.");
         }
 
         [Fact]
-        public void Parse_MissingClosedParam()
+        public void Parse_MissingClosedParen()
         {
             AssertParseError("12 * (1 + 1", "Syntax error: Expr. Missing 1 ')'");
         }
 
         [Fact]
-        public void Parse_MissingOpenedParam()
+        public void Parse_MissingOpenParen()
         {
-            AssertParseError("12 * 1 + 1)", "Syntax error: Expr. Missing 1 '('");
+            AssertParseError("12 * 1 + 1)", "Syntax error: Expr. ')' before '('");
+        }
+        
+        [Fact]
+        public void Parse_ClosedParenBeforeOpenParen()
+        {
+            AssertParseError("12 * 1) + (1", "Syntax error: Expr. ')' before '('");
         }
     }
 }
