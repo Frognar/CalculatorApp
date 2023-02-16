@@ -21,16 +21,14 @@ public class ExpressionBuilder : Builder
         expression.Complete();
         return expression;
     }
-
-    string? error;
     
     public string GetError()
     {
-        return error ?? "";
+        return expression.GetError();
     }
     
     public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position)
     {
-        error = $"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}.";
+        expression.AddError($"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}.");
     }
 }

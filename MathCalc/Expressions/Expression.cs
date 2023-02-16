@@ -2,6 +2,8 @@ namespace Frognar.MathCalc.Expressions;
 
 public class Expression
 {
+    readonly List<string> errors = new();
+    
     readonly Dictionary<string, int> precedences = new()
     {
         { "(", 0 },
@@ -76,4 +78,8 @@ public class Expression
     }
 
     public override string ToString() => expression;
+
+    public void AddError(string error) => errors.Add(error);
+    
+    public string GetError() => errors.FirstOrDefault("");
 }
