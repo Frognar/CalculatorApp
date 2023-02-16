@@ -160,5 +160,11 @@ public class ParserTests
         {
             AssertParseError("12 (1 + 2)", "Syntax error: Expr. Number|OpenParen. line 1, position 3.");
         }
+
+        [Fact]
+        public void Parse_MissingClosedParam()
+        {
+            AssertParseError("12 * (1 + 1", "Syntax error: Expr. Missing 1 ')'");
+        }
     }
 }
