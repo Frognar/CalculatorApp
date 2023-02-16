@@ -15,20 +15,12 @@ public class ExpressionBuilder : Builder
     public void SetExponentSymbol() => expression.AddOperator("^");
     public void SetOpenParen() => expression.AddOperator("(");
     public void SetClosedParen() => expression.AddOperator(")");
+    public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position)
+        => expression.AddError($"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}.");
 
     public Expression GetExpression()
     {
         expression.Complete();
         return expression;
-    }
-    
-    public string GetError()
-    {
-        return expression.GetError();
-    }
-    
-    public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position)
-    {
-        expression.AddError($"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}.");
     }
 }

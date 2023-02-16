@@ -27,7 +27,7 @@ public class ParserTests
     {
         lexer.Lex(expression);
         parser.HandleEvent(ParserEvent.EOF, -1, -1);
-        Assert.Equal(expected, builder.GetError());
+        Assert.Equal(expected, builder.GetExpression().GetError());
     }
 
     public class IncrementalTests : ParserTests
