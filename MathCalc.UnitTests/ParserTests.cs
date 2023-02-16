@@ -20,7 +20,7 @@ public class ParserTests
     {
         lexer.Lex(expression);
         parser.HandleEvent(ParserEvent.EOF, -1, -1);
-        Assert.Equal(expected, builder.GetExpression());
+        Assert.Equal(expected, builder.GetExpression().ToString());
     }
 
     void AssertParseError(string expression, string expected)

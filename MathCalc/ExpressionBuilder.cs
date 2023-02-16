@@ -16,10 +16,10 @@ public class ExpressionBuilder : Builder
     public void SetOpenParen() => expression.AddOperator("(");
     public void SetClosedParen() => expression.AddOperator(")");
 
-    public string GetExpression()
+    public Expression GetExpression()
     {
         expression.Complete();
-        return expression.ToString();
+        return expression;
     }
 
     string? error;
