@@ -29,10 +29,21 @@ public class ExpressionBuilder : Builder
 
     public void CompleteExpression()
     {
-        if (parens > 0)
-            expression.AddError($"Syntax error: Expr. Missing {parens} ')'");
-        
+        AssertCorrectNumberOfParens();
         expression.Complete();
+    }
+
+    void AssertCorrectNumberOfParens()
+    {
+        switch (parens)
+        {
+            case > 0:
+                expression.AddError($"Syntax error: Expr. Missing {parens} ')'");
+                break;
+            case < 0:
+                expression.AddError($"Syntax error: Expr. Missing {-parens} '('");
+                break;
+        }
     }
 
     public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position)
