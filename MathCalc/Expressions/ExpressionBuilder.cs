@@ -22,7 +22,9 @@ public class ExpressionBuilder : Builder
 
     public void SetClosedParen()
     {
-        parens--;
+        if (--parens < 0)
+            expression.AddError("Syntax error: Expr. ')' before '('");
+        
         expression.AddOperator(")");
     }
 
@@ -40,7 +42,7 @@ public class ExpressionBuilder : Builder
                 expression.AddError($"Syntax error: Expr. Missing {parens} ')'");
                 break;
             case < 0:
-                expression.AddError($"Syntax error: Expr. Missing {-parens} '('");
+                expression.AddError($"Syntax error: Expr. ')' before '('");
                 break;
         }
     }
