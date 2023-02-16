@@ -1,3 +1,5 @@
+using Frognar.MathCalc.Enums;
+
 namespace Frognar.MathCalc;
 
 public class ExpressionBuilder : Builder
@@ -81,5 +83,17 @@ public class ExpressionBuilder : Builder
             expression += $"{operators.Pop()} ";
 
         return expression.Trim();
+    }
+
+    string? error;
+    
+    public string GetError()
+    {
+        return error ?? "";
+    }
+    
+    public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position)
+    {
+        error = $"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}.";
     }
 }

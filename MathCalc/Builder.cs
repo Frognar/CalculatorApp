@@ -1,3 +1,5 @@
+using Frognar.MathCalc.Enums;
+
 namespace Frognar.MathCalc;
 
 public interface Builder
@@ -11,4 +13,5 @@ public interface Builder
     void SetExponentSymbol();
     void SetOpenParen();
     void SetClosedParen();
+    void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position);
 }

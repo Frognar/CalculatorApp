@@ -1,4 +1,5 @@
 using Frognar.MathCalc;
+using Frognar.MathCalc.Enums;
 
 namespace MathCalc.UnitTests;
 
@@ -112,6 +113,18 @@ public class ParserTests
         public void Parse_ComplexExpression()
         {
             AssertParseResult("10 + ( 3 * 2 ) ^ 2 ^ -3 - 25 / 5", "10 3 2 * 2 3 ~ ^ ^ + 25 5 / -");
+        }
+    }
+
+    public class ErrorTests : ParserTests
+    {
+        [Fact]
+        public void Parse_Nothing()
+        {
+            lexer.Lex("");
+            parser.HandleEvent(ParserEvent.EOF, -1, -1);
+            
+            Assert.Equal("Syntax error: Expr. Expr|EOF. line -1, position -1.", builder.GetError());
         }
     }
 }
