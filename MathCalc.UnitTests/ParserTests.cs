@@ -154,5 +154,11 @@ public class ParserTests
         {
             AssertParseError("()", "Syntax error: Expr. Operator|ClosedParen. line 1, position 1.");
         }
+
+        [Fact]
+        public void Parse_OpenParamAfterNumber()
+        {
+            AssertParseError("12 (1 + 2)", "Syntax error: Expr. Number|OpenParen. line 1, position 3.");
+        }
     }
 }

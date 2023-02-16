@@ -35,38 +35,45 @@ public class Expression
 
     public void AddOperator(string o)
     {
-        if (operators.Any())
+        try
         {
-            if (operators.Peek() == "(")
+            if (operators.Any())
             {
-                operators.Push(o);
-            }
-            else if (o == ")")
-            {
-                while (operators.Peek() != "(")
-                    expression += operators.Pop() + " ";
+                if (operators.Peek() == "(")
+                {
+                    operators.Push(o);
+                }
+                else if (o == ")")
+                {
+                    while (operators.Peek() != "(")
+                        expression += operators.Pop() + " ";
 
-                operators.Pop();
-            }
-            else if (Compare(o, operators.Peek()))
-            {
-                operators.Push(o);
+                    operators.Pop();
+                }
+                else if (Compare(o, operators.Peek()))
+                {
+                    operators.Push(o);
+                }
+                else
+                {
+                    while (Compare(o, operators.Peek()) == false)
+                    {
+                        expression += operators.Pop() + " ";
+                        if (operators.Any() == false)
+                            break;
+                    }
+
+                    operators.Push(o);
+                }
             }
             else
             {
-                while (Compare(o, operators.Peek()) == false)
-                {
-                    expression += operators.Pop() + " ";
-                    if (operators.Any() == false)
-                        break;
-                }
-
                 operators.Push(o);
             }
         }
-        else
+        catch
         {
-            operators.Push(o);
+            // ignored
         }
     }
 
