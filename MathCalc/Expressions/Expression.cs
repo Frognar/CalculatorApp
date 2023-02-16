@@ -1,66 +1,92 @@
 namespace Frognar.MathCalc.Expressions;
 
-public interface Expression
+public class Expression
 {
-    public double Evaluate();
-}
+    readonly List<string> errors = new();
+    
+    readonly Dictionary<string, int> precedences = new()
+    {
+        { "(", 0 },
+        { "+", 1 },
+        { "-", 1 },
+        { "*", 2 },
+        { "/", 2 },
+        { "^", 3 },
+        { "~", 4 },
+    };
 
-public record Expr(Term Term) : Expression
-{
-    public virtual double Evaluate() => Term.Evaluate();
-}
+    readonly HashSet<string> rightAssociativities = new()
+    {
+        "^"
+    };
+    
+    readonly Stack<string> operators = new();
+    string expression = "";
 
-public record AddExpr(Term Term, Expr Expr) : Expr(Term)
-{
-    public override double Evaluate() => Term.Evaluate() + Expr.Evaluate();
-}
+    public void Complete()
+    {
+        while (operators.Count > 0)
+            expression += $"{operators.Pop()} ";
 
-public record SubExpr(Term Term, Expr Expr) : Expr(Term)
-{
-    public override double Evaluate() => Term.Evaluate() - Expr.Evaluate();
-}
+        expression = expression.Trim();
+    }
+    
+    public void AddNumber(string number) => expression += number + " ";
 
-public record Term(Factor Factor) : Expression
-{
-    public virtual double Evaluate() => Factor.Evaluate();
-}
+    public void AddOperator(string o)
+    {
+        try
+        {
+            if (operators.Any())
+            {
+                if (operators.Peek() == "(")
+                {
+                    operators.Push(o);
+                }
+                else if (o == ")")
+                {
+                    while (operators.Peek() != "(")
+                        expression += operators.Pop() + " ";
 
-public record MulTerm(Factor Factor, Term Term) : Term(Factor)
-{
-    public override double Evaluate() => Factor.Evaluate() * Term.Evaluate();
-}
+                    operators.Pop();
+                }
+                else if (Compare(o, operators.Peek()))
+                {
+                    operators.Push(o);
+                }
+                else
+                {
+                    while (Compare(o, operators.Peek()) == false)
+                    {
+                        expression += operators.Pop() + " ";
+                        if (operators.Any() == false)
+                            break;
+                    }
 
-public record DivTerm(Factor Factor, Term Term) : Term(Factor)
-{
-    public override double Evaluate() => Factor.Evaluate() / Term.Evaluate();
-}
+                    operators.Push(o);
+                }
+            }
+            else
+            {
+                operators.Push(o);
+            }
+        }
+        catch
+        {
+            // ignored
+        }
+    }
 
-public record Factor(Base Base) : Expression
-{
-    public virtual double Evaluate() => Base.Evaluate();
-}
+    bool Compare(string input, string stack)
+    {
+        return input == "(" 
+               || precedences[input] > precedences[stack]
+               || precedences[input] == precedences[stack] && rightAssociativities.Contains(input);
+    }
 
-public record PowFactor(Base Base, Factor Factor) : Factor(Base)
-{
-    public override double Evaluate() => Math.Pow(Base.Evaluate(), Factor.Evaluate());
-}
+    public override string ToString() => expression;
 
-public abstract record Base : Expression
-{
-    public abstract double Evaluate();
-}
-
-public record Number(double Num) : Base
-{
-    public override double Evaluate() => Num;
-}
-
-public record NegativeBase(Base Base) : Base
-{
-    public override double Evaluate() => -Base.Evaluate();
-}
-
-public record ExprBase(Expr Expr) : Base
-{
-    public override double Evaluate() => Expr.Evaluate();
+    public void AddError(string error) => errors.Add(error);
+    
+    public string GetError() => errors.FirstOrDefault("");
 }

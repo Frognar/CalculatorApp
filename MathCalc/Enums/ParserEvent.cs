@@ -6,4 +6,9 @@ public enum ParserEvent
     Minus,
     Plus,
     Asterisk,
+    Slash,
+    ExponentSymbol,
+    OpenParen,
+    ClosedParen,
+    EOF
 }
