@@ -9,7 +9,7 @@ public class ParserTests
     readonly ExpressionBuilder builder;
     readonly Parser parser;
 
-    public ParserTests()
+    protected ParserTests()
     {
         builder = new ExpressionBuilder();
         parser = new Parser(builder);
@@ -19,8 +19,15 @@ public class ParserTests
     void AssertParseResult(string expression, string expected)
     {
         lexer.Lex(expression);
-        
+        parser.HandleEvent(ParserEvent.EOF, -1, -1);
         Assert.Equal(expected, builder.GetExpression());
+    }
+
+    void AssertParseError(string expression, string expected)
+    {
+        lexer.Lex(expression);
+        parser.HandleEvent(ParserEvent.EOF, -1, -1);
+        Assert.Equal(expected, builder.GetError());
     }
 
     public class IncrementalTests : ParserTests
@@ -121,10 +128,7 @@ public class ParserTests
         [Fact]
         public void Parse_Nothing()
         {
-            lexer.Lex("");
-            parser.HandleEvent(ParserEvent.EOF, -1, -1);
-            
-            Assert.Equal("Syntax error: Expr. Expr|EOF. line -1, position -1.", builder.GetError());
+            AssertParseError("", "Syntax error: Expr. Expr|EOF. line -1, position -1.");
         }
     }
 }
