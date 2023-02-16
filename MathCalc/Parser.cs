@@ -41,6 +41,7 @@ public class Parser : TokenCollector
     {
         new(ParserState.Expr, ParserEvent.Number, ParserState.Number, null),
         new(ParserState.Expr, ParserEvent.Minus, ParserState.Operator, b => b.SetNagate()),
+        new(ParserState.Expr, ParserEvent.OpenParen, ParserState.Operator, b => b.SetOpenParen()),
         
         new(ParserState.Number, ParserEvent.Minus, ParserState.Operator, b => b.SetMinus()),
         new(ParserState.Number, ParserEvent.Plus, ParserState.Operator, b => b.SetPlus()),
