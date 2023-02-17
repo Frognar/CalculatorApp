@@ -7,12 +7,6 @@ namespace MathCalc.UnitTests;
 public class EvaluatorTests
 {
     [Fact]
-    public void CanCreateEvaluator()
-    {
-        Evaluator _ = new(new Expression());
-    }
-
-    [Fact]
     public void Evaluate_ExpressionWithErrors_ThrowInvalidExpressionException()
     {
         Expression expression = new();
