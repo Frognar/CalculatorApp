@@ -7,7 +7,7 @@ public interface Builder
     Expression GetExpression();
     void SetNumber(string number);
     void SetMinus();
-    void SetNagate();
+    void SetNegate();
     void SetPlus();
     void SetAsterisk();
     void SetSlash();

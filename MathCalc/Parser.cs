@@ -41,7 +41,7 @@ public class Parser : TokenCollector
     readonly Transition[] transitions =
     {
         new(ParserState.Expr, ParserEvent.Number, ParserState.Number, null),
-        new(ParserState.Expr, ParserEvent.Minus, ParserState.Operator, b => b.SetNagate()),
+        new(ParserState.Expr, ParserEvent.Minus, ParserState.Operator, b => b.SetNegate()),
         new(ParserState.Expr, ParserEvent.OpenParen, ParserState.Operator, b => b.SetOpenParen()),
         
         new(ParserState.Number, ParserEvent.Minus, ParserState.Operator, b => b.SetMinus()),
@@ -53,7 +53,7 @@ public class Parser : TokenCollector
         new(ParserState.Number, ParserEvent.EOF, ParserState.End, b => b.CompleteExpression()),
         
         new(ParserState.Operator, ParserEvent.Number, ParserState.Number, null),
-        new(ParserState.Operator, ParserEvent.Minus, ParserState.Operator, b => b.SetNagate()),
+        new(ParserState.Operator, ParserEvent.Minus, ParserState.Operator, b => b.SetNegate()),
         new(ParserState.Operator, ParserEvent.OpenParen, ParserState.Expr, b => b.SetOpenParen())
     };
 

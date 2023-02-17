@@ -58,7 +58,7 @@ public class ParserTests
         }
 
         [Fact]
-        public void Parse_XPlusMuinusY()
+        public void Parse_XPlusMinusY()
         {
             AssertParseResult("100 + -23", "100 23 ~ +");
         }
@@ -76,13 +76,13 @@ public class ParserTests
         }
 
         [Fact]
-        public void Parse_XDevidedByY()
+        public void Parse_XDividedByY()
         {
             AssertParseResult("10 / 2", "10 2 /");
         }
 
         [Fact]
-        public void Parse_XDevidedByMinusY()
+        public void Parse_XDividedByMinusY()
         {
             AssertParseResult("10 / -2", "10 2 ~ /");
         }
