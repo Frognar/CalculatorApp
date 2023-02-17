@@ -52,6 +52,10 @@ public class Evaluator
                         double divisor = numbers.Pop();
                         numbers.Push(numbers.Pop() / divisor);
                         break;
+                    case "^":
+                        double exponent = numbers.Pop();
+                        numbers.Push(Math.Pow(numbers.Pop(), exponent));
+                        break;
                 }
             }
         }

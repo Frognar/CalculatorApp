@@ -79,4 +79,10 @@ public class EvaluatorTests
     {
         AssertEvaluation("200 / 2", 100d);
     }
+
+    [Fact]
+    public void Evaluate_XToPowerOfY()
+    {
+        AssertEvaluation("2 ^ 3", 8d);
+    }
 }
