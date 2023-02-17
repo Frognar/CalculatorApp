@@ -85,4 +85,10 @@ public class EvaluatorTests
     {
         AssertEvaluation("2 ^ 3", 8d);
     }
+
+    [Fact]
+    public void Evaluate_ComplexExpression()
+    {
+        AssertEvaluation("-10 + ( 3 * 2 ) ^ 2 ^ 3 - 25 / 5", 1679601d);
+    }
 }
