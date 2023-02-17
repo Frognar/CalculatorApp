@@ -55,4 +55,10 @@ public class EvaluatorTests
     {
         AssertEvaluation("-123", -123d);
     }
+
+    [Fact]
+    public void Evaluate_XMinusY()
+    {
+        AssertEvaluation("123 - 23", 100d);
+    }
 }
