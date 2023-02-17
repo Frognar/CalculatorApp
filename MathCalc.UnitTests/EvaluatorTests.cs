@@ -17,26 +17,30 @@ public class EvaluatorTests
         parser = new Parser(builder);
         lexer = new Lexer(parser);
     }
+
+    Expression GetExpression(string expression)
+    {
+        lexer.Lex(expression);
+        parser.HandleEvent(ParserEvent.EOF, -1, -1);
+        return builder.GetExpression();
+    }
+
+    void AssertEvaluation(string expression, double expected)
+    {
+        Evaluator evaluator = new(GetExpression(expression));
+        Assert.Equal(expected, evaluator.Evaluate(), 0.0001);
+    }
     
     [Fact]
     public void Evaluate_ExpressionWithErrors_ThrowInvalidExpressionException()
     {
-        lexer.Lex("");
-        parser.HandleEvent(ParserEvent.EOF, -1, -1);
-        Expression expression = builder.GetExpression();
-        Evaluator evaluator = new(expression);
-
+        Evaluator evaluator = new(GetExpression(""));
         Assert.Throws<InvalidExpressionException>(() => evaluator.Evaluate());
     }
 
     [Fact]
     public void Evaluate_ExpressionWithSingleNumber()
     {
-        lexer.Lex("123");
-        parser.HandleEvent(ParserEvent.EOF, -1, -1);
-        Expression expression = builder.GetExpression();
-        Evaluator evaluator = new(expression);
-        
-        Assert.Equal(123d, evaluator.Evaluate(), 0.0001);
+        AssertEvaluation("123", 123d);
     }
 }
