@@ -48,6 +48,10 @@ public class Evaluator
                     case "*":
                         numbers.Push(numbers.Pop() * numbers.Pop());
                         break;
+                    case "/":
+                        double divisor = numbers.Pop();
+                        numbers.Push(numbers.Pop() / divisor);
+                        break;
                 }
             }
         }

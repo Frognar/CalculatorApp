@@ -73,4 +73,10 @@ public class EvaluatorTests
     {
         AssertEvaluation("100 * 2", 200d);
     }
+
+    [Fact]
+    public void Evaluate_XDividedByY()
+    {
+        AssertEvaluation("200 / 2", 100d);
+    }
 }
