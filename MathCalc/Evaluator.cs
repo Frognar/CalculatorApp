@@ -35,6 +35,9 @@ public class Evaluator
             {
                 switch (x)
                 {
+                    case "~":
+                        numbers.Push(numbers.Pop() * -1);
+                        break;
                     case "+":
                         numbers.Push(numbers.Pop() + numbers.Pop());
                         break;

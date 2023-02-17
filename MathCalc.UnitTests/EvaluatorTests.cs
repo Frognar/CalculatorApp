@@ -49,4 +49,10 @@ public class EvaluatorTests
     {
         AssertEvaluation("100 + 23", 123d);
     }
+
+    [Fact]
+    public void Evaluate_MinusX()
+    {
+        AssertEvaluation("-123", -123d);
+    }
 }
