@@ -6,6 +6,7 @@ namespace Frognar.MathCalc;
 public class Evaluator
 {
     readonly Expression expression;
+    
 
     public Evaluator(Expression expression)
     {
@@ -17,10 +18,30 @@ public class Evaluator
         if (string.IsNullOrEmpty(expression.GetError()) == false)
             throw new InvalidExpressionException();
 
+        return EvaluateExpression();
+    }
+
+    double EvaluateExpression()
+    {
+        Stack<double> numbers = new();
         string[] expr = expression.ToString().Split(' ');
-        if (expr.Length == 1)
-            return double.Parse(expr[0]);
-        
-        return double.Parse(expr[0]) + double.Parse(expr[1]);
+        foreach (string x in expr)
+        {
+            if (double.TryParse(x, out double number))
+            {
+                numbers.Push(number);
+            }
+            else
+            {
+                switch (x)
+                {
+                    case "+":
+                        numbers.Push(numbers.Pop() + numbers.Pop());
+                        break;
+                }
+            }
+        }
+ 
+        return numbers.Pop();
     }
 }
