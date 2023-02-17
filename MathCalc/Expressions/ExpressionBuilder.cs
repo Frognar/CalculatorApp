@@ -9,7 +9,7 @@ public class ExpressionBuilder : Builder
     public Expression GetExpression() => expression;
     public void SetNumber(string number) => expression.AddNumber(number);
     public void SetMinus() => expression.AddOperator("-");
-    public void SetNagate() => expression.AddOperator("~");
+    public void SetNegate() => expression.AddOperator("~");
     public void SetPlus() => expression.AddOperator("+");
     public void SetAsterisk() => expression.AddOperator("*");
     public void SetSlash() => expression.AddOperator("/");

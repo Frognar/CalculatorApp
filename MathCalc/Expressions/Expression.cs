@@ -15,7 +15,7 @@ public class Expression
         { "~", 4 },
     };
 
-    readonly HashSet<string> rightAssociativities = new()
+    readonly HashSet<string> rightAssociativeOperators = new()
     {
         "^"
     };
@@ -81,7 +81,7 @@ public class Expression
     {
         return input == "(" 
                || precedences[input] > precedences[stack]
-               || precedences[input] == precedences[stack] && rightAssociativities.Contains(input);
+               || precedences[input] == precedences[stack] && rightAssociativeOperators.Contains(input);
     }
 
     public override string ToString() => expression;
