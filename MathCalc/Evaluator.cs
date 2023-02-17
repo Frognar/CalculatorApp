@@ -17,6 +17,10 @@ public class Evaluator
         if (string.IsNullOrEmpty(expression.GetError()) == false)
             throw new InvalidExpressionException();
 
-        return double.Parse(expression.ToString());
+        string[] expr = expression.ToString().Split(' ');
+        if (expr.Length == 1)
+            return double.Parse(expr[0]);
+        
+        return double.Parse(expr[0]) + double.Parse(expr[1]);
     }
 }

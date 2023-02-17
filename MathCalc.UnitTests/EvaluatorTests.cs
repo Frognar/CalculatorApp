@@ -43,4 +43,10 @@ public class EvaluatorTests
     {
         AssertEvaluation("123", 123d);
     }
+
+    [Fact]
+    public void Evaluate_XPlusY()
+    {
+        AssertEvaluation("100 + 23", 123d);
+    }
 }
