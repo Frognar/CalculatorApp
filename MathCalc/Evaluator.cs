@@ -45,6 +45,9 @@ public class Evaluator
                         double subtrahend = numbers.Pop();
                         numbers.Push(numbers.Pop() - subtrahend);
                         break;
+                    case "*":
+                        numbers.Push(numbers.Pop() * numbers.Pop());
+                        break;
                 }
             }
         }

@@ -61,4 +61,16 @@ public class EvaluatorTests
     {
         AssertEvaluation("123 - 23", 100d);
     }
+
+    [Fact]
+    public void Evaluate_XMinusMinusY()
+    {
+        AssertEvaluation("100 - -23", 123d);
+    }
+
+    [Fact]
+    public void Evaluate_XTimesY()
+    {
+        AssertEvaluation("100 * 2", 200d);
+    }
 }
