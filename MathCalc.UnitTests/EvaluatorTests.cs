@@ -21,4 +21,14 @@ public class EvaluatorTests
 
         Assert.Throws<InvalidExpressionException>(() => evaluator.Evaluate());
     }
+
+    [Fact]
+    public void Evaluate_ExpressionWithSingleNumber()
+    {
+        Expression expression = new();
+        expression.AddNumber("123");
+        Evaluator evaluator = new(expression);
+        
+        Assert.Equal(123d, evaluator.Evaluate(), 0.0001);
+    }
 }
