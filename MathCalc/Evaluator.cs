@@ -17,6 +17,6 @@ public class Evaluator
         if (string.IsNullOrEmpty(expression.GetError()) == false)
             throw new InvalidExpressionException();
 
-        return 123;
+        return double.Parse(expression.ToString());
     }
 }
