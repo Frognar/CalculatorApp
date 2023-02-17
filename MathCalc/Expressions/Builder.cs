@@ -4,6 +4,7 @@ namespace Frognar.MathCalc.Expressions;
 
 public interface Builder
 {
+    Expression GetExpression();
     void SetNumber(string number);
     void SetMinus();
     void SetNagate();

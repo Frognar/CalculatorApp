@@ -7,7 +7,7 @@ namespace MathCalc.UnitTests;
 public class ParserTests
 {
     readonly Lexer lexer;
-    readonly ExpressionBuilder builder;
+    readonly Builder builder;
     readonly Parser parser;
 
     protected ParserTests()
