@@ -7,7 +7,13 @@ public class CalculatorTests
     [Fact]
     public void CreateCalculator()
     {
-        Calculator c = new();
+        Calculator _ = new();
+    }
+    
+    [Fact]
+    public void CreateCalculatorWithExpression()
+    {
+        Calculator _ = new("-10 + ( 3 * 2 ) ^ 2 ^ 3 - 25 / 5");
     }
 
     [Fact]

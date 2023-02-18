@@ -5,6 +5,14 @@ namespace Frognar.MathCalc;
 
 public class Calculator
 {
+    public Calculator(string expression)
+    {
+    }
+
+    public Calculator() : this("")
+    {
+    }
+
     public double Evaluate(string expression)
     {
         Builder builder = new ExpressionBuilder();
