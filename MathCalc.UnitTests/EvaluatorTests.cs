@@ -35,7 +35,8 @@ public class EvaluatorTests
     public void Evaluate_ExpressionWithErrors_ThrowInvalidExpressionException()
     {
         Evaluator evaluator = new(GetExpression(""));
-        Assert.Throws<InvalidExpressionException>(() => evaluator.Evaluate());
+        InvalidExpressionException ex = Assert.Throws<InvalidExpressionException>(() => evaluator.Evaluate());
+        Assert.Equal("Syntax error: Expr. Expr|EOF. line -1, position -1.", ex.Message);
     }
 
     [Fact]

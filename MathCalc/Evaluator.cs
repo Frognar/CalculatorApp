@@ -15,8 +15,9 @@ internal class Evaluator
 
     public double Evaluate()
     {
-        if (string.IsNullOrEmpty(expression.GetError()) == false)
-            throw new InvalidExpressionException();
+        string? error = expression.GetError();
+        if (string.IsNullOrEmpty(error) == false)
+            throw new InvalidExpressionException(error);
 
         return EvaluateExpression();
     }
