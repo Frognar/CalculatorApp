@@ -3,7 +3,7 @@ using Frognar.MathCalc.Expressions;
 
 namespace Frognar.MathCalc;
 
-public class Evaluator
+internal class Evaluator
 {
     readonly Expression expression;
     

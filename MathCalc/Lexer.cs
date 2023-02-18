@@ -3,7 +3,7 @@ using Frognar.MathCalc.Helpers;
 
 namespace Frognar.MathCalc;
 
-public class Lexer
+internal class Lexer
 {
     readonly TokenCollector tokenCollector;
     int position;

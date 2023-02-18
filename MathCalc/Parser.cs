@@ -3,7 +3,7 @@ using Frognar.MathCalc.Expressions;
 
 namespace Frognar.MathCalc;
 
-public class Parser : TokenCollector
+internal class Parser : TokenCollector
 {
     readonly Builder builder;
     ParserState state = ParserState.Expr;

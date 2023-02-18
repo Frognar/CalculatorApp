@@ -1,6 +1,6 @@
 ﻿namespace Frognar.MathCalc.Enums;
 
-public enum ParserState
+internal enum ParserState
 {
     Expr,
     Number,

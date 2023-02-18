@@ -2,7 +2,7 @@ using Frognar.MathCalc.Enums;
 
 namespace Frognar.MathCalc.Expressions;
 
-public interface Builder
+internal interface Builder
 {
     Expression GetExpression();
     void SetNumber(string number);

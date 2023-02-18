@@ -2,7 +2,7 @@ using Frognar.MathCalc.Enums;
 
 namespace Frognar.MathCalc.Expressions;
 
-public class ExpressionBuilder : Builder
+internal class ExpressionBuilder : Builder
 {
     int parens;
     readonly Expression expression = new();
