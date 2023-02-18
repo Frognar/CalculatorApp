@@ -5,6 +5,7 @@ namespace Frognar.MathCalc;
 
 internal class Parser : TokenCollector
 {
+    int parens;
     readonly Builder builder;
     ParserState state = ParserState.Expr;
 
@@ -22,8 +23,20 @@ internal class Parser : TokenCollector
     public void Name(string name, int line, int position) => throw new NotImplementedException();
     public void Error(int line, int position) => throw new NotImplementedException();
 
-    public void OpenParen(int line, int position) => HandleEvent(ParserEvent.OpenParen, line, position);
-    public void ClosedParen(int line, int position) => HandleEvent(ParserEvent.ClosedParen, line, position);
+    public void OpenParen(int line, int position)
+    {
+        parens++;
+        HandleEvent(ParserEvent.OpenParen, line, position);
+    }
+
+    public void ClosedParen(int line, int position)
+    {
+        if (--parens < 0)
+            HandleEventError(ParserEvent.ClosedParen, line, position, "')' before '('");
+        
+        HandleEvent(ParserEvent.ClosedParen, line, position);
+    }
+
     public void MinusSign(int line, int position) => HandleEvent(ParserEvent.Minus, line, position);
     public void PlusSign(int line, int position) => HandleEvent(ParserEvent.Plus, line, position);
     public void ExponentSymbol(int line, int position) => HandleEvent(ParserEvent.ExponentSymbol, line, position);
@@ -59,6 +72,8 @@ internal class Parser : TokenCollector
 
     public void HandleEvent(ParserEvent e, int line, int position)
     {
+        if (e == ParserEvent.EOF)
+            AssertCorrectNumberOfParens(e, line, position);
         foreach (Transition t in transitions)
         {
             if (t.ParserState != state || t.ParserEvent != e) 
@@ -72,9 +87,16 @@ internal class Parser : TokenCollector
         HandleEventError(e, line, position);
     }
 
-    void HandleEventError(ParserEvent e, int line, int position)
+    
+    void AssertCorrectNumberOfParens(ParserEvent e, int line, int position)
     {
-        builder.SetExprError(state, e, line, position);
+        if (parens > 0)
+            HandleEventError(e, line, position, $"Missing {parens} ')'");
+    }
+    
+    void HandleEventError(ParserEvent e, int line, int position, string? message = null)
+    {
+        builder.SetExprError(state, e, line, position, message);
     }
 
     public void Reset()

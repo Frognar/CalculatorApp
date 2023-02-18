@@ -15,6 +15,6 @@ internal interface Builder
     void SetOpenParen();
     void SetClosedParen();
     void CompleteExpression();
-    void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position);
     void Reset();
+    void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position, string? message = null);
 }
