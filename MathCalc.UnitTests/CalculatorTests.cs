@@ -23,4 +23,12 @@ public class CalculatorTests
         
         Assert.Equal(1679601d, calculator.Evaluate("-10 + ( 3 * 2 ) ^ 2 ^ 3 - 25 / 5"), 0.001);
     }
+
+    [Fact]
+    public void Evaluate_ExpressionFromConstructor_EvaluatesExpression()
+    {
+        Calculator calculator = new("-10 + ( 3 * 2 ) ^ 2 ^ 3 - 25 / 5");
+        
+        Assert.Equal(1679601d, calculator.Evaluate(), 0.001);
+    }
 }
