@@ -2,10 +2,9 @@ using Frognar.MathCalc.Enums;
 
 namespace Frognar.MathCalc.Expressions;
 
-public class ExpressionBuilder : Builder
+internal class ExpressionBuilder : Builder
 {
-    int parens;
-    readonly Expression expression = new();
+    Expression expression = new();
     public Expression GetExpression() => expression;
     public void SetNumber(string number) => expression.AddNumber(number);
     public void SetMinus() => expression.AddOperator("-");
@@ -14,39 +13,16 @@ public class ExpressionBuilder : Builder
     public void SetAsterisk() => expression.AddOperator("*");
     public void SetSlash() => expression.AddOperator("/");
     public void SetExponentSymbol() => expression.AddOperator("^");
-    public void SetOpenParen()
-    {
-        parens++;
-        expression.AddOperator("(");
-    }
+    public void SetOpenParen() => expression.AddOperator("(");
+    public void SetClosedParen() => expression.AddOperator(")");
+    public void CompleteExpression() => expression.Complete();
+    public void Reset() => expression = new Expression();
 
-    public void SetClosedParen()
-    {
-        if (--parens < 0)
-            expression.AddError("Syntax error: Expr. ')' before '('");
-        
-        expression.AddOperator(")");
-    }
+    public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position, string? message = null)
+        => expression.AddError(FormatMessage(state, parserEvent, line, position, message));
 
-    public void CompleteExpression()
-    {
-        AssertCorrectNumberOfParens();
-        expression.Complete();
-    }
-
-    void AssertCorrectNumberOfParens()
-    {
-        switch (parens)
-        {
-            case > 0:
-                expression.AddError($"Syntax error: Expr. Missing {parens} ')'");
-                break;
-            case < 0:
-                expression.AddError($"Syntax error: Expr. ')' before '('");
-                break;
-        }
-    }
-
-    public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position)
-        => expression.AddError($"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}.");
+    static string FormatMessage(ParserState state, ParserEvent parserEvent, int line, int position, string? message) =>
+        string.IsNullOrEmpty(message)
+            ? $"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}."
+            : $"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}. {message}";
 }

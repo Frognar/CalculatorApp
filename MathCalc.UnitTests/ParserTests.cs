@@ -165,19 +165,22 @@ public class ParserTests
         [Fact]
         public void Parse_MissingClosedParen()
         {
-            AssertParseError("12 * (1 + 1", "Syntax error: Expr. Missing 1 ')'");
+            AssertParseError("12 * (1 + 1", 
+                "Syntax error: Expr. Number|EOF. line -1, position -1. Missing 1 ')'");
         }
 
         [Fact]
         public void Parse_MissingOpenParen()
         {
-            AssertParseError("12 * 1 + 1)", "Syntax error: Expr. ')' before '('");
+            AssertParseError("12 * 1 + 1)", 
+                "Syntax error: Expr. Number|ClosedParen. line 1, position 10. ')' before '('");
         }
         
         [Fact]
         public void Parse_ClosedParenBeforeOpenParen()
         {
-            AssertParseError("12 * 1) + (1", "Syntax error: Expr. ')' before '('");
+            AssertParseError("12 * 1) + (1", 
+                "Syntax error: Expr. Number|ClosedParen. line 1, position 6. ')' before '('");
         }
     }
 }

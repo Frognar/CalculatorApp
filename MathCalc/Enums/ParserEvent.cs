@@ -1,6 +1,6 @@
 namespace Frognar.MathCalc.Enums;
 
-public enum ParserEvent
+internal enum ParserEvent
 {
     Number,
     Minus,

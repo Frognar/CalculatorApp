@@ -2,7 +2,7 @@
 
 namespace Frognar.MathCalc.Helpers;
 
-public static partial class RegexHelper
+internal static partial class RegexHelper
 {
     public static readonly Regex WhiteSpacesPattern = WhiteSpaceRegex();
     public static readonly Regex NumberPattern = NumberRegex();

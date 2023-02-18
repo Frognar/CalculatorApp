@@ -1,6 +1,6 @@
 namespace Frognar.MathCalc.Expressions;
 
-public class Expression
+internal class Expression
 {
     readonly List<string> errors = new();
     

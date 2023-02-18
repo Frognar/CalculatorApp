@@ -2,7 +2,7 @@ using Frognar.MathCalc.Enums;
 
 namespace Frognar.MathCalc.Expressions;
 
-public interface Builder
+internal interface Builder
 {
     Expression GetExpression();
     void SetNumber(string number);
@@ -15,5 +15,6 @@ public interface Builder
     void SetOpenParen();
     void SetClosedParen();
     void CompleteExpression();
-    void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position);
+    void Reset();
+    void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position, string? message = null);
 }
