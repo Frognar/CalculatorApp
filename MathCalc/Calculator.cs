@@ -5,11 +5,11 @@ namespace Frognar.MathCalc;
 
 public class Calculator
 {
-    string expression;
+    string expr;
     
     public Calculator(string expression)
     {
-        this.expression = expression;
+        expr = expression;
     }
 
     public Calculator() : this("")
@@ -18,15 +18,8 @@ public class Calculator
 
     public double Evaluate(string expression)
     {
-        Builder builder = new ExpressionBuilder();
-        Parser parser = new(builder);
-        Lexer lexer = new(parser);
-        
-        lexer.Lex(expression);
-        parser.HandleEvent(ParserEvent.EOF, -1, -1);
-
-        Evaluator evaluator = new(builder.GetExpression());
-        return evaluator.Evaluate();
+        expr = expression;
+        return Evaluate();
     }
 
     public double Evaluate()
@@ -35,7 +28,7 @@ public class Calculator
         Parser parser = new(builder);
         Lexer lexer = new(parser);
         
-        lexer.Lex(expression);
+        lexer.Lex(expr);
         parser.HandleEvent(ParserEvent.EOF, -1, -1);
 
         Evaluator evaluator = new(builder.GetExpression());
