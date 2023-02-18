@@ -5,11 +5,17 @@ namespace Frognar.MathCalc;
 
 public class Calculator
 {
+    readonly Builder builder;
+    readonly Parser parser;
+    readonly Lexer lexer;
     string expr;
     
     public Calculator(string expression)
     {
         expr = expression;
+        builder = new ExpressionBuilder();
+        parser = new Parser(builder);
+        lexer = new Lexer(parser);
     }
 
     public Calculator() : this("")
@@ -24,10 +30,6 @@ public class Calculator
 
     public double Evaluate()
     {
-        Builder builder = new ExpressionBuilder();
-        Parser parser = new(builder);
-        Lexer lexer = new(parser);
-        
         lexer.Lex(expr);
         parser.HandleEvent(ParserEvent.EOF, -1, -1);
 
