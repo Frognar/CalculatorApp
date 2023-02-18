@@ -5,7 +5,7 @@ namespace Frognar.MathCalc.Expressions;
 internal class ExpressionBuilder : Builder
 {
     int parens;
-    readonly Expression expression = new();
+    Expression expression = new();
     public Expression GetExpression() => expression;
     public void SetNumber(string number) => expression.AddNumber(number);
     public void SetMinus() => expression.AddOperator("-");
@@ -49,4 +49,10 @@ internal class ExpressionBuilder : Builder
 
     public void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position)
         => expression.AddError($"Syntax error: Expr. {state}|{parserEvent}. line {line}, position {position}.");
+
+    public void Reset()
+    {
+        expression = new Expression();
+        parens = 0;
+    }
 }

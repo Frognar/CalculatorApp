@@ -76,4 +76,10 @@ internal class Parser : TokenCollector
     {
         builder.SetExprError(state, e, line, position);
     }
+
+    public void Reset()
+    {
+        state = ParserState.Expr;
+        builder.Reset();
+    }
 }

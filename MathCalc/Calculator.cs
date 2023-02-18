@@ -30,6 +30,7 @@ public class Calculator
 
     public double Evaluate()
     {
+        parser.Reset();
         lexer.Lex(expr);
         parser.HandleEvent(ParserEvent.EOF, -1, -1);
 
