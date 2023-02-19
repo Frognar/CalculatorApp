@@ -129,10 +129,12 @@ public class ParserTests
             AssertParseResult("(1 + 1) * 2", "1 1 + 2 *");
         }
 
-        [Fact]
-        public void Parse_Function()
+        [Theory]
+        [InlineData("SIN(2)", "2 SIN")]
+        [InlineData("COS(2)", "2 COS")]
+        public void Parse_Function(string expression, string rpnExpression)
         {
-            AssertParseResult("SIN(2)", "2 SIN");
+            AssertParseResult(expression, rpnExpression);
         }
 
         [Fact]
