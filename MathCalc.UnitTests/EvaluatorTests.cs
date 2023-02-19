@@ -7,9 +7,9 @@ namespace MathCalc.UnitTests;
 
 public class EvaluatorTests
 {
-    Lexer lexer;
-    Parser parser;
-    Builder builder;
+    readonly Lexer lexer;
+    readonly Parser parser;
+    readonly Builder builder;
 
     public EvaluatorTests()
     {

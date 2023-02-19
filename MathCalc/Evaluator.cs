@@ -7,7 +7,6 @@ namespace Frognar.MathCalc;
 internal class Evaluator
 {
     readonly Expression expression;
-    
 
     public Evaluator(Expression expression)
     {
@@ -16,7 +15,7 @@ internal class Evaluator
 
     public double Evaluate()
     {
-        string? error = expression.GetError();
+        string error = expression.GetError();
         if (string.IsNullOrEmpty(error) == false)
             throw new InvalidExpressionException(error);
 
