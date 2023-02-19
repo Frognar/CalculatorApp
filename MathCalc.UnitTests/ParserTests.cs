@@ -140,6 +140,13 @@ public class ParserTests
         {
             AssertParseResult("SIN((1 + 1) * 2)", "1 1 + 2 * SIN");
         }
+
+        [Theory]
+        [InlineData("PI", "3.141592653589793")]
+        public void Parse_MathConstants(string token, string value)
+        {
+            AssertParseResult(token, value);
+        }
     }
 
     public class ErrorTests : ParserTests

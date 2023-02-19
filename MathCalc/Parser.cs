@@ -1,3 +1,4 @@
+using System.Globalization;
 using Frognar.MathCalc.Enums;
 using Frognar.MathCalc.Expressions;
 
@@ -11,6 +12,11 @@ internal class Parser : TokenCollector
     readonly Dictionary<string, ParserEvent> functions = new()
     {
         { "SIN", ParserEvent.Sine }
+    };
+
+    readonly Dictionary<string, string> variables = new()
+    {
+        { "PI", Math.PI.ToString(CultureInfo.InvariantCulture) },
     };
 
     public Parser(Builder builder)
@@ -37,6 +43,8 @@ internal class Parser : TokenCollector
     {
         if (functions.TryGetValue(name, out ParserEvent parserEvent))
             HandleEvent(parserEvent, line, position);
+        else if(variables.TryGetValue(name, out string? value))
+            Number(value, line, position);
     }
 
     public void OpenParen(int line, int position)
