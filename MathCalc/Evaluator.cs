@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Globalization;
 using Frognar.MathCalc.Expressions;
 
 namespace Frognar.MathCalc;
@@ -28,7 +29,7 @@ internal class Evaluator
         string[] expr = expression.ToString().Split(' ');
         foreach (string x in expr)
         {
-            if (double.TryParse(x, out double number))
+            if (double.TryParse(x, CultureInfo.InvariantCulture, out double number))
             {
                 numbers.Push(number);
             }

@@ -46,6 +46,12 @@ public class EvaluatorTests
     }
 
     [Fact]
+    public void Evaluate_DecimalNumber()
+    {
+        AssertEvaluation("2.5", 2.5);
+    }
+
+    [Fact]
     public void Evaluate_XPlusY()
     {
         AssertEvaluation("100 + 23", 123d);
