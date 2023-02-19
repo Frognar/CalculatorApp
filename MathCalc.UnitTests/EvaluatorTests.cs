@@ -98,4 +98,10 @@ public class EvaluatorTests
     {
         AssertEvaluation("-10 + ( 3 * 2 ) ^ 2 ^ 3 - 25 / 5", 1679601d);
     }
+
+    [Fact]
+    public void Evaluate_SineFunction()
+    {
+        AssertEvaluation("SIN(3,1415926535897931 / 2)", 1);
+    }
 }

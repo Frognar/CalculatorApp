@@ -58,6 +58,9 @@ internal class Evaluator
                         double exponent = numbers.Pop();
                         numbers.Push(Math.Pow(numbers.Pop(), exponent));
                         break;
+                    case "SIN":
+                        numbers.Push(Math.Sin(numbers.Pop()));
+                        break;
                 }
             }
         }
