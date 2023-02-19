@@ -102,6 +102,13 @@ public class EvaluatorTests
     [Fact]
     public void Evaluate_SineFunction()
     {
-        AssertEvaluation("SIN(3,1415926535897931 / 2)", 1);
+        AssertEvaluation("SIN(PI/2)", 1);
+    }
+
+    [Theory]
+    [InlineData("PI", 3.1415926535897931)]
+    public void Evaluate_MathConstant(string token, double expectedValue)
+    {
+        AssertEvaluation(token, expectedValue);
     }
 }
