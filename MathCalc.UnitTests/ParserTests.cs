@@ -143,6 +143,7 @@ public class ParserTests
 
         [Theory]
         [InlineData("PI", "3.141592653589793")]
+        [InlineData("pi", "3.141592653589793")]
         public void Parse_MathConstants(string token, string value)
         {
             AssertParseResult(token, value);

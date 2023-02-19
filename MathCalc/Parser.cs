@@ -41,6 +41,7 @@ internal class Parser : TokenCollector
 
     public void Name(string name, int line, int position)
     {
+        name = name.ToUpper();
         if (functions.TryGetValue(name, out ParserEvent parserEvent))
             HandleEvent(parserEvent, line, position);
         else if (variables.TryGetValue(name, out string? value))
