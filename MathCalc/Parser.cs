@@ -18,8 +18,10 @@ internal class Parser : TokenCollector
         ParserEvent.OpenBrace, line, position, "Unknown token.");
     public void ClosedBrace(int line, int position) => HandleEventError(
         ParserEvent.ClosedBrace, line, position, "Unknown token.");
-    public void OpenAngle(int line, int position) => throw new NotImplementedException();
-    public void ClosedAngle(int line, int position) => throw new NotImplementedException();
+    public void OpenAngle(int line, int position) => HandleEventError(
+        ParserEvent.OpenAngle, line, position, "Unknown token.");
+    public void ClosedAngle(int line, int position) => HandleEventError(
+        ParserEvent.ClosedAngle, line, position, "Unknown token.");
     public void Comma(int line, int position) => throw new NotImplementedException();
     public void PercentSing(int line, int position) => throw new NotImplementedException();
     public void Name(string name, int line, int position) => throw new NotImplementedException();
