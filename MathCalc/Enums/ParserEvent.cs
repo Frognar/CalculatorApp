@@ -16,5 +16,6 @@ internal enum ParserEvent
     OpenAngle,
     ClosedAngle,
     Comma,
-    PercentSign
+    PercentSign,
+    Error
 }
