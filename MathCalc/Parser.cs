@@ -22,8 +22,10 @@ internal class Parser : TokenCollector
         ParserEvent.OpenAngle, line, position, "Unknown token.");
     public void ClosedAngle(int line, int position) => HandleEventError(
         ParserEvent.ClosedAngle, line, position, "Unknown token.");
-    public void Comma(int line, int position) => throw new NotImplementedException();
-    public void PercentSing(int line, int position) => throw new NotImplementedException();
+    public void Comma(int line, int position) => HandleEventError(
+        ParserEvent.Comma, line, position, "Unknown token.");
+    public void PercentSing(int line, int position) => HandleEventError(
+        ParserEvent.PercentSign, line, position, "Unknown token.");
     public void Name(string name, int line, int position) => throw new NotImplementedException();
     public void Error(int line, int position) => throw new NotImplementedException();
 

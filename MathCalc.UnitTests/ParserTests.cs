@@ -191,6 +191,8 @@ public class ParserTests
         [InlineData("}", "Syntax error: Expr. Expr|ClosedBrace. line 1, position 0. Unknown token.")]
         [InlineData("<", "Syntax error: Expr. Expr|OpenAngle. line 1, position 0. Unknown token.")]
         [InlineData(">", "Syntax error: Expr. Expr|ClosedAngle. line 1, position 0. Unknown token.")]
+        [InlineData(",", "Syntax error: Expr. Expr|Comma. line 1, position 0. Unknown token.")]
+        [InlineData("%", "Syntax error: Expr. Expr|PercentSign. line 1, position 0. Unknown token.")]
         public void Parse_UnknownToken(string token, string expectedError)
         {
             AssertParseError(token, expectedError);
