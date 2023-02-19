@@ -26,10 +26,10 @@ internal class Parser : TokenCollector
         ParserEvent.Comma, line, position, "Unknown token.");
     public void PercentSign(int line, int position) => HandleEventError(
         ParserEvent.PercentSign, line, position, "Unknown token.");
-    public void Name(string name, int line, int position) => throw new NotImplementedException();
     public void Error(int line, int position) => HandleEventError(
         ParserEvent.Error, line, position, "Unknown token.");
 
+    public void Name(string name, int line, int position) => HandleEvent(ParserEvent.Sine, line, position);
     public void OpenParen(int line, int position)
     {
         parens++;
@@ -63,6 +63,7 @@ internal class Parser : TokenCollector
         new(ParserState.Expr, ParserEvent.Number, ParserState.Number, null),
         new(ParserState.Expr, ParserEvent.Minus, ParserState.Operator, b => b.SetNegate()),
         new(ParserState.Expr, ParserEvent.OpenParen, ParserState.Operator, b => b.SetOpenParen()),
+        new(ParserState.Expr, ParserEvent.Sine, ParserState.Function, b => b.SetSine()),
         
         new(ParserState.Number, ParserEvent.Minus, ParserState.Operator, b => b.SetMinus()),
         new(ParserState.Number, ParserEvent.Plus, ParserState.Operator, b => b.SetPlus()),
@@ -74,7 +75,9 @@ internal class Parser : TokenCollector
         
         new(ParserState.Operator, ParserEvent.Number, ParserState.Number, null),
         new(ParserState.Operator, ParserEvent.Minus, ParserState.Operator, b => b.SetNegate()),
-        new(ParserState.Operator, ParserEvent.OpenParen, ParserState.Expr, b => b.SetOpenParen())
+        new(ParserState.Operator, ParserEvent.OpenParen, ParserState.Expr, b => b.SetOpenParen()),
+        
+        new(ParserState.Function, ParserEvent.OpenParen, ParserState.Expr, null)
     };
 
     public void HandleEvent(ParserEvent e, int line, int position)

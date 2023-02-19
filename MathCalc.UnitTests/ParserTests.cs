@@ -128,6 +128,18 @@ public class ParserTests
         {
             AssertParseResult("(1 + 1) * 2", "1 1 + 2 *");
         }
+
+        [Fact]
+        public void Parse_Function()
+        {
+            AssertParseResult("SIN(2)", "2 SIN");
+        }
+
+        [Fact]
+        public void Parse_FunctionWithExpression()
+        {
+            AssertParseResult("SIN((1 + 1) * 2)", "1 1 + 2 * SIN");
+        }
     }
 
     public class ErrorTests : ParserTests
