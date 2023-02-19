@@ -8,6 +8,10 @@ internal class Parser : TokenCollector
     int parens;
     readonly Builder builder;
     ParserState state = ParserState.Expr;
+    readonly Dictionary<string, ParserEvent> functions = new()
+    {
+        { "SIN", ParserEvent.Sine }
+    };
 
     public Parser(Builder builder)
     {
@@ -29,7 +33,12 @@ internal class Parser : TokenCollector
     public void Error(int line, int position) => HandleEventError(
         ParserEvent.Error, line, position, "Unknown token.");
 
-    public void Name(string name, int line, int position) => HandleEvent(ParserEvent.Sine, line, position);
+    public void Name(string name, int line, int position)
+    {
+        if (functions.TryGetValue(name, out ParserEvent parserEvent))
+            HandleEvent(parserEvent, line, position);
+    }
+
     public void OpenParen(int line, int position)
     {
         parens++;
