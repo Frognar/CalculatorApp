@@ -11,5 +11,6 @@ internal enum ParserEvent
     OpenParen,
     ClosedParen,
     EOF,
-    OpenBrace
+    OpenBrace,
+    ClosedBrace
 }
