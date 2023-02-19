@@ -32,7 +32,7 @@ internal class Parser : TokenCollector
     public void ClosedParen(int line, int position)
     {
         if (--parens < 0)
-            HandleEventError(ParserEvent.ClosedParen, line, position, "')' before '('");
+            HandleEventError(ParserEvent.ClosedParen, line, position, "')' before '('.");
         
         HandleEvent(ParserEvent.ClosedParen, line, position);
     }
@@ -91,7 +91,7 @@ internal class Parser : TokenCollector
     void AssertCorrectNumberOfParens(ParserEvent e, int line, int position)
     {
         if (parens > 0)
-            HandleEventError(e, line, position, $"Missing {parens} ')'");
+            HandleEventError(e, line, position, $"Missing {parens} ')'.");
     }
     
     void HandleEventError(ParserEvent e, int line, int position, string? message = null)
