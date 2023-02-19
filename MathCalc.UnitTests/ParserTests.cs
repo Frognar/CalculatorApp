@@ -141,25 +141,25 @@ public class ParserTests
         [Fact]
         public void Parse_TwoNumbersInRow()
         {
-            AssertParseError("12 12", "Syntax error: Expr. Number|Number. line 1, position 3.");
+            AssertParseError("12 12", "Syntax error: Expr. Number|Number. line 1, position 4.");
         }
 
         [Fact]
         public void Parse_OperatorOnStart()
         {
-            AssertParseError("^ 12", "Syntax error: Expr. Expr|ExponentSymbol. line 1, position 0.");
+            AssertParseError("^ 12", "Syntax error: Expr. Expr|ExponentSymbol. line 1, position 1.");
         }
 
         [Fact]
         public void Parse_ClosedParenAfterOpenParen()
         {
-            AssertParseError("()", "Syntax error: Expr. Operator|ClosedParen. line 1, position 1.");
+            AssertParseError("()", "Syntax error: Expr. Operator|ClosedParen. line 1, position 2.");
         }
 
         [Fact]
         public void Parse_OpenParenAfterNumber()
         {
-            AssertParseError("12 (1 + 2)", "Syntax error: Expr. Number|OpenParen. line 1, position 3.");
+            AssertParseError("12 (1 + 2)", "Syntax error: Expr. Number|OpenParen. line 1, position 4.");
         }
 
         [Fact]
@@ -173,26 +173,26 @@ public class ParserTests
         public void Parse_MissingOpenParen()
         {
             AssertParseError("12 * 1 + 1)", 
-                "Syntax error: Expr. Number|ClosedParen. line 1, position 10. ')' before '('.");
+                "Syntax error: Expr. Number|ClosedParen. line 1, position 11. ')' before '('.");
         }
         
         [Fact]
         public void Parse_ClosedParenBeforeOpenParen()
         {
             AssertParseError("12 * 1) + (1", 
-                "Syntax error: Expr. Number|ClosedParen. line 1, position 6. ')' before '('.");
+                "Syntax error: Expr. Number|ClosedParen. line 1, position 7. ')' before '('.");
         }
     }
 
     public class UnknownTests : ParserTests
     {
         [Theory]
-        [InlineData("{", "Syntax error: Expr. Expr|OpenBrace. line 1, position 0. Unknown token.")]
-        [InlineData("}", "Syntax error: Expr. Expr|ClosedBrace. line 1, position 0. Unknown token.")]
-        [InlineData("<", "Syntax error: Expr. Expr|OpenAngle. line 1, position 0. Unknown token.")]
-        [InlineData(">", "Syntax error: Expr. Expr|ClosedAngle. line 1, position 0. Unknown token.")]
-        [InlineData(",", "Syntax error: Expr. Expr|Comma. line 1, position 0. Unknown token.")]
-        [InlineData("%", "Syntax error: Expr. Expr|PercentSign. line 1, position 0. Unknown token.")]
+        [InlineData("{", "Syntax error: Expr. Expr|OpenBrace. line 1, position 1. Unknown token.")]
+        [InlineData("}", "Syntax error: Expr. Expr|ClosedBrace. line 1, position 1. Unknown token.")]
+        [InlineData("<", "Syntax error: Expr. Expr|OpenAngle. line 1, position 1. Unknown token.")]
+        [InlineData(">", "Syntax error: Expr. Expr|ClosedAngle. line 1, position 1. Unknown token.")]
+        [InlineData(",", "Syntax error: Expr. Expr|Comma. line 1, position 1. Unknown token.")]
+        [InlineData("%", "Syntax error: Expr. Expr|PercentSign. line 1, position 1. Unknown token.")]
         [InlineData("|", "Syntax error: Expr. Expr|Error. line 1, position 1. Unknown token.")]
         public void Parse_UnknownToken(string token, string expectedError)
         {

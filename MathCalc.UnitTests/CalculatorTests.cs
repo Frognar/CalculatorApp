@@ -47,6 +47,6 @@ public class CalculatorTests
     {
         Calculator calculator = new("123 ++ 3");
         Exception ex = Assert.Throws<InvalidExpressionException>(() => calculator.Evaluate());
-        Assert.Equal("Syntax error: Expr. Operator|Plus. line 1, position 5.", ex.Message);
+        Assert.Equal("Syntax error: Expr. Operator|Plus. line 1, position 6.", ex.Message);
     }
 }

@@ -59,49 +59,48 @@ internal class Lexer
         switch (line[position])
         {
             case '{':
-                tokenCollector.OpenBrace(lineNumber, position);
+                tokenCollector.OpenBrace(lineNumber, ++position);
                 break;
             case '}':
-                tokenCollector.ClosedBrace(lineNumber, position);
+                tokenCollector.ClosedBrace(lineNumber, ++position);
                 break;
             case '(':
-                tokenCollector.OpenParen(lineNumber, position);
+                tokenCollector.OpenParen(lineNumber, ++position);
                 break;
             case ')':
-                tokenCollector.ClosedParen(lineNumber, position);
+                tokenCollector.ClosedParen(lineNumber, ++position);
                 break;
             case '<':
-                tokenCollector.OpenAngle(lineNumber, position);
+                tokenCollector.OpenAngle(lineNumber, ++position);
                 break;
             case '>':
-                tokenCollector.ClosedAngle(lineNumber, position);
+                tokenCollector.ClosedAngle(lineNumber, ++position);
                 break;
             case '-':
-                tokenCollector.MinusSign(lineNumber, position);
+                tokenCollector.MinusSign(lineNumber, ++position);
                 break;
             case '+':
-                tokenCollector.PlusSign(lineNumber, position);
+                tokenCollector.PlusSign(lineNumber, ++position);
                 break;
             case '^':
-                tokenCollector.ExponentSymbol(lineNumber, position);
+                tokenCollector.ExponentSymbol(lineNumber, ++position);
                 break;
             case '*':
-                tokenCollector.Asterisk(lineNumber, position);
+                tokenCollector.Asterisk(lineNumber, ++position);
                 break;
             case '/':
-                tokenCollector.Slash(lineNumber, position);
+                tokenCollector.Slash(lineNumber, ++position);
                 break;
             case ',':
-                tokenCollector.Comma(lineNumber, position);
+                tokenCollector.Comma(lineNumber, ++position);
                 break;
             case '%':
-                tokenCollector.PercentSign(lineNumber, position);
+                tokenCollector.PercentSign(lineNumber, ++position);
                 break;
             default:
                 return false;
         }
 
-        position++;
         return true;
     }
 
@@ -111,7 +110,7 @@ internal class Lexer
         if (match.Success == false)
             return false;
 
-        tokenCollector.Number(match.Value.Replace(',', '.'), lineNumber, position);
+        tokenCollector.Number(match.Value.Replace(',', '.'), lineNumber, position + 1);
         position += match.Length;
         return true;
     }
@@ -122,7 +121,7 @@ internal class Lexer
         if (match.Success == false)
             return false;
 
-        tokenCollector.Name(match.Value, lineNumber, position);
+        tokenCollector.Name(match.Value, lineNumber, position + 1);
         position += match.Length;
         return true;
     }
