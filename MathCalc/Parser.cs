@@ -14,7 +14,7 @@ internal class Parser : TokenCollector
         this.builder = builder;
     }
 
-    public void OpenBrace(int line, int position) => throw new NotImplementedException();
+    public void OpenBrace(int line, int position) => HandleEventError(ParserEvent.OpenBrace, line, position, "Unknown token.");
     public void ClosedBrace(int line, int position) => throw new NotImplementedException();
     public void OpenAngle(int line, int position) => throw new NotImplementedException();
     public void ClosedAngle(int line, int position) => throw new NotImplementedException();

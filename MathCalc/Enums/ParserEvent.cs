@@ -10,5 +10,6 @@ internal enum ParserEvent
     ExponentSymbol,
     OpenParen,
     ClosedParen,
-    EOF
+    EOF,
+    OpenBrace
 }

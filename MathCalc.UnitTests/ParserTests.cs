@@ -183,4 +183,14 @@ public class ParserTests
                 "Syntax error: Expr. Number|ClosedParen. line 1, position 6. ')' before '('");
         }
     }
+
+    public class UnknownTests : ParserTests
+    {
+        [Theory]
+        [InlineData("{", "Syntax error: Expr. Expr|OpenBrace. line 1, position 0. Unknown token.")]
+        public void Parse_UnknownToken(string token, string expectedError)
+        {
+            AssertParseError(token, expectedError);
+        }
+    }
 }
