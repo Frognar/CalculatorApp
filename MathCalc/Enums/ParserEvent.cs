@@ -18,5 +18,6 @@ internal enum ParserEvent
     Comma,
     PercentSign,
     Error,
-    Sine
+    Sine,
+    Name
 }

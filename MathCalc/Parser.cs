@@ -43,8 +43,10 @@ internal class Parser : TokenCollector
     {
         if (functions.TryGetValue(name, out ParserEvent parserEvent))
             HandleEvent(parserEvent, line, position);
-        else if(variables.TryGetValue(name, out string? value))
+        else if (variables.TryGetValue(name, out string? value))
             Number(value, line, position);
+        else
+            HandleEventError(ParserEvent.Name, position, line);
     }
 
     public void OpenParen(int line, int position)

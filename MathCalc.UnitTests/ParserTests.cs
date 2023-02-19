@@ -201,6 +201,13 @@ public class ParserTests
             AssertParseError("12 * 1) + (1", 
                 "Syntax error: Expr. Number|ClosedParen. line 1, position 7. ')' before '('.");
         }
+
+        [Fact]
+        public void Parse_UnknownName()
+        {
+            AssertParseError("fg + 4",
+                "Syntax error: Expr. Expr|Name. line 1, position 1.");
+        }
     }
 
     public class UnknownTests : ParserTests
