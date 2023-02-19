@@ -1,3 +1,4 @@
+using System.Globalization;
 using Frognar.MathCalc.Enums;
 using Frognar.MathCalc.Expressions;
 
@@ -8,20 +9,48 @@ internal class Parser : TokenCollector
     int parens;
     readonly Builder builder;
     ParserState state = ParserState.Expr;
+    readonly Dictionary<string, ParserEvent> functions = new()
+    {
+        { "SIN", ParserEvent.Sine },
+        { "COS", ParserEvent.Cosine }
+    };
+
+    readonly Dictionary<string, string> variables = new()
+    {
+        { "PI", Math.PI.ToString(CultureInfo.InvariantCulture) },
+        { "Π", Math.PI.ToString(CultureInfo.InvariantCulture) },
+    };
 
     public Parser(Builder builder)
     {
         this.builder = builder;
     }
 
-    public void OpenBrace(int line, int position) => throw new NotImplementedException();
-    public void ClosedBrace(int line, int position) => throw new NotImplementedException();
-    public void OpenAngle(int line, int position) => throw new NotImplementedException();
-    public void ClosedAngle(int line, int position) => throw new NotImplementedException();
-    public void Comma(int line, int position) => throw new NotImplementedException();
-    public void PercentSing(int line, int position) => throw new NotImplementedException();
-    public void Name(string name, int line, int position) => throw new NotImplementedException();
-    public void Error(int line, int position) => throw new NotImplementedException();
+    public void OpenBrace(int line, int position) => HandleEventError(
+        ParserEvent.OpenBrace, line, position, "Unknown token.");
+    public void ClosedBrace(int line, int position) => HandleEventError(
+        ParserEvent.ClosedBrace, line, position, "Unknown token.");
+    public void OpenAngle(int line, int position) => HandleEventError(
+        ParserEvent.OpenAngle, line, position, "Unknown token.");
+    public void ClosedAngle(int line, int position) => HandleEventError(
+        ParserEvent.ClosedAngle, line, position, "Unknown token.");
+    public void Comma(int line, int position) => HandleEventError(
+        ParserEvent.Comma, line, position, "Unknown token.");
+    public void PercentSign(int line, int position) => HandleEventError(
+        ParserEvent.PercentSign, line, position, "Unknown token.");
+    public void Error(int line, int position) => HandleEventError(
+        ParserEvent.Error, line, position, "Unknown token.");
+
+    public void Name(string name, int line, int position)
+    {
+        name = name.ToUpper();
+        if (functions.TryGetValue(name, out ParserEvent parserEvent))
+            HandleEvent(parserEvent, line, position);
+        else if (variables.TryGetValue(name, out string? value))
+            Number(value, line, position);
+        else
+            HandleEventError(ParserEvent.Name, position, line);
+    }
 
     public void OpenParen(int line, int position)
     {
@@ -32,7 +61,7 @@ internal class Parser : TokenCollector
     public void ClosedParen(int line, int position)
     {
         if (--parens < 0)
-            HandleEventError(ParserEvent.ClosedParen, line, position, "')' before '('");
+            HandleEventError(ParserEvent.ClosedParen, line, position, "')' before '('.");
         
         HandleEvent(ParserEvent.ClosedParen, line, position);
     }
@@ -56,6 +85,8 @@ internal class Parser : TokenCollector
         new(ParserState.Expr, ParserEvent.Number, ParserState.Number, null),
         new(ParserState.Expr, ParserEvent.Minus, ParserState.Operator, b => b.SetNegate()),
         new(ParserState.Expr, ParserEvent.OpenParen, ParserState.Operator, b => b.SetOpenParen()),
+        new(ParserState.Expr, ParserEvent.Sine, ParserState.Function, b => b.SetFunction("SIN")),
+        new(ParserState.Expr, ParserEvent.Cosine, ParserState.Function, b => b.SetFunction("COS")),
         
         new(ParserState.Number, ParserEvent.Minus, ParserState.Operator, b => b.SetMinus()),
         new(ParserState.Number, ParserEvent.Plus, ParserState.Operator, b => b.SetPlus()),
@@ -67,7 +98,9 @@ internal class Parser : TokenCollector
         
         new(ParserState.Operator, ParserEvent.Number, ParserState.Number, null),
         new(ParserState.Operator, ParserEvent.Minus, ParserState.Operator, b => b.SetNegate()),
-        new(ParserState.Operator, ParserEvent.OpenParen, ParserState.Expr, b => b.SetOpenParen())
+        new(ParserState.Operator, ParserEvent.OpenParen, ParserState.Expr, b => b.SetOpenParen()),
+        
+        new(ParserState.Function, ParserEvent.OpenParen, ParserState.Expr, null)
     };
 
     public void HandleEvent(ParserEvent e, int line, int position)
@@ -91,7 +124,7 @@ internal class Parser : TokenCollector
     void AssertCorrectNumberOfParens(ParserEvent e, int line, int position)
     {
         if (parens > 0)
-            HandleEventError(e, line, position, $"Missing {parens} ')'");
+            HandleEventError(e, line, position, $"Missing {parens} ')'.");
     }
     
     void HandleEventError(ParserEvent e, int line, int position, string? message = null)

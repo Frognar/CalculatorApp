@@ -35,7 +35,7 @@ public class LexerTests : TokenCollector
     void TokenCollector.Asterisk(int line, int position) => AddToken("A");
     void TokenCollector.Slash(int line, int position) => AddToken("S");
     void TokenCollector.Comma(int line, int position) => AddToken("C");
-    void TokenCollector.PercentSing(int line, int position) => AddToken("P");
+    void TokenCollector.PercentSign(int line, int position) => AddToken("P");
     void TokenCollector.Name(string name, int line, int position) => AddToken($"#{name}#");
     void TokenCollector.Number(string number, int line, int position) => AddToken($"|{number}|");
     void TokenCollector.Error(int line, int position) => AddToken($"E{line}/{position}");

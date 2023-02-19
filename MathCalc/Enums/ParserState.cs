@@ -5,5 +5,6 @@ internal enum ParserState
     Expr,
     Number,
     Operator,
-    End
+    End,
+    Function
 }

@@ -15,6 +15,7 @@ internal class ExpressionBuilder : Builder
     public void SetExponentSymbol() => expression.AddOperator("^");
     public void SetOpenParen() => expression.AddOperator("(");
     public void SetClosedParen() => expression.AddOperator(")");
+    public void SetFunction(string function) => expression.AddOperator(function);
     public void CompleteExpression() => expression.Complete();
     public void Reset() => expression = new Expression();
 

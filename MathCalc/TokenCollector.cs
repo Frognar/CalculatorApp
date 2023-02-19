@@ -14,7 +14,7 @@ internal interface TokenCollector
     void Asterisk(int line, int position);
     void Slash(int line, int position);
     void Comma(int line, int position);
-    void PercentSing(int line, int position);
+    void PercentSign(int line, int position);
     void Name(string name, int line, int position);
     void Number(string number, int line, int position);
     void Error(int line, int position);

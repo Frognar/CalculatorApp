@@ -7,9 +7,9 @@ namespace MathCalc.UnitTests;
 
 public class EvaluatorTests
 {
-    Lexer lexer;
-    Parser parser;
-    Builder builder;
+    readonly Lexer lexer;
+    readonly Parser parser;
+    readonly Builder builder;
 
     public EvaluatorTests()
     {
@@ -43,6 +43,12 @@ public class EvaluatorTests
     public void Evaluate_ExpressionWithSingleNumber()
     {
         AssertEvaluation("123", 123d);
+    }
+
+    [Fact]
+    public void Evaluate_DecimalNumber()
+    {
+        AssertEvaluation("2.5", 2.5);
     }
 
     [Fact]
@@ -91,5 +97,24 @@ public class EvaluatorTests
     public void Evaluate_ComplexExpression()
     {
         AssertEvaluation("-10 + ( 3 * 2 ) ^ 2 ^ 3 - 25 / 5", 1679601d);
+    }
+
+    [Fact]
+    public void Evaluate_SineFunction()
+    {
+        AssertEvaluation("SIN(PI/2)", 1);
+    }
+
+    [Fact]
+    public void Evaluate_CosineFunction()
+    {
+        AssertEvaluation("COS(π/2)", 0);
+    }
+
+    [Theory]
+    [InlineData("PI", 3.1415926535897931)]
+    public void Evaluate_MathConstant(string token, double expectedValue)
+    {
+        AssertEvaluation(token, expectedValue);
     }
 }

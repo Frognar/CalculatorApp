@@ -14,6 +14,7 @@ internal interface Builder
     void SetExponentSymbol();
     void SetOpenParen();
     void SetClosedParen();
+    void SetFunction(string cos);
     void CompleteExpression();
     void Reset();
     void SetExprError(ParserState state, ParserEvent parserEvent, int line, int position, string? message = null);

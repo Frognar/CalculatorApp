@@ -128,6 +128,29 @@ public class ParserTests
         {
             AssertParseResult("(1 + 1) * 2", "1 1 + 2 *");
         }
+
+        [Theory]
+        [InlineData("SIN(2)", "2 SIN")]
+        [InlineData("COS(2)", "2 COS")]
+        public void Parse_Function(string expression, string rpnExpression)
+        {
+            AssertParseResult(expression, rpnExpression);
+        }
+
+        [Fact]
+        public void Parse_FunctionWithExpression()
+        {
+            AssertParseResult("SIN((1 + 1) * 2)", "1 1 + 2 * SIN");
+        }
+
+        [Theory]
+        [InlineData("PI", "3.141592653589793")]
+        [InlineData("pi", "3.141592653589793")]
+        [InlineData("π", "3.141592653589793")]
+        public void Parse_MathConstants(string token, string value)
+        {
+            AssertParseResult(token, value);
+        }
     }
 
     public class ErrorTests : ParserTests
@@ -141,46 +164,69 @@ public class ParserTests
         [Fact]
         public void Parse_TwoNumbersInRow()
         {
-            AssertParseError("12 12", "Syntax error: Expr. Number|Number. line 1, position 3.");
+            AssertParseError("12 12", "Syntax error: Expr. Number|Number. line 1, position 4.");
         }
 
         [Fact]
         public void Parse_OperatorOnStart()
         {
-            AssertParseError("^ 12", "Syntax error: Expr. Expr|ExponentSymbol. line 1, position 0.");
+            AssertParseError("^ 12", "Syntax error: Expr. Expr|ExponentSymbol. line 1, position 1.");
         }
 
         [Fact]
         public void Parse_ClosedParenAfterOpenParen()
         {
-            AssertParseError("()", "Syntax error: Expr. Operator|ClosedParen. line 1, position 1.");
+            AssertParseError("()", "Syntax error: Expr. Operator|ClosedParen. line 1, position 2.");
         }
 
         [Fact]
         public void Parse_OpenParenAfterNumber()
         {
-            AssertParseError("12 (1 + 2)", "Syntax error: Expr. Number|OpenParen. line 1, position 3.");
+            AssertParseError("12 (1 + 2)", "Syntax error: Expr. Number|OpenParen. line 1, position 4.");
         }
 
         [Fact]
         public void Parse_MissingClosedParen()
         {
             AssertParseError("12 * (1 + 1", 
-                "Syntax error: Expr. Number|EOF. line -1, position -1. Missing 1 ')'");
+                "Syntax error: Expr. Number|EOF. line -1, position -1. Missing 1 ')'.");
         }
 
         [Fact]
         public void Parse_MissingOpenParen()
         {
             AssertParseError("12 * 1 + 1)", 
-                "Syntax error: Expr. Number|ClosedParen. line 1, position 10. ')' before '('");
+                "Syntax error: Expr. Number|ClosedParen. line 1, position 11. ')' before '('.");
         }
         
         [Fact]
         public void Parse_ClosedParenBeforeOpenParen()
         {
             AssertParseError("12 * 1) + (1", 
-                "Syntax error: Expr. Number|ClosedParen. line 1, position 6. ')' before '('");
+                "Syntax error: Expr. Number|ClosedParen. line 1, position 7. ')' before '('.");
+        }
+
+        [Fact]
+        public void Parse_UnknownName()
+        {
+            AssertParseError("fg + 4",
+                "Syntax error: Expr. Expr|Name. line 1, position 1.");
+        }
+    }
+
+    public class UnknownTests : ParserTests
+    {
+        [Theory]
+        [InlineData("{", "Syntax error: Expr. Expr|OpenBrace. line 1, position 1. Unknown token.")]
+        [InlineData("}", "Syntax error: Expr. Expr|ClosedBrace. line 1, position 1. Unknown token.")]
+        [InlineData("<", "Syntax error: Expr. Expr|OpenAngle. line 1, position 1. Unknown token.")]
+        [InlineData(">", "Syntax error: Expr. Expr|ClosedAngle. line 1, position 1. Unknown token.")]
+        [InlineData(",", "Syntax error: Expr. Expr|Comma. line 1, position 1. Unknown token.")]
+        [InlineData("%", "Syntax error: Expr. Expr|PercentSign. line 1, position 1. Unknown token.")]
+        [InlineData("|", "Syntax error: Expr. Expr|Error. line 1, position 1. Unknown token.")]
+        public void Parse_UnknownToken(string token, string expectedError)
+        {
+            AssertParseError(token, expectedError);
         }
     }
 }

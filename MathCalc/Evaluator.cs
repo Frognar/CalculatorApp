@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Globalization;
 using Frognar.MathCalc.Expressions;
 
 namespace Frognar.MathCalc;
@@ -6,7 +7,6 @@ namespace Frognar.MathCalc;
 internal class Evaluator
 {
     readonly Expression expression;
-    
 
     public Evaluator(Expression expression)
     {
@@ -15,7 +15,7 @@ internal class Evaluator
 
     public double Evaluate()
     {
-        string? error = expression.GetError();
+        string error = expression.GetError();
         if (string.IsNullOrEmpty(error) == false)
             throw new InvalidExpressionException(error);
 
@@ -28,7 +28,7 @@ internal class Evaluator
         string[] expr = expression.ToString().Split(' ');
         foreach (string x in expr)
         {
-            if (double.TryParse(x, out double number))
+            if (double.TryParse(x, CultureInfo.InvariantCulture, out double number))
             {
                 numbers.Push(number);
             }
@@ -56,6 +56,12 @@ internal class Evaluator
                     case "^":
                         double exponent = numbers.Pop();
                         numbers.Push(Math.Pow(numbers.Pop(), exponent));
+                        break;
+                    case "SIN":
+                        numbers.Push(Math.Sin(numbers.Pop()));
+                        break;
+                    case "COS":
+                        numbers.Push(Math.Cos(numbers.Pop()));
                         break;
                 }
             }
