@@ -105,6 +105,12 @@ public class EvaluatorTests
         AssertEvaluation("SIN(PI/2)", 1);
     }
 
+    [Fact]
+    public void Evaluate_CosineFunction()
+    {
+        AssertEvaluation("COS(π/2)", 0);
+    }
+
     [Theory]
     [InlineData("PI", 3.1415926535897931)]
     public void Evaluate_MathConstant(string token, double expectedValue)

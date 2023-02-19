@@ -60,6 +60,9 @@ internal class Evaluator
                     case "SIN":
                         numbers.Push(Math.Sin(numbers.Pop()));
                         break;
+                    case "COS":
+                        numbers.Push(Math.Cos(numbers.Pop()));
+                        break;
                 }
             }
         }
