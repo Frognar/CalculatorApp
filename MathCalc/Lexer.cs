@@ -95,7 +95,7 @@ internal class Lexer
                 tokenCollector.Comma(lineNumber, position);
                 break;
             case '%':
-                tokenCollector.PercentSing(lineNumber, position);
+                tokenCollector.PercentSign(lineNumber, position);
                 break;
             default:
                 return false;
