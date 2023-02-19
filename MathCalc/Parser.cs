@@ -17,6 +17,7 @@ internal class Parser : TokenCollector
     readonly Dictionary<string, string> variables = new()
     {
         { "PI", Math.PI.ToString(CultureInfo.InvariantCulture) },
+        { "Π", Math.PI.ToString(CultureInfo.InvariantCulture) },
     };
 
     public Parser(Builder builder)
