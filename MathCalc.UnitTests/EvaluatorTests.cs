@@ -99,22 +99,13 @@ public class EvaluatorTests
         AssertEvaluation("-10 + ( 3 * 2 ) ^ 2 ^ 3 - 25 / 5", 1679601d);
     }
 
-    [Fact]
-    public void Evaluate_SineFunction()
+    [Theory]
+    [InlineData("SIN(PI/2)", 1)]
+    [InlineData("COS(π/2)", 0)]
+    [InlineData("ABS(-2)", 2)]
+    public void Evaluate_Functions(string expression, double expectedValue)
     {
-        AssertEvaluation("SIN(PI/2)", 1);
-    }
-
-    [Fact]
-    public void Evaluate_CosineFunction()
-    {
-        AssertEvaluation("COS(π/2)", 0);
-    }
-
-    [Fact]
-    public void Evaluate_AbsFunction()
-    {
-        AssertEvaluation("ABS(-2)", 2);
+        AssertEvaluation(expression, expectedValue);
     }
 
     [Theory]
