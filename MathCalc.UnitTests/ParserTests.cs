@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Frognar.MathCalc;
 using Frognar.MathCalc.Enums;
 using Frognar.MathCalc.Expressions;
@@ -148,6 +149,7 @@ public class ParserTests
         [InlineData("pi", "3.141592653589793")]
         [InlineData("π", "3.141592653589793")]
         [InlineData("e", "2.718281828459045")]
+        [InlineData("tau", "6.283185307179586")]
         public void Parse_MathConstants(string token, string value)
         {
             AssertParseResult(token, value);
