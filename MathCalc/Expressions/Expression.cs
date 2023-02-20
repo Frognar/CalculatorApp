@@ -8,6 +8,7 @@ internal class Expression
     {
         { "ABS", 0 },
         { "COS", 0 },
+        { "COSH", 0 },
         { "SIN", 0 },
         { "SINH", 0 },
         { "TAN", 0 },

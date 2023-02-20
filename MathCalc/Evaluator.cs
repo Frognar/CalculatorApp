@@ -66,6 +66,9 @@ internal class Evaluator
                     case "COS":
                         numbers.Push(Math.Cos(numbers.Pop()));
                         break;
+                    case "COSH":
+                        numbers.Push(Math.Cosh(numbers.Pop()));
+                        break;
                     case "TAN":
                         numbers.Push(Math.Tan(numbers.Pop()));
                         break;

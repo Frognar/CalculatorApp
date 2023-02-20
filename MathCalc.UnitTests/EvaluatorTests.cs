@@ -103,6 +103,7 @@ public class EvaluatorTests
     [InlineData("SIN(PI/2)", 1)]
     [InlineData("SINH(PI/2)", 2.3012989023072947)]
     [InlineData("COS(π/2)", 0)]
+    [InlineData("COSH(π/2)", 2.5091784786580567)]
     [InlineData("TAN(pi/4)", 1)]
     [InlineData("ABS(-2)", 2)]
     public void Evaluate_Functions(string expression, double expectedValue)
