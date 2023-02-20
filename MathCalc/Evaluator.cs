@@ -72,6 +72,9 @@ internal class Evaluator
                     case "TAN":
                         numbers.Push(Math.Tan(numbers.Pop()));
                         break;
+                    case "TANH":
+                        numbers.Push(Math.Tanh(numbers.Pop()));
+                        break;
                     case "ABS":
                         numbers.Push(Math.Abs(numbers.Pop()));
                         break;
