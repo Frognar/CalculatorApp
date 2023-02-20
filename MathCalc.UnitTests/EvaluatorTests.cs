@@ -113,6 +113,8 @@ public class EvaluatorTests
 
     [Theory]
     [InlineData("PI", 3.1415926535897931)]
+    [InlineData("E", 2.7182818284590451)]
+    [InlineData("TAU", 6.2831853071795862)]
     public void Evaluate_MathConstant(string token, double expectedValue)
     {
         AssertEvaluation(token, expectedValue);
