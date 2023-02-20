@@ -102,6 +102,7 @@ public class EvaluatorTests
     [Theory]
     [InlineData("SIN(PI/2)", 1)]
     [InlineData("COS(π/2)", 0)]
+    [InlineData("TAN(pi/4)", 1)]
     [InlineData("ABS(-2)", 2)]
     public void Evaluate_Functions(string expression, double expectedValue)
     {

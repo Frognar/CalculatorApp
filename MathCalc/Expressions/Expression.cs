@@ -9,6 +9,7 @@ internal class Expression
         { "ABS", 0 },
         { "COS", 0 },
         { "SIN", 0 },
+        { "TAN", 0 },
         { "(", 0 },
         { "+", 1 },
         { "-", 1 },
