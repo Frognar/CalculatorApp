@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Frognar.MathCalc;
 using Frognar.MathCalc.Enums;
 using Frognar.MathCalc.Expressions;
@@ -131,7 +132,12 @@ public class ParserTests
 
         [Theory]
         [InlineData("SIN(2)", "2 SIN")]
+        [InlineData("SINH(2)", "2 SINH")]
         [InlineData("COS(2)", "2 COS")]
+        [InlineData("COSH(2)", "2 COSH")]
+        [InlineData("TAN(2)", "2 TAN")]
+        [InlineData("TANH(2)", "2 TANH")]
+        [InlineData("abs(-2)", "2 ~ ABS")]
         public void Parse_Function(string expression, string rpnExpression)
         {
             AssertParseResult(expression, rpnExpression);
@@ -147,6 +153,9 @@ public class ParserTests
         [InlineData("PI", "3.141592653589793")]
         [InlineData("pi", "3.141592653589793")]
         [InlineData("π", "3.141592653589793")]
+        [InlineData("e", "2.718281828459045")]
+        [InlineData("tau", "6.283185307179586")]
+        [InlineData("τ", "6.283185307179586")]
         public void Parse_MathConstants(string token, string value)
         {
             AssertParseResult(token, value);

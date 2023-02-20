@@ -12,13 +12,21 @@ internal class Parser : TokenCollector
     readonly Dictionary<string, ParserEvent> functions = new()
     {
         { "SIN", ParserEvent.Sine },
-        { "COS", ParserEvent.Cosine }
+        { "SINH", ParserEvent.HyperbolicSine },
+        { "COS", ParserEvent.Cosine },
+        { "COSH", ParserEvent.HyperbolicCosine },
+        { "TAN", ParserEvent.Tangent },
+        { "TANH", ParserEvent.HyperbolicTangent },
+        { "ABS", ParserEvent.AbsoluteValue },
     };
 
     readonly Dictionary<string, string> variables = new()
     {
         { "PI", Math.PI.ToString(CultureInfo.InvariantCulture) },
         { "Π", Math.PI.ToString(CultureInfo.InvariantCulture) },
+        { "E", Math.E.ToString(CultureInfo.InvariantCulture) },
+        { "TAU", Math.Tau.ToString(CultureInfo.InvariantCulture) },
+        { "Τ", Math.Tau.ToString(CultureInfo.InvariantCulture) },
     };
 
     public Parser(Builder builder)
@@ -86,7 +94,12 @@ internal class Parser : TokenCollector
         new(ParserState.Expr, ParserEvent.Minus, ParserState.Operator, b => b.SetNegate()),
         new(ParserState.Expr, ParserEvent.OpenParen, ParserState.Operator, b => b.SetOpenParen()),
         new(ParserState.Expr, ParserEvent.Sine, ParserState.Function, b => b.SetFunction("SIN")),
+        new(ParserState.Expr, ParserEvent.HyperbolicSine, ParserState.Function, b => b.SetFunction("SINH")),
         new(ParserState.Expr, ParserEvent.Cosine, ParserState.Function, b => b.SetFunction("COS")),
+        new(ParserState.Expr, ParserEvent.HyperbolicCosine, ParserState.Function, b => b.SetFunction("COSH")),
+        new(ParserState.Expr, ParserEvent.Tangent, ParserState.Function, b => b.SetFunction("TAN")),
+        new(ParserState.Expr, ParserEvent.HyperbolicTangent, ParserState.Function, b => b.SetFunction("TANH")),
+        new(ParserState.Expr, ParserEvent.AbsoluteValue, ParserState.Function, b => b.SetFunction("ABS")),
         
         new(ParserState.Number, ParserEvent.Minus, ParserState.Operator, b => b.SetMinus()),
         new(ParserState.Number, ParserEvent.Plus, ParserState.Operator, b => b.SetPlus()),

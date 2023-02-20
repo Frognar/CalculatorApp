@@ -6,8 +6,13 @@ internal class Expression
     
     readonly Dictionary<string, int> precedences = new()
     {
-        { "COS", 0 },
         { "SIN", 0 },
+        { "SINH", 0 },
+        { "COS", 0 },
+        { "COSH", 0 },
+        { "TAN", 0 },
+        { "TANH", 0 },
+        { "ABS", 0 },
         { "(", 0 },
         { "+", 1 },
         { "-", 1 },

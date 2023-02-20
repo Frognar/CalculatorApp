@@ -19,6 +19,11 @@ internal enum ParserEvent
     PercentSign,
     Error,
     Sine,
+    HyperbolicSine,
     Cosine,
-    Name
+    HyperbolicCosine,
+    Tangent,
+    HyperbolicTangent,
+    AbsoluteValue,
+    Name,
 }

@@ -60,8 +60,23 @@ internal class Evaluator
                     case "SIN":
                         numbers.Push(Math.Sin(numbers.Pop()));
                         break;
+                    case "SINH":
+                        numbers.Push(Math.Sinh(numbers.Pop()));
+                        break;
                     case "COS":
                         numbers.Push(Math.Cos(numbers.Pop()));
+                        break;
+                    case "COSH":
+                        numbers.Push(Math.Cosh(numbers.Pop()));
+                        break;
+                    case "TAN":
+                        numbers.Push(Math.Tan(numbers.Pop()));
+                        break;
+                    case "TANH":
+                        numbers.Push(Math.Tanh(numbers.Pop()));
+                        break;
+                    case "ABS":
+                        numbers.Push(Math.Abs(numbers.Pop()));
                         break;
                 }
             }
