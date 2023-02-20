@@ -101,6 +101,7 @@ public class EvaluatorTests
 
     [Theory]
     [InlineData("SIN(PI/2)", 1)]
+    [InlineData("SINH(PI/2)", 2.3012989023072947)]
     [InlineData("COS(π/2)", 0)]
     [InlineData("TAN(pi/4)", 1)]
     [InlineData("ABS(-2)", 2)]
