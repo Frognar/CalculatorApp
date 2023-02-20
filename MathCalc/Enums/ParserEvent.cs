@@ -20,5 +20,6 @@ internal enum ParserEvent
     Error,
     Sine,
     Cosine,
-    Name
+    AbsoluteValue,
+    Name,
 }
