@@ -132,6 +132,7 @@ public class ParserTests
 
         [Theory]
         [InlineData("SIN(2)", "2 SIN")]
+        [InlineData("SINH(2)", "2 SINH")]
         [InlineData("COS(2)", "2 COS")]
         [InlineData("abs(-2)", "2 ~ ABS")]
         [InlineData("TAN(2)", "2 TAN")]

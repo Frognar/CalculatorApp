@@ -12,6 +12,7 @@ internal class Parser : TokenCollector
     readonly Dictionary<string, ParserEvent> functions = new()
     {
         { "SIN", ParserEvent.Sine },
+        { "SINH", ParserEvent.HyperbolicSine },
         { "COS", ParserEvent.Cosine },
         { "TAN", ParserEvent.Tangent },
         { "ABS", ParserEvent.AbsoluteValue },
@@ -91,6 +92,7 @@ internal class Parser : TokenCollector
         new(ParserState.Expr, ParserEvent.Minus, ParserState.Operator, b => b.SetNegate()),
         new(ParserState.Expr, ParserEvent.OpenParen, ParserState.Operator, b => b.SetOpenParen()),
         new(ParserState.Expr, ParserEvent.Sine, ParserState.Function, b => b.SetFunction("SIN")),
+        new(ParserState.Expr, ParserEvent.HyperbolicSine, ParserState.Function, b => b.SetFunction("SINH")),
         new(ParserState.Expr, ParserEvent.Cosine, ParserState.Function, b => b.SetFunction("COS")),
         new(ParserState.Expr, ParserEvent.AbsoluteValue, ParserState.Function, b => b.SetFunction("ABS")),
         new(ParserState.Expr, ParserEvent.Tangent, ParserState.Function, b => b.SetFunction("TAN")),
