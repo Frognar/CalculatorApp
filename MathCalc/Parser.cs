@@ -20,7 +20,8 @@ internal class Parser : TokenCollector
         { "PI", Math.PI.ToString(CultureInfo.InvariantCulture) },
         { "Π", Math.PI.ToString(CultureInfo.InvariantCulture) },
         { "E", Math.E.ToString(CultureInfo.InvariantCulture) },
-        { "TAU", Math.Tau.ToString(CultureInfo.InvariantCulture) }
+        { "TAU", Math.Tau.ToString(CultureInfo.InvariantCulture) },
+        { "Τ", Math.Tau.ToString(CultureInfo.InvariantCulture) },
     };
 
     public Parser(Builder builder)
