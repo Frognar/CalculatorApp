@@ -14,6 +14,7 @@ internal class Parser : TokenCollector
         { "SIN", ParserEvent.Sine },
         { "SINH", ParserEvent.HyperbolicSine },
         { "COS", ParserEvent.Cosine },
+        { "COSH", ParserEvent.HyperbolicCosine },
         { "TAN", ParserEvent.Tangent },
         { "ABS", ParserEvent.AbsoluteValue },
     };
@@ -94,6 +95,7 @@ internal class Parser : TokenCollector
         new(ParserState.Expr, ParserEvent.Sine, ParserState.Function, b => b.SetFunction("SIN")),
         new(ParserState.Expr, ParserEvent.HyperbolicSine, ParserState.Function, b => b.SetFunction("SINH")),
         new(ParserState.Expr, ParserEvent.Cosine, ParserState.Function, b => b.SetFunction("COS")),
+        new(ParserState.Expr, ParserEvent.HyperbolicCosine, ParserState.Function, b => b.SetFunction("COSH")),
         new(ParserState.Expr, ParserEvent.AbsoluteValue, ParserState.Function, b => b.SetFunction("ABS")),
         new(ParserState.Expr, ParserEvent.Tangent, ParserState.Function, b => b.SetFunction("TAN")),
         

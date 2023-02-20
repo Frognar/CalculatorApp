@@ -21,6 +21,7 @@ internal enum ParserEvent
     Sine,
     HyperbolicSine,
     Cosine,
+    HyperbolicCosine,
     Tangent,
     AbsoluteValue,
     Name,
