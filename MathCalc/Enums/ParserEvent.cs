@@ -20,6 +20,7 @@ internal enum ParserEvent
     Error,
     Sine,
     Cosine,
+    Tangent,
     AbsoluteValue,
     Name,
 }

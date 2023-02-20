@@ -13,6 +13,7 @@ internal class Parser : TokenCollector
     {
         { "SIN", ParserEvent.Sine },
         { "COS", ParserEvent.Cosine },
+        { "TAN", ParserEvent.Tangent },
         { "ABS", ParserEvent.AbsoluteValue },
     };
 
@@ -92,6 +93,7 @@ internal class Parser : TokenCollector
         new(ParserState.Expr, ParserEvent.Sine, ParserState.Function, b => b.SetFunction("SIN")),
         new(ParserState.Expr, ParserEvent.Cosine, ParserState.Function, b => b.SetFunction("COS")),
         new(ParserState.Expr, ParserEvent.AbsoluteValue, ParserState.Function, b => b.SetFunction("ABS")),
+        new(ParserState.Expr, ParserEvent.Tangent, ParserState.Function, b => b.SetFunction("TAN")),
         
         new(ParserState.Number, ParserEvent.Minus, ParserState.Operator, b => b.SetMinus()),
         new(ParserState.Number, ParserEvent.Plus, ParserState.Operator, b => b.SetPlus()),
