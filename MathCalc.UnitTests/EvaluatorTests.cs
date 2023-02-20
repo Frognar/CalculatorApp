@@ -111,6 +111,12 @@ public class EvaluatorTests
         AssertEvaluation("COS(π/2)", 0);
     }
 
+    [Fact]
+    public void Evaluate_AbsFunction()
+    {
+        AssertEvaluation("ABS(-2)", 2);
+    }
+
     [Theory]
     [InlineData("PI", 3.1415926535897931)]
     [InlineData("E", 2.7182818284590451)]

@@ -63,6 +63,9 @@ internal class Evaluator
                     case "COS":
                         numbers.Push(Math.Cos(numbers.Pop()));
                         break;
+                    case "ABS":
+                        numbers.Push(Math.Abs(numbers.Pop()));
+                        break;
                 }
             }
         }
