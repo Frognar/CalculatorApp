@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Globalization;
+using Frognar.MathCalc.Evaluators;
 using Frognar.MathCalc.Expressions;
 
 namespace Frognar.MathCalc;
@@ -37,7 +38,7 @@ internal class Evaluator
                 switch (x)
                 {
                     case "~":
-                        numbers.Push(numbers.Pop() * -1);
+                        numbers.Push(new NegativeEvaluator().Evaluate(numbers));
                         break;
                     case "+":
                         numbers.Push(numbers.Pop() + numbers.Pop());
