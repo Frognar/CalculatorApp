@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using Frognar.MathCalc;
 using Frognar.MathCalc.Enums;
 using Frognar.MathCalc.Expressions;
