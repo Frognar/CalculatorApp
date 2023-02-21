@@ -27,33 +27,11 @@ internal class Evaluator
     {
         Stack<double> numbers = new();
         string[] expr = expression.ToString().Split(' ');
-        foreach (string x in expr)
+        foreach (string symbol in expr)
         {
-            if (double.TryParse(x, CultureInfo.InvariantCulture, out double number))
-            {
-                numbers.Push(number);
-            }
-            else
-            {
-                switch (x)
-                {
-                    case "~":
-                    case "+":
-                    case "-":
-                    case "*":
-                    case "/":
-                    case "^":
-                    case "SIN":
-                    case "SINH":
-                    case "COS":
-                    case "COSH":
-                    case "TAN":
-                    case "TANH":
-                    case "ABS":
-                        numbers.Push(EvaluatorProvider.GetEvaluator(x).Evaluate(numbers));
-                        break;
-                }
-            }
+            numbers.Push(double.TryParse(symbol, CultureInfo.InvariantCulture, out double number)
+                ? number
+                : EvaluatorProvider.GetEvaluator(symbol).Evaluate(numbers));
         }
  
         return numbers.Pop();
