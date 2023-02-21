@@ -38,10 +38,10 @@ internal class Evaluator
                 switch (x)
                 {
                     case "~":
-                        numbers.Push(EvaluateProvider.GetEvaluator("~").Evaluate(numbers));
+                        numbers.Push(EvaluatorProvider.GetEvaluator("~").Evaluate(numbers));
                         break;
                     case "+":
-                        numbers.Push(EvaluateProvider.GetEvaluator("+").Evaluate(numbers));
+                        numbers.Push(EvaluatorProvider.GetEvaluator("+").Evaluate(numbers));
                         break;
                     case "-":
                         double subtrahend = numbers.Pop();
