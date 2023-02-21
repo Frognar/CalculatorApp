@@ -44,10 +44,8 @@ internal class Evaluator
                     case "/":
                     case "^":
                     case "SIN":
-                        numbers.Push(EvaluatorProvider.GetEvaluator(x).Evaluate(numbers));
-                        break;
                     case "SINH":
-                        numbers.Push(Math.Sinh(numbers.Pop()));
+                        numbers.Push(EvaluatorProvider.GetEvaluator(x).Evaluate(numbers));
                         break;
                     case "COS":
                         numbers.Push(Math.Cos(numbers.Pop()));
