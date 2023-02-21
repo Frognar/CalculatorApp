@@ -1,5 +1,13 @@
 ﻿namespace Frognar.MathCalc.Evaluators;
 
+public static class EvaluateProvider
+{
+    public static Evaluator GetEvaluator(string symbol)
+    {
+        return new NegativeEvaluator();
+    }
+}
+
 public interface Evaluator
 {
     public string Symbol { get; }

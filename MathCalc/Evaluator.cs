@@ -38,7 +38,7 @@ internal class Evaluator
                 switch (x)
                 {
                     case "~":
-                        numbers.Push(new NegativeEvaluator().Evaluate(numbers));
+                        numbers.Push(EvaluateProvider.GetEvaluator("~").Evaluate(numbers));
                         break;
                     case "+":
                         numbers.Push(numbers.Pop() + numbers.Pop());
