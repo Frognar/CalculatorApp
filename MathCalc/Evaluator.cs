@@ -42,11 +42,8 @@ internal class Evaluator
                     case "-":
                     case "*":
                     case "/":
-                        numbers.Push(EvaluatorProvider.GetEvaluator(x).Evaluate(numbers));
-                        break;
                     case "^":
-                        double exponent = numbers.Pop();
-                        numbers.Push(Math.Pow(numbers.Pop(), exponent));
+                        numbers.Push(EvaluatorProvider.GetEvaluator(x).Evaluate(numbers));
                         break;
                     case "SIN":
                         numbers.Push(Math.Sin(numbers.Pop()));
