@@ -4,7 +4,9 @@ public static class EvaluateProvider
 {
     public static Evaluator GetEvaluator(string symbol)
     {
-        return new NegativeEvaluator();
+        if (symbol == "~")
+            return new NegativeEvaluator();
+        return new AdditionEvaluator();
     }
 }
 
@@ -18,4 +20,10 @@ internal class NegativeEvaluator : Evaluator
 {
     public string Symbol => "~";
     public double Evaluate(Stack<double> numbers) => numbers.Pop() * -1;
+}
+
+internal class AdditionEvaluator : Evaluator
+{
+    public string Symbol => "+";
+    public double Evaluate(Stack<double> numbers) => numbers.Pop() + numbers.Pop();
 }

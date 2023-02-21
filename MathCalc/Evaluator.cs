@@ -41,7 +41,7 @@ internal class Evaluator
                         numbers.Push(EvaluateProvider.GetEvaluator("~").Evaluate(numbers));
                         break;
                     case "+":
-                        numbers.Push(numbers.Pop() + numbers.Pop());
+                        numbers.Push(EvaluateProvider.GetEvaluator("+").Evaluate(numbers));
                         break;
                     case "-":
                         double subtrahend = numbers.Pop();
