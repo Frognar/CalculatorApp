@@ -38,16 +38,10 @@ internal class Evaluator
                 switch (x)
                 {
                     case "~":
-                        numbers.Push(EvaluatorProvider.GetEvaluator("~").Evaluate(numbers));
-                        break;
                     case "+":
-                        numbers.Push(EvaluatorProvider.GetEvaluator("+").Evaluate(numbers));
-                        break;
                     case "-":
-                        numbers.Push(EvaluatorProvider.GetEvaluator("-").Evaluate(numbers));
-                        break;
                     case "*":
-                        numbers.Push(EvaluatorProvider.GetEvaluator("*").Evaluate(numbers));
+                        numbers.Push(EvaluatorProvider.GetEvaluator(x).Evaluate(numbers));
                         break;
                     case "/":
                         double divisor = numbers.Pop();
