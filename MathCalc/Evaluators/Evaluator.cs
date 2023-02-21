@@ -32,3 +32,13 @@ internal class AdditionEvaluator : Evaluator
     public string Symbol => "+";
     public double Evaluate(Stack<double> numbers) => numbers.Pop() + numbers.Pop();
 }
+
+internal class SubtractionEvaluator : Evaluator
+{
+    public string Symbol => "-";
+    public double Evaluate(Stack<double> numbers)
+    {
+        double subtrahend = numbers.Pop();
+        return numbers.Pop() - subtrahend;
+    }
+}
