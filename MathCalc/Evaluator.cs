@@ -47,7 +47,7 @@ internal class Evaluator
                         numbers.Push(EvaluatorProvider.GetEvaluator("-").Evaluate(numbers));
                         break;
                     case "*":
-                        numbers.Push(numbers.Pop() * numbers.Pop());
+                        numbers.Push(EvaluatorProvider.GetEvaluator("*").Evaluate(numbers));
                         break;
                     case "/":
                         double divisor = numbers.Pop();
