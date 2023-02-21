@@ -47,10 +47,8 @@ internal class Evaluator
                     case "SINH":
                     case "COS":
                     case "COSH":
-                        numbers.Push(EvaluatorProvider.GetEvaluator(x).Evaluate(numbers));
-                        break;
                     case "TAN":
-                        numbers.Push(Math.Tan(numbers.Pop()));
+                        numbers.Push(EvaluatorProvider.GetEvaluator(x).Evaluate(numbers));
                         break;
                     case "TANH":
                         numbers.Push(Math.Tanh(numbers.Pop()));
