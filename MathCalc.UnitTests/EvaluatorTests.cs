@@ -109,6 +109,7 @@ public class EvaluatorTests
     [InlineData("ABS(-2)", 2)]
     [InlineData("SQRT(4)", 2)]
     [InlineData("CBRT(8)", 2)]
+    [InlineData("LOG2(2)", 1)]
     public void Evaluate_Functions(string expression, double expectedValue)
     {
         AssertEvaluation(expression, expectedValue);
