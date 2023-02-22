@@ -2,6 +2,7 @@ namespace Frognar.MathCalc.Enums;
 
 internal enum ParserEvent
 {
+    EOF,
     Number,
     Minus,
     Plus,
@@ -10,7 +11,6 @@ internal enum ParserEvent
     ExponentSymbol,
     OpenParen,
     ClosedParen,
-    EOF,
     OpenBrace,
     ClosedBrace,
     OpenAngle,
@@ -18,6 +18,7 @@ internal enum ParserEvent
     Comma,
     PercentSign,
     Error,
+    Name,
     Sine,
     HyperbolicSine,
     Cosine,
@@ -25,5 +26,9 @@ internal enum ParserEvent
     Tangent,
     HyperbolicTangent,
     AbsoluteValue,
-    Name,
+    SquareRoot,
+    CubeRoot,
+    Log2,
+    Log10,
+    NaturalLog
 }

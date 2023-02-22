@@ -18,6 +18,11 @@ internal class Parser : TokenCollector
         { "TAN", ParserEvent.Tangent },
         { "TANH", ParserEvent.HyperbolicTangent },
         { "ABS", ParserEvent.AbsoluteValue },
+        { "SQRT", ParserEvent.SquareRoot },
+        { "CBRT", ParserEvent.CubeRoot },
+        { "LOG2", ParserEvent.Log2 },
+        { "LOG10", ParserEvent.Log10 },
+        { "LN", ParserEvent.NaturalLog },
     };
 
     readonly Dictionary<string, string> variables = new()
@@ -100,6 +105,11 @@ internal class Parser : TokenCollector
         new(ParserState.Expr, ParserEvent.Tangent, ParserState.Function, b => b.SetFunction("TAN")),
         new(ParserState.Expr, ParserEvent.HyperbolicTangent, ParserState.Function, b => b.SetFunction("TANH")),
         new(ParserState.Expr, ParserEvent.AbsoluteValue, ParserState.Function, b => b.SetFunction("ABS")),
+        new(ParserState.Expr, ParserEvent.SquareRoot, ParserState.Function, b => b.SetFunction("SQRT")),
+        new(ParserState.Expr, ParserEvent.CubeRoot, ParserState.Function, b => b.SetFunction("CBRT")),
+        new(ParserState.Expr, ParserEvent.Log2, ParserState.Function, b => b.SetFunction("LOG2")),
+        new(ParserState.Expr, ParserEvent.Log10, ParserState.Function, b => b.SetFunction("LOG10")),
+        new(ParserState.Expr, ParserEvent.NaturalLog, ParserState.Function, b => b.SetFunction("LN")),
         
         new(ParserState.Number, ParserEvent.Minus, ParserState.Operator, b => b.SetMinus()),
         new(ParserState.Number, ParserEvent.Plus, ParserState.Operator, b => b.SetPlus()),

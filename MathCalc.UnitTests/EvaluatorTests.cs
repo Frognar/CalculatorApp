@@ -28,7 +28,7 @@ public class EvaluatorTests
     void AssertEvaluation(string expression, double expected)
     {
         Evaluator evaluator = new(GetExpression(expression));
-        Assert.Equal(expected, evaluator.Evaluate(), 0.0001);
+        Assert.Equal(expected, evaluator.Evaluate(), 0.000000000000001);
     }
     
     [Fact]
@@ -107,6 +107,11 @@ public class EvaluatorTests
     [InlineData("TAN(pi/4)", 1)]
     [InlineData("TANH(pi/4)", 0.65579420263267241)]
     [InlineData("ABS(-2)", 2)]
+    [InlineData("SQRT(4)", 2)]
+    [InlineData("CBRT(8)", 2)]
+    [InlineData("LOG2(2)", 1)]
+    [InlineData("LOG10(2)", 0.3010299956639812)]
+    [InlineData("LN(2)", 0.69314718055994529)]
     public void Evaluate_Functions(string expression, double expectedValue)
     {
         AssertEvaluation(expression, expectedValue);
