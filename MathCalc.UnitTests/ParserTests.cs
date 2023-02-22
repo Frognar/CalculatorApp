@@ -138,6 +138,7 @@ public class ParserTests
         [InlineData("TANH(2)", "2 TANH")]
         [InlineData("abs(-2)", "2 ~ ABS")]
         [InlineData("SQRT(4)", "4 SQRT")]
+        [InlineData("CBRT(4)", "4 CBRT")]
         public void Parse_Function(string expression, string rpnExpression)
         {
             AssertParseResult(expression, rpnExpression);
