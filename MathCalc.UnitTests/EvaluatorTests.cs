@@ -107,6 +107,7 @@ public class EvaluatorTests
     [InlineData("TAN(pi/4)", 1)]
     [InlineData("TANH(pi/4)", 0.65579420263267241)]
     [InlineData("ABS(-2)", 2)]
+    [InlineData("SQRT(4)", 2)]
     public void Evaluate_Functions(string expression, double expectedValue)
     {
         AssertEvaluation(expression, expectedValue);
