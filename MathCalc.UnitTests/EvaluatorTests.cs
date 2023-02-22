@@ -28,7 +28,7 @@ public class EvaluatorTests
     void AssertEvaluation(string expression, double expected)
     {
         Evaluator evaluator = new(GetExpression(expression));
-        Assert.Equal(expected, evaluator.Evaluate(), 0.0001);
+        Assert.Equal(expected, evaluator.Evaluate(), 0.000000000000001);
     }
     
     [Fact]
