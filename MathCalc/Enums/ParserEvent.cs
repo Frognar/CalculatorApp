@@ -25,5 +25,6 @@ internal enum ParserEvent
     Tangent,
     HyperbolicTangent,
     AbsoluteValue,
-    Name,
+    SquareRoot,
+    Name
 }
