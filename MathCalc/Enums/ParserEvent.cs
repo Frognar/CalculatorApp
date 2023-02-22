@@ -29,4 +29,5 @@ internal enum ParserEvent
     SquareRoot,
     CubeRoot,
     Log2,
+    Log10
 }
