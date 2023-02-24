@@ -6,14 +6,6 @@ internal class Expression
     
     readonly Dictionary<string, int> precedences = new()
     {
-        { "SIN", 0 },
-        { "SINH", 0 },
-        { "COS", 0 },
-        { "COSH", 0 },
-        { "TAN", 0 },
-        { "TANH", 0 },
-        { "ABS", 0 },
-        { "(", 0 },
         { "+", 1 },
         { "-", 1 },
         { "*", 2 },
@@ -44,39 +36,7 @@ internal class Expression
     {
         try
         {
-            if (operators.Any())
-            {
-                if (operators.Peek() == "(")
-                {
-                    operators.Push(o);
-                }
-                else if (o == ")")
-                {
-                    while (operators.Peek() != "(")
-                        expression += operators.Pop() + " ";
-
-                    operators.Pop();
-                }
-                else if (Compare(o, operators.Peek()))
-                {
-                    operators.Push(o);
-                }
-                else
-                {
-                    while (Compare(o, operators.Peek()) == false)
-                    {
-                        expression += operators.Pop() + " ";
-                        if (operators.Any() == false)
-                            break;
-                    }
-
-                    operators.Push(o);
-                }
-            }
-            else
-            {
-                operators.Push(o);
-            }
+            AddOperatorToStack(o);
         }
         catch
         {
@@ -84,11 +44,49 @@ internal class Expression
         }
     }
 
+    void AddOperatorToStack(string o)
+    {
+        if (operators.Any())
+            AddAnotherOperatorToStack(o);
+        else
+            operators.Push(o);
+    }
+
+    void AddAnotherOperatorToStack(string o)
+    {
+        if (operators.Peek() == "(")
+            operators.Push(o);
+        else if (o == ")")
+            HandleClosedParen();
+        else if (Compare(o, operators.Peek()))
+            operators.Push(o);
+        else
+            HandleOperatorWithLowerPrecedence(o);
+    }
+
+    void HandleClosedParen()
+    {
+        while (operators.Peek() != "(")
+            expression += operators.Pop() + " ";
+
+        operators.Pop();
+    }
+
+    void HandleOperatorWithLowerPrecedence(string o)
+    {
+        while (operators.Any() && Compare(o, operators.Peek()) == false)
+            expression += operators.Pop() + " ";
+
+        operators.Push(o);
+    }
+    
     bool Compare(string input, string stack)
     {
+        int inputValue = precedences.GetValueOrDefault(input, 0);
+        int stackValue = precedences.GetValueOrDefault(stack, 0);
         return input == "(" 
-               || precedences[input] > precedences[stack]
-               || precedences[input] == precedences[stack] && rightAssociativeOperators.Contains(input);
+               || inputValue > stackValue
+               || inputValue == stackValue && rightAssociativeOperators.Contains(input);
     }
 
     public override string ToString() => expression;

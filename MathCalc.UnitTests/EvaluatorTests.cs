@@ -106,12 +106,12 @@ public class EvaluatorTests
     [InlineData("COSH(π/2)", 2.5091784786580567)]
     [InlineData("TAN(pi/4)", 1)]
     [InlineData("TANH(pi/4)", 0.65579420263267241)]
-    [InlineData("ABS(-2)", 2)]
-    [InlineData("SQRT(4)", 2)]
-    [InlineData("CBRT(8)", 2)]
-    [InlineData("LOG2(2)", 1)]
-    [InlineData("LOG10(2)", 0.3010299956639812)]
-    [InlineData("LN(2)", 0.69314718055994529)]
+    [InlineData("ABS(-2/2)", 1)]
+    [InlineData("SQRT(8/2)", 2)]
+    [InlineData("CBRT(16/2)", 2)]
+    [InlineData("LOG2(4/2)", 1)]
+    [InlineData("LOG10(4/2)", 0.3010299956639812)]
+    [InlineData("LN(4/2)", 0.69314718055994529)]
     public void Evaluate_Functions(string expression, double expectedValue)
     {
         AssertEvaluation(expression, expectedValue);

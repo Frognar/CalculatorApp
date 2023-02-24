@@ -147,10 +147,22 @@ public class ParserTests
             AssertParseResult(expression, rpnExpression);
         }
 
-        [Fact]
-        public void Parse_FunctionWithExpression()
+        [Theory]
+        [InlineData("SIN((1 + 1) * 2)", "1 1 + 2 * SIN")]
+        [InlineData("SINH((1 + 1) * 2)", "1 1 + 2 * SINH")]
+        [InlineData("COS((1 + 1) * 2)", "1 1 + 2 * COS")]
+        [InlineData("COSH((1 + 1) * 2)", "1 1 + 2 * COSH")]
+        [InlineData("TAN((1 + 1) * 2)", "1 1 + 2 * TAN")]
+        [InlineData("TANH((1 + 1) * 2)", "1 1 + 2 * TANH")]
+        [InlineData("abs(-((1 + 1) * 2))", "1 1 + 2 * ~ ABS")]
+        [InlineData("SQRT((1 + 1) * 2)", "1 1 + 2 * SQRT")]
+        [InlineData("CBRT((1 + 1) * 2)", "1 1 + 2 * CBRT")]
+        [InlineData("LOG2((1 + 1) * 2)", "1 1 + 2 * LOG2")]
+        [InlineData("LOG10((1 + 1) * 2)", "1 1 + 2 * LOG10")]
+        [InlineData("LN((1 + 1) * 2)", "1 1 + 2 * LN")]
+        public void Parse_FunctionWithExpression(string expression, string expected)
         {
-            AssertParseResult("SIN((1 + 1) * 2)", "1 1 + 2 * SIN");
+            AssertParseResult(expression, expected);
         }
 
         [Theory]
