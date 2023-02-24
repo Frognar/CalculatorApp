@@ -60,10 +60,7 @@ internal class Expression
         }
         else if (o == ")")
         {
-            while (operators.Peek() != "(")
-                expression += operators.Pop() + " ";
-
-            operators.Pop();
+            HandleClosedParen();
         }
         else if (Compare(o, operators.Peek()))
         {
@@ -80,6 +77,14 @@ internal class Expression
 
             operators.Push(o);
         }
+    }
+
+    void HandleClosedParen()
+    {
+        while (operators.Peek() != "(")
+            expression += operators.Pop() + " ";
+
+        operators.Pop();
     }
 
     bool Compare(string input, string stack)
