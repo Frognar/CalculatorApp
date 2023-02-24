@@ -68,14 +68,7 @@ internal class Expression
         }
         else
         {
-            while (Compare(o, operators.Peek()) == false)
-            {
-                expression += operators.Pop() + " ";
-                if (operators.Any() == false)
-                    break;
-            }
-
-            operators.Push(o);
+            HandleOperatorWithLowerPrecedence(o);
         }
     }
 
@@ -85,6 +78,18 @@ internal class Expression
             expression += operators.Pop() + " ";
 
         operators.Pop();
+    }
+
+    void HandleOperatorWithLowerPrecedence(string o)
+    {
+        while (Compare(o, operators.Peek()) == false)
+        {
+            expression += operators.Pop() + " ";
+            if (operators.Any() == false)
+                break;
+        }
+
+        operators.Push(o);
     }
 
     bool Compare(string input, string stack)
