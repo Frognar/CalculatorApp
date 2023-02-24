@@ -6,19 +6,6 @@ internal class Expression
     
     readonly Dictionary<string, int> precedences = new()
     {
-        { "SIN", 0 },
-        { "SINH", 0 },
-        { "COS", 0 },
-        { "COSH", 0 },
-        { "TAN", 0 },
-        { "TANH", 0 },
-        { "ABS", 0 },
-        { "LN", 0 },
-        { "LOG2", 0 },
-        { "LOG10", 0 },
-        { "SQRT", 0 },
-        { "CBRT", 0 },
-        { "(", 0 },
         { "+", 1 },
         { "-", 1 },
         { "*", 2 },
@@ -91,9 +78,11 @@ internal class Expression
 
     bool Compare(string input, string stack)
     {
+        int inputValue = precedences.GetValueOrDefault(input, 0);
+        int stackValue = precedences.GetValueOrDefault(stack, 0);
         return input == "(" 
-               || precedences[input] > precedences[stack]
-               || precedences[input] == precedences[stack] && rightAssociativeOperators.Contains(input);
+               || inputValue > stackValue
+               || inputValue == stackValue && rightAssociativeOperators.Contains(input);
     }
 
     public override string ToString() => expression;
