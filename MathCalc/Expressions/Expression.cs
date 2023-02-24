@@ -55,21 +55,13 @@ internal class Expression
     void AddAnotherOperatorToStack(string o)
     {
         if (operators.Peek() == "(")
-        {
             operators.Push(o);
-        }
         else if (o == ")")
-        {
             HandleClosedParen();
-        }
         else if (Compare(o, operators.Peek()))
-        {
             operators.Push(o);
-        }
         else
-        {
             HandleOperatorWithLowerPrecedence(o);
-        }
     }
 
     void HandleClosedParen()
