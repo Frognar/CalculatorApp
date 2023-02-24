@@ -74,16 +74,12 @@ internal class Expression
 
     void HandleOperatorWithLowerPrecedence(string o)
     {
-        while (Compare(o, operators.Peek()) == false)
-        {
+        while (operators.Any() && Compare(o, operators.Peek()) == false)
             expression += operators.Pop() + " ";
-            if (operators.Any() == false)
-                break;
-        }
 
         operators.Push(o);
     }
-
+    
     bool Compare(string input, string stack)
     {
         int inputValue = precedences.GetValueOrDefault(input, 0);
