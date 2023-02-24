@@ -36,43 +36,49 @@ internal class Expression
     {
         try
         {
-            if (operators.Any())
-            {
-                if (operators.Peek() == "(")
-                {
-                    operators.Push(o);
-                }
-                else if (o == ")")
-                {
-                    while (operators.Peek() != "(")
-                        expression += operators.Pop() + " ";
-
-                    operators.Pop();
-                }
-                else if (Compare(o, operators.Peek()))
-                {
-                    operators.Push(o);
-                }
-                else
-                {
-                    while (Compare(o, operators.Peek()) == false)
-                    {
-                        expression += operators.Pop() + " ";
-                        if (operators.Any() == false)
-                            break;
-                    }
-
-                    operators.Push(o);
-                }
-            }
-            else
-            {
-                operators.Push(o);
-            }
+            AddOperatorToStack(o);
         }
         catch
         {
             // ignored
+        }
+    }
+
+    void AddOperatorToStack(string o)
+    {
+        if (operators.Any())
+        {
+            
+            if (operators.Peek() == "(")
+            {
+                operators.Push(o);
+            }
+            else if (o == ")")
+            {
+                while (operators.Peek() != "(")
+                    expression += operators.Pop() + " ";
+
+                operators.Pop();
+            }
+            else if (Compare(o, operators.Peek()))
+            {
+                operators.Push(o);
+            }
+            else
+            {
+                while (Compare(o, operators.Peek()) == false)
+                {
+                    expression += operators.Pop() + " ";
+                    if (operators.Any() == false)
+                        break;
+                }
+
+                operators.Push(o);
+            }
+        }
+        else
+        {
+            operators.Push(o);
         }
     }
 
