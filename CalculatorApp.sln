@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathCalc", "MathCalc\MathCa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathCalc.UnitTests", "MathCalc.UnitTests\MathCalc.UnitTests.csproj", "{4AAAE4FD-5C69-4A3A-93A3-558E2FE615C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathCalc.Console", "MathCalc.Console\MathCalc.Console.csproj", "{AD6B1A6A-ADD6-477E-881F-530278CAABEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{4AAAE4FD-5C69-4A3A-93A3-558E2FE615C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AAAE4FD-5C69-4A3A-93A3-558E2FE615C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AAAE4FD-5C69-4A3A-93A3-558E2FE615C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD6B1A6A-ADD6-477E-881F-530278CAABEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6B1A6A-ADD6-477E-881F-530278CAABEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6B1A6A-ADD6-477E-881F-530278CAABEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6B1A6A-ADD6-477E-881F-530278CAABEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
